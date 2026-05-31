@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaquetas - Novacore Archives</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+
+
+
+     <nav class="navbar">
+        <div class="logo">
+           <i class="fas fa-fire"></i> NOVA<span>CORE</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#inicio">Inicio</a></li>
+            <li><a href="index.html#productos">Colección</a></li>
+            <li><a href="index.html#nosotros">Nosotros</a></li>
+            <li><a href="index.html#contact-form" id="link-contacto">Contáctanos</a></li>
+        </ul>
+
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <div class="cart-container" id="openCheckout">
+    <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
+  </div>
+    </nav>
+
+
+
+
+
+
+    <div class="catalog-controls">
+        <div class="gender-filters">
+            <button class="filter-btn active" onclick="filterGender('todos')">VER TODO</button>
+            <button class="filter-btn" onclick="filterGender('hombre')">HOMBRE</button>
+            <button class="filter-btn" onclick="filterGender('mujer')">MUJER</button>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" id="catalog-search" placeholder="buscar chaqueta..." onkeyup="searchProducts()">
+            <span class="search-icon">→</span>
+        </div>
+    </div>
+
+
+    <section id="catalogo-chaquetas" class="featured-products-section">
+        <div class="products-clean-grid">
+            
+            <a href="producto-chaqueta-urban.html" class="product-item" data-gender="hombre" data-name="chaqueta urban over">
+                <div class="product-image-box">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Chaqueta Urban">
+                    <div class="product-overlay-text">
+                        <h3>URBAN OVER</h3>
+                        <div class="action-link">
+                            <span>shop</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-bomber-cropped.html" class="product-item" data-gender="mujer" data-name="bomber cropped technical">
+                <div class="product-image-box">
+                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Bomber Cropped">
+                    <div class="product-overlay-text">
+                        <h3>BOMBER CROPPED</h3>
+                        <div class="action-link">
+                            <span>shop</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-puffer-dark.html" class="product-item" data-gender="hombre" data-name="puffer matte dark">
+                <div class="product-image-box">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Puffer Matte">
+                    <div class="product-overlay-text">
+                        <h3>PUFFER MATTE</h3>
+                        <div class="action-link">
+                            <span>shop</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+
+    <script>
+    function filterGender(gender) {
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if(window.event) { window.event.target.classList.add('active'); }
+
+        const products = document.querySelectorAll('.product-item');
+        products.forEach(product => {
+            const productGender = product.getAttribute('data-gender');
+            if (gender === 'todos' || productGender === gender) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+
+    function searchProducts() {
+        const searchInput = document.getElementById('catalog-search').value.toLowerCase();
+        const products = document.querySelectorAll('.product-item');
+
+        products.forEach(product => {
+            const productName = product.getAttribute('data-name');
+            if (productName.includes(searchInput)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>

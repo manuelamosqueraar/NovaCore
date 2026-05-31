@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Over Jacket - Novacore Archives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <section class="product-premium-experience">
+        
+        <div class="product-visual-panel">
+            <div class="visual-container-3d">
+                
+                <model-viewer 
+                    src="https://modelviewer.dev/shared-assets/models/DamagedHelmet.glb" 
+                    alt="Modelo interactivo 3D de prueba Novacore" 
+                    auto-rotate 
+                    camera-controls 
+                    ar 
+                    shadow-intensity="1"
+                    style="width: 100%; height: 100%; background-color: transparent;">
+                </model-viewer>
+
+            </div>
+        </div>
+
+        <div class="product-info-panel">
+            <div class="info-header">
+                <span class="product-series">NVC // CATEGORY: JACKETS // SERIES 01</span>
+                <h1 class="product-main-name">CHAQUETA URBAN OVER</h1>
+                <p class="product-price">$250.00 USD</p>
+            </div>
+
+            <div class="editorial-divider"></div>
+
+            <div class="product-description">
+                <p>Construida para resistir el entorno urbano. Silueta oversize esculpida en nylon técnico de alta densidad con un acabado mate repelente al agua. Configurada con herrajes de acero oscurecido, bolsillos de carga ergonómicos con cremalleras selladas y cordones de ajuste internos.</p>
+            </div>
+
+            <div class="product-customizer">
+                <div class="size-selector-wrap">
+                    <div class="selector-header">
+                        <span>SELECCIONAR TALLA</span>
+                        <a href="#0" class="size-guide-link">Size Guide</a>
+                    </div>
+                    <div class="premium-size-grid">
+                        <button class="size-box" onclick="selectSize(this)">S</button>
+                        <button class="size-box active" onclick="selectSize(this)">M</button>
+                        <button class="size-box" onclick="selectSize(this)">L</button>
+                        <button class="size-box" onclick="selectSize(this)">XL</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="purchase-actions-area">
+                <button class="btn-main-add-cart">
+                    <span class="btn-text">AÑADIR AL CARRITO</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+                <p class="shipping-notice">Envíos express globales certificados. Devoluciones libres dentro de 15 días.</p>
+            </div>
+
+            <div class="editorial-divider"></div>
+
+            <div class="technical-accordion">
+                <details class="tech-item" open>
+                    <summary>ESPECIFICACIONES TÉCNICAS <span class="accordion-sign">—</span></summary>
+                    <div class="tech-content">
+                        <ul>
+                            <li>Cuerpo: 100% Nylon Ripstop texturizado de grado militar.</li>
+                            <li>Forro: Membrana térmica interna microperforada de alta ventilación.</li>
+                            <li>Cuidado: Limpieza especializada en seco o lavado a mano inverso.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function selectSize(element) {
+            const boxes = document.querySelectorAll('.size-box');
+            boxes.forEach(box => box.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

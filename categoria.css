@@ -1,0 +1,519 @@
+/* ====================================================
+   NOVACORE — CATEGORIA.CSS
+   Estilo: Urbano / Agresivo / Streetwear Premium
+   ==================================================== */
+
+
+
+/* ---- HERO DE CATEGORÍA ---- */
+.cat-hero {
+    position: relative;
+    width: 100%;
+    height: 62vh;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+    background: #000;
+}
+
+.cat-hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(40%) brightness(55%) contrast(115%);
+    transform: scale(1.06);
+    transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cat-hero:hover .cat-hero-bg {
+    transform: scale(1.0);
+}
+
+.cat-hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+        linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 60%, transparent 100%),
+        linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 60%);
+    z-index: 1;
+}
+
+/* Línea lateral decorativa */
+.cat-hero::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 3px; height: 100%;
+    background: #ffffff;
+    z-index: 3;
+}
+
+.cat-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 0 50px 54px;
+    color: #ffffff;
+}
+
+.cat-hero-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.cat-breadcrumb {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+.cat-breadcrumb:hover { color: #ffffff; }
+
+.cat-breadcrumb-sep {
+    color: rgba(255,255,255,0.2);
+    font-size: 0.65rem;
+}
+
+.cat-breadcrumb-current {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+}
+
+.cat-hero-content h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 0.9;
+    margin: 0 0 16px 0;
+    /* Glitch sutil permanente */
+    text-shadow: 2px 0 #fff, -1px 0 rgba(255,0,80,0.4);
+}
+
+.cat-hero-sub {
+    font-family: monospace;
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Número grande de fondo decorativo */
+.cat-hero-bg-number {
+    position: absolute;
+    right: 5%;
+    bottom: -20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(8rem, 20vw, 18rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: -10px;
+    z-index: 1;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ---- BARRA DE FILTROS ---- */
+.cat-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%;
+    background-color: #0a0a0a;
+    flex-wrap: wrap;
+    gap: 0;
+    position: sticky;
+    top: 58px;
+    z-index: 100;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.cat-filter-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 58px;
+}
+
+.cat-filter-label {
+    font-family: monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: #333;
+    font-weight: 600;
+    padding-right: 24px;
+    border-right: 1px solid #1a1a1a;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cat-gender-tabs {
+    display: flex;
+    gap: 0;
+    height: 100%;
+}
+
+.gender-tab {
+    background: transparent;
+    border: none;
+    border-right: 1px solid #1a1a1a;
+    padding: 0 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.gender-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: #ffffff;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gender-tab.active {
+    color: #ffffff;
+    background: transparent;
+}
+
+.gender-tab.active::after {
+    transform: scaleX(1);
+}
+
+.gender-tab:hover:not(.active) {
+    color: #888;
+}
+
+.cat-filter-right {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 58px;
+}
+
+.cat-results-count {
+    font-family: monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: #333;
+    font-weight: 600;
+    padding: 0 24px;
+    border-left: 1px solid #1a1a1a;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cat-sort-select {
+    background: transparent;
+    border: none;
+    border-left: 1px solid #1a1a1a;
+    padding: 0 36px 0 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #444;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23444' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    height: 100%;
+    transition: color 0.2s;
+}
+.cat-sort-select:hover { color: #ffffff; }
+.cat-sort-select option { background: #0a0a0a; color: #fff; }
+
+/* ---- SECCIÓN PRINCIPAL ---- */
+.cat-main-section {
+    background-color: #0d0d0d;
+    padding-bottom: 120px;
+    min-height: 60vh;
+}
+
+.cat-products-grid {
+    padding: 60px 4%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background-color: #111;
+    max-width: 100%;
+    margin: 0;
+}
+
+/* ---- TARJETA DE PRODUCTO — NIVEL STREETWEAR ---- */
+.cat-product-item {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background-color: #0d0d0d;
+    position: relative;
+    overflow: visible;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: catReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cat-product-item:nth-child(1) { animation-delay: 0.05s; }
+.cat-product-item:nth-child(2) { animation-delay: 0.12s; }
+.cat-product-item:nth-child(3) { animation-delay: 0.19s; }
+.cat-product-item:nth-child(4) { animation-delay: 0.26s; }
+.cat-product-item:nth-child(5) { animation-delay: 0.33s; }
+.cat-product-item:nth-child(6) { animation-delay: 0.40s; }
+.cat-product-item:nth-child(7) { animation-delay: 0.47s; }
+.cat-product-item:nth-child(8) { animation-delay: 0.54s; }
+
+@keyframes catReveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Imagen */
+.cat-product-item .product-image-box {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    background-color: #111111;
+}
+
+.cat-product-item .product-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) contrast(110%) brightness(85%);
+    transform: scale(1.04);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s ease;
+}
+
+/* Overlay hover */
+.cat-product-item .product-image-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Info overlay que aparece en hover */
+.cat-overlay-info {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    padding: 24px 20px;
+    z-index: 3;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.cat-overlay-info .overlay-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cat-overlay-info .overlay-price {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.cat-overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.cat-overlay-btn:hover {
+    background: #e0e0e0;
+}
+
+/* HOVER ESTADO */
+.cat-product-item:hover .product-image-box img {
+    transform: scale(1.0);
+    filter: grayscale(0%) contrast(105%) brightness(90%);
+}
+
+.cat-product-item:hover .product-image-box::before {
+    opacity: 1;
+}
+
+.cat-product-item:hover .cat-overlay-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Info caja inferior */
+.cat-product-item .product-info-box {
+    padding: 16px 4px 20px 4px;
+    background: #0d0d0d;
+    border-top: 1px solid #1a1a1a;
+}
+
+/* ---- BADGE ---- */
+.cat-product-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    z-index: 10;
+    mix-blend-mode: normal;
+}
+
+/* ---- TAG GÉNERO ---- */
+.cat-product-gender-tag {
+    font-family: monospace;
+    font-size: 0.58rem;
+    letter-spacing: 3px;
+    color: #444;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    display: block;
+}
+
+.cat-product-item .product-title {
+    color: #cccccc !important;
+}
+
+.cat-product-item .product-price {
+    color: #555 !important;
+}
+
+.cat-product-item:hover .product-title {
+    color: #ffffff !important;
+}
+
+.cat-product-item:hover .product-price {
+    color: #aaa !important;
+}
+
+/* ---- TRANSICIÓN AL FILTRAR ---- */
+.cat-product-item.filtering-out {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.cat-product-item.filtering-in {
+    animation: catReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---- SIN RESULTADOS ---- */
+.cat-no-results {
+    text-align: center;
+    padding: 120px 4%;
+    background: #0d0d0d;
+}
+
+.cat-no-results p {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    color: #2a2a2a;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1200px) {
+    .cat-products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .cat-products-grid { grid-template-columns: repeat(2, 1fr); }
+    .cat-product-item .product-image-box { height: 360px; }
+}
+
+@media (max-width: 768px) {
+    .cat-hero-content { padding: 0 0 36px 24px; }
+    .cat-filter-bar { top: 0; }
+    .cat-filter-left, .cat-filter-right { height: 48px; }
+    .gender-tab { padding: 0 16px; font-size: 0.62rem; }
+    .cat-filter-label { padding-right: 14px; display: none; }
+    .custom-cursor, .custom-cursor-ring { display: none; }
+    .cat-main-section { cursor: auto; }
+}
+
+@media (max-width: 480px) {
+    .cat-products-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+    .cat-product-item .product-image-box { height: 240px; }
+    .cat-hero-content h1 { font-size: 3.2rem; }
+}
+
+/* ---- NÚMERO GIGANTE DE FONDO EN EL HERO ---- */
+.cat-bg-number {
+    position: absolute;
+    right: 4%;
+    bottom: -30px;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(10rem, 22vw, 20rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -10px;
+    z-index: 1;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaCore | Categoría</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="categoria.css">
+</head>
+<body class="product-page">
+
+    <!-- NAVBAR -->
+    <nav class="navbar product-navbar">
+        <a class="logo" href="index.html">NOVA<span>CORE</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#productos">Colección</a></li>
+            <li><a href="index.html#nosotros">Nosotros</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="search-btn" aria-label="Buscar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" style="stroke:#000; width:1.2rem; height:1.2rem;">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <div class="cart-container" id="openCheckout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+                </svg>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BARRA DE BÚSQUEDA -->
+    <div id="search-bar-container">
+        <div class="search-input-wrapper">
+            <input type="text" id="search-input" placeholder="Buscar en esta categoría...">
+            <button id="close-search">×</button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="cat-hero" id="cat-hero">
+        <div class="cat-hero-overlay"></div>
+        <img id="cat-hero-img" src="" alt="" class="cat-hero-bg">
+        <div class="cat-bg-number" id="cat-bg-number">01</div>
+        <div class="cat-hero-content">
+            <div class="cat-hero-top">
+                <a href="index.html" class="cat-breadcrumb">INICIO</a>
+                <span class="cat-breadcrumb-sep">—</span>
+                <span class="cat-breadcrumb-current" id="cat-breadcrumb-name">CATEGORÍA</span>
+            </div>
+            <h1 id="cat-hero-title">HOODIES</h1>
+            <p id="cat-hero-subtitle" class="cat-hero-sub">// HEAVYWEIGHT COLLECTION</p>
+        </div>
+    </header>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-track">
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <div class="ticker-track">
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>HOODIES • NOVACORE ARCHIVES &nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN PRINCIPAL -->
+    <section class="cat-main-section">
+
+        <!-- BARRA DE FILTROS -->
+        <div class="cat-filter-bar">
+            <div class="cat-filter-left">
+                <span class="cat-filter-label">FILTRAR POR</span>
+                <div class="cat-gender-tabs">
+                    <button class="gender-tab active" data-gender="todos">TODOS</button>
+                    <button class="gender-tab" data-gender="hombre">HOMBRE</button>
+                    <button class="gender-tab" data-gender="mujer">MUJER</button>
+                </div>
+            </div>
+            <div class="cat-filter-right">
+                <span class="cat-results-count"><span id="results-count">0</span> PRODUCTOS</span>
+                <select class="cat-sort-select" id="sort-select">
+                    <option value="default">ORDENAR</option>
+                    <option value="price-asc">PRECIO ↑</option>
+                    <option value="price-desc">PRECIO ↓</option>
+                    <option value="name">NOMBRE A–Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- GRID -->
+        <div class="products-clean-grid cat-products-grid" id="cat-products-grid"></div>
+
+        <!-- SIN RESULTADOS -->
+        <div class="cat-no-results" id="cat-no-results" style="display:none;">
+            <p>NO HAY PRODUCTOS EN ESTA SELECCIÓN</p>
+        </div>
+
+    </section>
+
+    <!-- MODAL CHECKOUT -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content-checkout-v2">
+            <div class="close-container-pay" id="closeCheckout"><span>&times;</span></div>
+            <div class="checkout-grid">
+                <div class="pay-form-side">
+                    <h2>PAGO SEGURO</h2>
+                    <p class="subtitle">Ingresa los datos de tu tarjeta</p>
+                    <form id="payment-form">
+                        <div class="input-wrapper">
+                            <label>TITULAR DE LA TARJETA</label>
+                            <input type="text" id="pay-name" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input type="email" id="pay-email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>NÚMERO DE TARJETA</label>
+                            <input type="text" placeholder="0000 0000 0000 0000" required>
+                        </div>
+                        <div class="row-inputs">
+                            <div class="input-wrapper">
+                                <label>EXPIRACIÓN</label>
+                                <input type="text" placeholder="MM/YY" required>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>CVC</label>
+                                <input type="password" placeholder="123" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-pay-premium">CONFIRMAR COMPRA</button>
+                    </form>
+                </div>
+                <div class="pay-summary-side">
+                    <div class="summary-box">
+                        <small>TOTAL A PAGAR</small>
+                        <h1 id="checkout-total-val">$0.00</h1>
+                        <hr>
+                        <p>Envío estándar: <strong>GRATIS</strong></p>
+                        <p>Seguro de envío: <strong>INCLUIDO</strong></p>
+                    </div>
+                    <p class="secure-footer">🔒 Transacción encriptada</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <h3 class="logo-footer">NOVA<span>CORE</span></h3>
+                <p class="brand-description">Elevando el estándar de la moda premium desde 2026. Diseños exclusivos con envíos globales desde el corazón de Antioquia.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">IG</a>
+                    <a href="#" aria-label="TikTok">TK</a>
+                    <a href="#" aria-label="Facebook">FB</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>EXPLORAR</h4>
+                <ul>
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#productos">Colección</a></li>
+                    <li><a href="index.html#nosotros">Nuestra Historia</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>CATEGORÍAS</h4>
+                <ul>
+                    <li><a href="categoria.html?cat=hoodies">Hoodies</a></li>
+                    <li><a href="categoria.html?cat=pantalones">Pantalones</a></li>
+                    <li><a href="categoria.html?cat=camisas">Camisas</a></li>
+                    <li><a href="categoria.html?cat=gorras">Gorras</a></li>
+                    <li><a href="categoria.html?cat=tenis">Tenis</a></li>
+                    <li><a href="categoria.html?cat=gafas">Gafas</a></li>
+                </ul>
+            </div>
+            <div class="footer-column newsletter-col">
+                <h4>ÚNETE AL CLUB</h4>
+                <p>Recibe acceso anticipado a nuestras colecciones limitadas.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="Tu email" required>
+                    <button type="submit">SUSCRIBIR</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="bottom-container">
+                <p>&copy; 2026 NOVACORE SYSTEM S.A.S. - TODOS LOS DERECHOS RESERVADOS.</p>
+                <div class="payment-methods">
+                    <span>VISA</span><span>MASTERCARD</span><span>AMEX</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="categoria.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

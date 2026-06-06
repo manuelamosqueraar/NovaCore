@@ -211,3 +211,137 @@ if (newsletterForm) {
     };
 }
 
+
+
+
+
+
+
+// Detecta el movimiento del scroll para activar el menú transparente/blanco
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    
+    if (window.scrollY > 50) {
+        navbar.classList.add('scroll-activo');
+    } else {
+        navbar.classList.remove('scroll-activo');
+    }
+});
+
+
+
+
+// ====================================================
+// NÚCLEO NAVEGACIÓN: APERTURA, CIERRE, FILTRADO Y RESET
+// ====================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const searchBtn = document.querySelector(".search-btn");
+    const searchBar = document.getElementById("search-bar-container");
+    const closeSearch = document.getElementById("close-search");
+    const searchInput = document.getElementById("search-input");
+
+    // 1. Abrir o cerrar la barra al dar clic en la lupa
+    if (searchBtn && searchBar) {
+        searchBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            searchBar.classList.toggle("search-bar-visible");
+            
+            if (searchBar.classList.contains("search-bar-visible")) {
+                searchInput.focus();
+            }
+        });
+    }
+
+    // 2. CORREGIDO: Al presionar la 'X', se cierra la barra Y se restaura la tienda
+    if (closeSearch && searchBar) {
+        closeSearch.addEventListener("click", () => {
+            searchBar.classList.remove("search-bar-visible");
+            
+            // Vaciamos el texto que el usuario había escrito
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            // Capturamos todos los productos y los volvemos a mostrar TODOS
+            const productos = document.querySelectorAll(".product-item");
+            productos.forEach(producto => {
+                producto.style.display = "block"; // Vuelven a aparecer
+            });
+        });
+    }
+
+    // 3. Filtrado profesional al presionar ENTER
+    if (searchInput) {
+        searchInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault(); 
+                
+                const términoBusqueda = searchInput.value.toLowerCase().trim();
+                const productos = document.querySelectorAll(".product-item");
+                
+                if (términoBusqueda !== "") {
+                    productos.forEach(producto => {
+                        const tituloProducto = producto.querySelector(".product-title").textContent.toLowerCase();
+                        
+                        if (tituloProducto.includes(términoBusqueda)) {
+                            producto.style.display = "block"; 
+                        } else {
+                            producto.style.display = "none";  
+                        }
+                    });
+
+                    searchBar.classList.remove("search-bar-visible");
+                    
+                    const seccionProductos = document.getElementById("productos");
+                    if (seccionProductos) {
+                        seccionProductos.scrollIntoView({ behavior: 'smooth' });
+                    }
+
+                } else {
+                    // Si presionan Enter estando vacío, también muestra todo
+                    productos.forEach(producto => {
+                        producto.style.display = "block";
+                    });
+                }
+            }
+        });
+    }
+});
+
+
+
+
+// ====================================================
+// EFECTO DRAG-TO-SCROLL (DESLIZAMIENTO HORIZONTAL)
+// ====================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector('.categories-slider-wrapper');
+    if (!slider) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Multiplicador de velocidad de arrastre
+        slider.scrollLeft = scrollLeft - walk;
+    });
+});

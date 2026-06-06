@@ -1,19 +1,20 @@
-:root { --dark: #000; --white: #fff; --gray: #888; }
+:root { 
+    --dark: #000; 
+    --white: #fff; 
+    --gray: #888; 
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
-#contact-form {
-    scroll-margin-top: 200px;
-}
-
-#payment-form {
-    scroll-margin-top: 200px;
-}
+#contact-form { scroll-margin-top: 200px; }
+#payment-form { scroll-margin-top: 200px; }
 
 body { 
-    font-family: 'Poppins', sans-serif; background: #fff;
- }
+    font-family: 'Poppins', sans-serif; 
+    background: #fff;
+}
 
 /* --- ESTILOS BASE PARA IMÁGENES --- */
 img {
@@ -22,51 +23,88 @@ img {
     display: block;
 }
 
-/* --- NAVBAR Y EFECTO HOVER --- */
+/* ====================================================
+   NAVBAR CON CENTRADO ABSOLUTO (ESTILO MAISON)
+   ==================================================== */
+
 .navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 8%; position: sticky; top: 0; background: #fff;
-    z-index: 1000; border-bottom: 1px solid #eee;
-}
-/* --- LOGO URBANO GRUNGE --- */
-.logo {
-    display: inline-flex;
+    display: flex; 
+    justify-content: space-between; 
     align-items: center;
-    gap: 10px;
-    font-family: 'Permanent Marker', cursive; 
-    font-size: 1.8rem;               
-    color: #000000;
-    transform: rotate(-2deg); /* Un sutil giro de 2 grados para darle esa actitud rebelde de skate */
+    padding: 6px 3%;      
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent; 
+    z-index: 1000; 
+    border-bottom: none; /* <-- Aquí ya quedó quitada la línea */
+    min-height: 45px;     
+    transition: all 0.4s ease-in-out; 
 }
 
-.logo i {
-    font-size: 0.8em;
-    color: #000000;
-    transform: rotate(2deg); /* Endereza un poco el icono */
+/* --- LOGO: CLAVADO EN EL CENTRO --- */
+.logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    font-family: 'Oswald', 'Impact', sans-serif; 
+    font-size: 2.2rem;               
+    color: #ffffff; /* ARRANCA BLANCO */
+    text-transform: uppercase;   
+    letter-spacing: 1.5px;         
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto; 
+    transition: color 0.4s ease;
 }
 
 .logo span {
-    color: #459b7c; /* CORE en rojo sangre o rojo urbano queda increíble con este estilo */
+    color: #ffffff; 
+    font-family: 'Oswald', 'Impact', sans-serif;
+    transition: color 0.4s ease;
 }
-.nav-links { display: flex; list-style: none; gap: 30px; }
+
+/* --- ENLACES EN POPPINS --- */
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    gap: 20px; 
+}
 
 .nav-links a { 
     text-decoration: none; 
-    color: #000; 
-    font-weight: 900; 
+    color: #ffffff; /* ARRANCA BLANCO */
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 400;                   
     font-size: 0.85rem; 
     text-transform: uppercase;
-    transition: color 0.3s ease; 
-    display: inline-block;
-    transition: all 0.3s ease;
+    position: relative; 
+    padding-bottom: 4px; 
+    transition: color 0.4s ease;
 }
 
-.nav-links a:hover {
-    color: #459b7c; 
-    transform: translateY(-5px);
+/* EFECTO DE LA LÍNEA ABAJO (Blanca al inicio) */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; 
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff; 
+    transform: scaleX(0); 
+    transform-origin: bottom left;
+    transition: transform 0.25s ease-out, background-color 0.4s ease; 
 }
 
-/* --- NUEVO ESTILO PARA EL CONTENEDOR DEL CARRITO --- */
+.nav-links a:hover::after {
+    transform: scaleX(1); 
+}
+
+/* --- CONTENEDOR DEL CARRITO --- */
 .cart-container {
     position: relative;
     display: inline-flex;
@@ -77,36 +115,200 @@ img {
     transition: transform 0.2s ease;
 }
 
-/* El nuevo icono elegante */
 .cart-container i {
-    color: #000000; /* Si tu menú de navegación es negro, déjalo blanco. Si tu menú es blanco, cámbialo a #000000 */
+    color: #ffffff; /* ARRANCA BLANCO */
     font-size: 1.3rem; 
-    transition: color 0.3s ease;
+    transition: color 0.4s ease;
 }
 
 .cart-container:hover {
-    transform: scale(1.08); /* Crece sutilmente al pasar el mouse */
+    transform: scale(1.08); 
 }
 
-/* El círculo flotante del contador */
 #cart-count {
     position: absolute;
-    top: -4px;      /* Lo mueve hacia arriba del icono */
-    right: -4px;    /* Lo mueve hacia la derecha del icono */
-    background-color: #000000; /* Fondo blanco para que resalte */
-    color: #ffffff;            /* Número en negro */
+    bottom: 0px;         
+    left: -2px;          
+    background-color: #ffffff; /* Círculo blanco al inicio */
+    color: #000000;            /* Número negro al inicio */
     font-size: 0.65rem;        
-    font-weight: 700;
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     min-width: 16px;
     height: 16px;
-    border-radius: 50%;        /* Círculo perfecto */
+    border-radius: 50%;        
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra suave para darle relieve */
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
+
+
+/* ====================================================
+   NUEVO ESTADO: EFECTO CUANDO SE HACE SCROLL BAJO
+   ==================================================== */
+.navbar.scroll-activo {
+    background: #ffffff !important; /* Fondo Blanco */
+    border-bottom: 1px solid #eee; /* Marco Gris */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar.scroll-activo .logo, 
+.navbar.scroll-activo .logo span,
+.navbar.scroll-activo .nav-links a,
+.navbar.scroll-activo .cart-container i {
+    color: #000000 !important; /* Todo cambia a negro */
+}
+
+.navbar.scroll-activo .nav-links a::after {
+    background-color: #000000 !important; /* Línea del hover cambia a negra */
+}
+
+.navbar.scroll-activo #cart-count {
+    background-color: #000000 !important; /* Círculo del carrito cambia a negro */
+    color: #ffffff !important;            /* Número cambia a blanco */
+}
+
+
+/* Vista móvil */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        position: relative; /* En móvil es mejor que no tape */
+        background: #ffffff; /* En móvil arranca blanco para que se lea bien */
+    }
+    .navbar .logo, .navbar .logo span, .navbar .nav-links a, .navbar .cart-container i {
+        color: #000000;
+    }
+    .logo {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: none;
+    }
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+    }
+}
+
+
+
+
+
+/* ====================================================
+   SECCIÓN: LUPA DE BÚSQUEDA Y ACCIONES DEL MENÚ
+   ==================================================== */
+
+/* Contenedor que mantiene juntos la lupa y el carrito a la derecha */
+.nav-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 12px; 
+    z-index: 1010;
+}
+
+/* El botón transparente de la lupa */
+.search-btn {
+    background: transparent !important;
+    border: none !important;
+    padding: 6px !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icono de la lupa siempre negro */
+.search-icon {
+    width: 1.25rem; 
+    height: 1.25rem;
+    color: #000000 !important; 
+    transition: transform 0.3s ease;
+}
+
+.search-btn:hover .search-icon {
+    transform: scale(1.08);
+}
+
+/* Fuerza a tu carrito original a verse negro si hay scroll activo */
+.navbar.scroll-activo .cart-container svg {
+    stroke: #000000 !important;
+}
+
+/* ====================================================
+   ESTILOS DE LA BARRA DE BÚSQUEDA DESPLEGABLE
+   ==================================================== */
+#search-bar-container {
+    position: fixed;
+    top: 55px; /* Se posiciona debajo de la navbar */
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 15px 3%;
+    box-sizing: border-box;
+    z-index: 999;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+}
+
+/* Clase que activa JavaScript para mostrar la barra */
+#search-bar-container.search-bar-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    border-bottom: 2px solid #000000;
+}
+
+#search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    background: transparent;
+}
+
+#close-search {
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+}
+
+#close-search:hover {
+    color: #000000;
+}
+
+/* Corrección para celulares */
+@media (max-width: 768px) {
+    .navbar .search-icon {
+        color: #000000 !important;
+    }
+    #search-bar-container {
+        top: 110px; /* Ajuste por si el menú se vuelve más alto en móvil */
+    }
+}
+
+
 
 
 
@@ -343,7 +545,7 @@ img {
     width: 100%;
     overflow: hidden;
     background-color: #000000;
-    padding: 18px 0;
+    padding: 8px 0; /* <-- AQUÍ SE REDUJO EL GROSOR DE LA LÍNEA */
     display: flex;
 }
 
@@ -363,7 +565,7 @@ img {
 .ticker-track span {
     font-family: 'Syne', sans-serif;
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 0.9rem; /* <-- AQUÍ SE ACHICÓ UN POCO LA LETRA */
     color: #ffffff;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -376,100 +578,197 @@ img {
 }
 
 
-/* --- SECCIÓN PRODUCTOS DESTACADOS --- */
+
+
+/* --- fin ticker --- */
+
+
+
+
+
+
+/* --- SECCIÓN PRODUCTOS DESTACADOS (EDICIÓN VANGUARDISTA / RETAIL DE LUJO) --- */
+
+#productos {
+    scroll-margin-top: 50px !important; 
+}
+
 .featured-products-section {
     background-color: #ffffff; 
-    padding: 15px 4% 80px 4%; 
-    scroll-margin-top: 125px;
+    padding: 30px 4% 90px 4%; 
+    scroll-margin-top: 100px !important; 
 }
 
 .products-clean-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; /* Un poco más de aire para que respire la asimetría */
     max-width: 1400px;
     margin: 0 auto;
+    background-color: #ffffff !important;
 }
 
+/* Tarjeta del Producto - Estructura Limpia */
 .product-item {
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
+    background-color: #ffffff !important;
+    position: relative;
+    overflow: visible;
 }
 
-/* Contenedor de la foto grande */
+/* CONTENEDOR DE LA IMAGEN: El truco del marco reactivo */
 .product-image-box {
-    position: relative; /* Obligatorio para que el texto flote adentro */
+    position: relative; 
     width: 100%;
-    height: 480px; /* Tamaño grande como querías */
+    height: 480px; 
     overflow: hidden;
+    background-color: #f3f3f3;
+    /* Creamos una transición para los bordes internos */
+    box-shadow: inset 0 0 0 0px #ffffff;
+    transition: box-shadow 0.7s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Oscurecemos un pelín la foto de fondo para que la letra blanca se lea nítida */
+/* Imagen en blanco y negro con físicas de desaceleración brutal */
+/* Imagen limpia: Corregida para que se vea a full color natural */
 .product-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(110%) brightness(75%); 
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+    /* !!! CORREGIDO: Eliminamos el grayscale para recuperar los colores originales !!! */
+    filter: contrast(104%) brightness(98%); /* Solo un mini ajuste de nitidez de pasarela */
+    transform: scale(1);
+    /* Curva Bézier cinematográfica intacta */
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), 
+                filter 0.5s ease;
 }
 
-/* --- TEXTO FLOTANTE EN EL CENTRO --- */
-.product-overlay-text {
+/* --- TRUCO CREATIVO: EL SIGNO (+) QUE MUTA A FLECHA --- */
+.product-add-icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado matemático perfecto */
-    text-align: center;
-    width: 90%;
-    z-index: 10;
-    pointer-events: none; /* Evita problemas al hacer click */
-}
-
-/* Nombre arriba en MAYÚSCULAS y blanco */
-.product-overlay-text h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 900;
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* Sombra suave para que no se pierda */
-}
-
-/* Bloque "cómo comprar →" en minúsculas */
-.action-link {
+    bottom: 25px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    background-color: transparent !important;
+    color: #000000 !important; 
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 8px;
-    color: #ffffff;
+    justify-content: center;
+    font-size: 1.6rem; 
+    font-weight: 200; /* Líneas finas premium */
+    opacity: 0; 
+    transform: translateY(10px); 
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 15;
 }
 
-.action-link span {
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-transform: lowercase; /* Minúsculas estrictas */
+/* Mini círculo de pulso invisible inicialmente */
+.product-add-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: -1;
 }
 
-.arrow {
-    transition: transform 0.3s ease;
+/* --- CUADRO DE TEXTO (Tipografía Reactiva) --- */
+.product-info-box {
+    padding: 16px 4px 0 4px; 
+    background: #ffffff !important;
+    text-align: center; 
+    width: 100%;
 }
 
-/* --- EFECTOS HOVER PREMIUM --- */
+.product-title {
+    font-family: 'Poppins', sans-serif !important; 
+    font-size: 0.78rem !important; 
+    font-weight: 500 !important;
+    color: #111111 !important;
+    margin: 0 auto 5px auto !important; 
+    text-transform: uppercase;
+    letter-spacing: 1.2px; /* Más separado = Más costoso se ve */
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), color 0.3s ease;
+}
+
+.product-price {
+    font-family: 'Poppins', sans-serif !important; 
+    font-size: 0.8rem !important;
+    font-weight: 400;
+    color: #888888 !important; 
+    display: block;
+    transition: color 0.4s ease, transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+
+/* ====================================================
+   EFECTOS HOVER ULTRA-CREATIVOS (NIVEL BRANDING INTERNACIONAL)
+   ==================================================== */
+
+/* 1. El Marco Pasarela: El contenedor muerde la imagen creando un borde blanco limpio */
+.product-item:hover .product-image-box {
+    /* Genera un marco blanco interno de 12px de forma ultra fluida */
+    box-shadow: inset 0 0 0 12px #ffffff; 
+}
+
+/* La imagen se aleja y se mueve un poco (Contraste de dirección) */
+/* Al pasar el mouse, mantiene su color pero gana un pelín de contraste pro */
 .product-item:hover .product-image-box img {
-    transform: scale(1.04);
-    filter: grayscale(100%) contrast(110%) brightness(60%); /* Se oscurece un poco más al pasar el mouse para resaltar la letra */
+    transform: scale(0.96) translateY(-4px); 
+    filter: contrast(110%) brightness(95%); /* Gana fuerza visual sin perder color */
 }
 
-.product-item:hover .arrow {
-    transform: translateX(5px); /* La flecha se mueve a la derecha */
+/* 2. El Pulso y Cambio de Carácter del (+) */
+.product-item:hover .product-add-icon {
+    opacity: 1; 
+    transform: translateY(0); 
 }
 
-/* Responsivo para celulares */
+/* Cuando el usuario pasa el mouse sobre la tarjeta, el "+" muta visualmente */
+.product-item:hover .product-add-icon::before {
+    transform: scale(1.2); /* El circulito de fondo se expande como onda */
+}
+
+/* 3. Ajuste de Textos Dinámico */
+.product-item:hover .product-title {
+    transform: translateY(-2px); /* Sube un poco de forma fina */
+}
+
+.product-item:hover .product-price {
+    color: #000000 !important; /* Se enciende a negro sólido */
+    transform: translateY(-2px);
+}
+
+
+/* ====================================================
+   Ajustes Responsivos */
 @media (max-width: 992px) {
-    .products-clean-grid { grid-template-columns: 1fr; gap: 40px; }
-    .product-image-box { height: 420px; }
+    .products-clean-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px; 
+    }
+    .product-image-box { 
+        height: 380px; 
+    }
+    /* En móvil cancelamos el marco interno para que no robe espacio de pantalla */
+    .product-item:hover .product-image-box {
+        box-shadow: none;
+    }
+    .product-item:hover .product-image-box img {
+        transform: scale(1.03); /* Hover tradicional y ligero para pantallas táctiles */
+    }
+    .product-add-icon {
+        opacity: 1; 
+        transform: translateY(0);
+    }
 }
 
 
@@ -578,8 +877,8 @@ img {
 .about-banner img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: brightness(60%);
+    object-fit: cover; /* Esto estira el GIF de borde a borde sin deformarlo */
+    display: block;
 }
 
 .banner-overlay {
@@ -1130,78 +1429,128 @@ img {
 
 
 
-
-
-
-/* --- SECCIÓN CATEGORÍAS FOTOGRÁFICAS --- */
+/* --- SECCIÓN CATEGORÍAS FOTOGRÁFICAS (EDICIÓN CREATIVA VANGUARDISTA) --- */
 .shop-categories-section {
-    background-color: #000000;
-    padding: 100px 4%;
-    color: #ffffff;
+    background-color: #0b0b0b;       
+    padding: 80px 0 100px 4%;         
+    color: #ffffff;                  
+    overflow: hidden;          
 }
 
-/* Título de la sección limpio y centrado */
 .categories-main-title {
     text-align: center;
     margin-bottom: 60px;
+    padding-right: 4%;         
 }
 
 .categories-main-title span {
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    color: #666666;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: #444444;                  
     display: block;
     margin-bottom: 8px;
     font-family: monospace;
-}
-
-.categories-main-title h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 900;
-    font-size: 2.5rem;
-    margin: 0;
-    letter-spacing: -1px;
     text-transform: uppercase;
 }
 
-/* Grilla simétrica de 3 columnas fijas (2 filas perfectas para 6 elementos) */
-.categories-clean-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+.categories-main-title h2 {
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 700;                  
+    font-size: 3rem;                 
+    margin: 0;
+    letter-spacing: 3px;               
+    text-transform: uppercase;
+    color: #ffffff;                  
 }
 
-/* Enlaces limpios sin cajas baratas */
+/* Envoltura del deslizador */
+.categories-slider-wrapper {
+    width: 100%;
+    overflow-x: auto;          
+    overflow-y: hidden;
+    cursor: grab;              
+    padding-bottom: 20px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;     
+}
+
+.categories-slider-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.categories-slider-wrapper:active {
+    cursor: grabbing;          
+}
+
+.categories-clean-grid {
+    display: flex;             
+    gap: 24px;                 
+    padding-right: 4%;         
+}
+
+/* Entrada en cascada cinematográfica */
 .category-item {
+    flex: 0 0 calc((100vw - 8% - 72px) / 4); 
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: #ffffff;
+    color: #ffffff;                  
+    user-select: none;         
+    opacity: 0;
+    transform: translateY(50px);
+    animation: creativeReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Contenedor de la foto de alta calidad */
+.category-item:nth-child(1) { animation-delay: 0.1s; }
+.category-item:nth-child(2) { animation-delay: 0.25s; }
+.category-item:nth-child(3) { animation-delay: 0.4s; }
+.category-item:nth-child(4) { animation-delay: 0.55s; }
+
+/* CONTENEDOR DE IMAGEN (Con efecto escáner cyberpunk integrado) */
 .category-image-box {
     width: 100%;
-    height: 480px; 
-    overflow: hidden;
-    background-color: #080808;
-    margin-bottom: 20px;
+    height: 440px;             
+    overflow: hidden;          
+    background-color: #121212;       
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.04); 
+    position: relative;
+    transition: border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* --- TRUCO CREATIVO 1: EL LÁSER ESCÁNER DIGITAL --- */
+.category-image-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+    transform: skewX(-25deg);
+    animation: laserScan 4s infinite linear;
+}
+
+/* La Imagen con Efecto Óptico Invertido */
 .category-image-box img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: grayscale(100%) contrast(110%); 
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    object-fit: cover;         
+    display: block;            
+    pointer-events: none;      
+    /* Inicialmente estirada y oscura */
+    transform: scale(1.08); 
+    filter: grayscale(100%) contrast(120%) brightness(70%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Textos informativos inferiores */
 .category-text-footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    padding: 0 4px;
 }
 
 .cat-title-wrap {
@@ -1213,16 +1562,20 @@ img {
 .cat-idx {
     font-size: 0.8rem;
     font-family: monospace;
-    color: #444444;
+    color: #444444;                  
+    transition: color 0.4s ease;
 }
 
+/* Título listo para el efecto Glitch */
 .category-text-footer h3 {
     font-family: 'Syne', sans-serif;
     font-weight: 900;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     margin: 0;
     letter-spacing: -0.5px;
     text-transform: uppercase;
+    color: #ffffff;     
+    position: relative;
 }
 
 .cat-shop-link {
@@ -1234,139 +1587,92 @@ img {
 .cat-shop-link span {
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #666666;
-    transition: color 0.3s ease;
+    letter-spacing: 2px;
+    color: #555555;                  
+    transition: color 0.4s ease, transform 0.4s ease;
 }
 
 .line-animated {
     width: 0;
     height: 1px;
-    background-color: #ffffff;
+    background-color: #ffffff;       
     margin-top: 4px;
-    transition: width 0.3s ease;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* --- EFECTOS HOVER --- */
+/* ====================================================
+   INTERACCIONES CREATIVAS (HOVER)
+   ==================================================== */
+
+/* Hover de la Imagen: Efecto Óptico Invertido (Se encoge mientras toma color) */
 .category-item:hover .category-image-box img {
-    transform: scale(1.03); 
+    transform: scale(1.00); /* Regresa a su tamaño original dando sensación de profundidad */
+    filter: grayscale(0%) contrast(100%) brightness(100%);
 }
 
+/* Caja se ilumina con aura flotante */
+.category-item:hover .category-image-box {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255, 255, 0.02);
+}
+
+/* --- TRUCO CREATIVO 2: ACTIVACIÓN DEL GLITCH DE TEXTO --- */
+.category-item:hover .category-text-footer h3 {
+    animation: textGlitch 0.3s linear infinite;
+    color: #fff;
+    text-shadow: 1px 0 chcl(#ff0055), -1px 0 chcl(#00ffcc); /* Sutil aberración cromática */
+}
+
+.category-item:hover .cat-idx {
+    color: #ffffff;
+}
+
+/* Botón SHOP se enciende */
 .category-item:hover .cat-shop-link span {
-    color: #ffffff; 
+    color: #ffffff;
+    transform: translateX(-4px); /* Se mueve de lado en vez de arriba */
 }
 
 .category-item:hover .line-animated {
-    width: 100%; 
+    width: 100%;
 }
-
-/* Ajustes pantallas pequeñas */
-@media (max-width: 768px) {
-    .category-image-box { height: 400px; }
-    .categories-main-title h2 { font-size: 2rem; }
-}
-
-
-
 
 /* ====================================================
-   ESTILOS EXCLUSIVOS DE LA PÁGINA CHAQUETAS.HTML
+   LÓGICA MATEMÁTICA DE ANIMACIONES (KEYFRAMES)
    ==================================================== */
 
-/* BARRA DE CONTROLES (Filtros y Buscador alineados) */
-.catalog-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 40px auto 30px auto;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 0 4% 20px 4%;
-    background-color: #ffffff;
+/* Animación del Escáner Láser de Fondo */
+@keyframes laserScan {
+    0% { left: -100%; }
+    50%, 100% { left: 150%; }
 }
 
-/* Botones de Género (Estilo minimalista sin bordes ordinarios) */
-.gender-filters {
-    display: flex;
-    gap: 30px;
-}
-
-.filter-btn {
-    background: none;
-    border: none;
-    font-family: 'Syne', sans-serif; /* Usa la fuente de tu marca */
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #999999; /* Gris cuando no está seleccionado */
-    cursor: pointer;
-    letter-spacing: 1px;
-    padding: 5px 0;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.filter-btn:hover, .filter-btn.active {
-    color: #000000; /* Se vuelve negro al pasar el mouse o activarse */
-}
-
-/* Línea fina negra debajo del botón activo */
-.filter-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -21px;
-    left: 0;
-    width: 100%;
-    height: 1.5px;
-    background-color: #000000;
-}
-
-/* CONTENEDOR DEL BUSCADOR */
-.search-wrapper {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #cccccc;
-    padding: 5px 0;
-    width: 250px;
-    transition: border-color 0.3s ease;
-}
-
-.search-wrapper:focus-within {
-    border-color: #000000; /* La línea se vuelve negra al escribir */
-}
-
-/* El input de texto transparente */
-#catalog-search {
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 0.9rem;
-    color: #000000;
-    width: 100%;
-    font-family: inherit;
-}
-
-#catalog-search::placeholder {
-    color: #aaaaaa;
-    font-style: italic;
-}
-
-/* La flechita indicadora del buscador */
-.search-icon {
-    font-size: 0.9rem;
-    color: #888888;
-}
-
-/* Responsivo: Si lo abren desde un celular, los controles se acomodan uno abajo del otro */
-@media (max-width: 768px) {
-    .catalog-controls {
-        flex-direction: column;
-        gap: 20px;
-        align-items: flex-start;
-    }
-    .search-wrapper {
-        width: 100%;
+/* Animación de Entrada Fluida */
+@keyframes creativeReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
+
+/* Animación de Mini-Glitch Estilo Archivo de Ropa Urbano */
+@keyframes textGlitch {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-3deg); }
+    40% { transform: skew(3deg); }
+    60% { transform: skew(-1deg); opacity: 0.9; }
+    80% { transform: skew(2deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* Responsivo */
+@media (max-width: 912px) {
+    .shop-categories-section { padding: 50px 0 70px 4%; }
+    .category-item { flex: 0 0 78vw; }
+    .category-image-box { height: 400px; }
+    .category-item:hover .category-text-footer h3 { animation: none; text-shadow: none; } /* Desactiva glitch en móvil por rendimiento */
+}
+
 
 
 
@@ -1658,3 +1964,6 @@ model-viewer {
     outline: none;
     --poster-color: transparent;
 }
+
+
+

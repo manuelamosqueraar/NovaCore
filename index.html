@@ -9,101 +9,79 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+
     <nav class="navbar">
-        <div class="logo">
-           <i class="fas fa-fire"></i> NOVA<span>CORE</span>
+    <div class="logo">
+        NOVA<span>CORE</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#productos">Colección</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contact-form" id="link-contacto">Contáctanos</a></li>
+    </ul>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <div class="nav-actions">
+        
+        <button class="search-btn" aria-label="Buscar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+
+        <div class="cart-container" id="openCheckout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
+                <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+            </svg>
+            <span id="cart-count">0</span>
         </div>
-        <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#productos">Colección</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#contact-form" id="link-contacto">Contáctanos</a></li>
-        </ul>
+
+    </div>
+</nav>
+
+<div id="search-bar-container">
+    <div class="search-input-wrapper">
+        <input type="text" id="search-input" placeholder="¿En qué puedo ayudarte?">
+        <button id="close-search">×</button>
+    </div>
+</div>
 
 
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <div class="cart-container" id="openCheckout">
-    <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
-  </div>
-    </nav>
-
-
-
-    <header id="inicio" class="hero-senior hero-slider">
+ <header id="inicio" class="hero-senior" style="position: relative !important; width: 100% !important; height: 100vh !important; display: flex !important; align-items: flex-end !important; justify-content: flex-start !important; overflow: hidden !important;">
     
-    <div class="slide active">
-        <div class="hero-video-bg">
-            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1200&q=80&monochrome=true" alt="NovaCore Elite">
+    <div class="hero-video-bg" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important;">
+        <img src="IMG/fondo4.jpg" alt="NovaCore Elite" style="width: 100% !important; height: 100% !important; object-fit: cover !important;">
+    </div>
+    
+    <div class="hero-overlay" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0, 0, 0, 0.4) !important; z-index: 2 !important;"></div>
+    
+    <div class="hero-content" style="position: relative !important; z-index: 3 !important; text-align: left !important; color: #ffffff !important; display: flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: flex-end !important; width: 100% !important; max-width: 600px !important; margin: 0 !important; padding: 0 0 50px 50px !important; box-sizing: border-box !important; transform: none !important; left: 0 !important;">
+        
+        <div class="hero-top-text" style="margin-bottom: 10px !important;">
+            <span class="line"></span>
+            <span class="label" style="font-size: 0.8rem !important; letter-spacing: 2px !important;">COLECCIÓN EXCLUSIVA</span>
+            <span class="line"></span>
         </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-top-text">
-                <span class="line"></span>
-                <span class="label">COLECCIÓN EXCLUSIVA</span>
-                <span class="line"></span>
-            </div>
-            <h1>REDEFINIENDO <br> <span class="thin">EL ESTILO</span> ELITE</h1>
-            <p class="hero-description">
-                Piezas de edición limitada diseñadas para quienes exigen perfección en cada fibra. 
-                Siente la sofisticación de NovaCore.
-            </p>
+        
+        <h1 style="color: #ffffff !important; font-size: 2rem !important; font-weight: 600 !important; line-height: 1.2 !important; margin: 0 0 20px 0 !important; text-transform: uppercase !important; letter-spacing: 1px !important; text-align: left !important;">
+             PIEZAS ESENCIALES <br> <span class="thin" style="font-weight: 300 !important;">DE EDICIÓN</span> LIMITADA
+        </h1>
+        
+        <div class="hero-actions-fixed" style="position: relative !important; display: flex !important; justify-content: flex-start !important; align-items: center !important; width: auto !important; min-width: max-content !important; margin: 0 !important; left: auto !important; right: auto !important; transform: none !important;">
+           <a href="#productos" class="btn-primary" style="display: inline-block !important; margin: 0 !important; text-align: center !important; padding: 14px 36px !important; border-radius: 0px !important; text-decoration: none !important; font-weight: 600 !important; letter-spacing: 2px !important; text-transform: uppercase !important; font-size: 0.85rem !important; transition: all 0.3s ease !important;">COMPRAR AHORA</a>
         </div>
     </div>
-
-    <div class="slide">
-        <div class="hero-video-bg">
-            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2000" alt="NovaCore Drop">
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-top-text">
-                <span class="line"></span>
-                <span class="label">EDICIÓN LIMITADA</span>
-                <span class="line"></span>
-            </div>
-            <h1>NUEVA ERA <br> <span class="thin">URBANA</span> STREET</h1>
-            <p class="hero-description">
-                Cortes modernos y materiales premium pensados para marcar la diferencia en el día a día.
-                Exclusividad NovaCore.
-            </p>
-        </div>
-    </div>
-
-    <div class="slide">
-        <div class="hero-video-bg">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000" alt="NovaCore Premium">
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-top-text">
-                <span class="line"></span>
-                <span class="label">TEMPORADA</span>
-                <span class="line"></span>
-            </div>
-            <h1>ESENCIA <br> <span class="thin">MINIMALISTA</span> PURA</h1>
-            <p class="hero-description">
-                Diseños limpios que resisten el paso del tiempo. Menos es más cuando la calidad lo es todo.
-            </p>
-        </div>
-    </div>
-
-    <div class="hero-actions-fixed">
-        <a href="#productos" class="btn-primary">COMPRAR AHORA</a>
-        <a href="#nosotros" class="btn-secondary">DESCUBRIR MÁS</a>
-    </div>
-
-    <div class="slider-dots">
-        <span class="dot active" onclick="currentSlide(0)"></span>
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-    </div>
-
-   
 
 </header>
 
@@ -168,46 +146,51 @@
     </div>
 </div>
 
-<section id="productos" class="featured-products-section">
+<section id="productos" class="featured-products-section" style="scroll-margin-top: 90px !important; padding: 60px 3%;">
     <div class="products-clean-grid">
         
-        <a href="producto-silk-black.html" class="product-item">
+        <a href="producto-camisa-brand.html" class="product-item">
             <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Camisa Silk Black">
-                <div class="product-overlay-text">
-                    <h3>CAMISA SILK BLACK</h3>
-                    <div class="action-link">
-                        <span>comprar</span>
-                        <span class="arrow">→</span>
-                    </div>
-                </div>
+                <img src="IMG/camisa1.jpg" alt="Camisa Brand">
+                <div class="product-add-icon">+</div>
+            </div>
+            <div class="product-info-box">
+                <h3 class="product-title">CAMISA BRAND</h3>
+                <span class="product-price">$45.00</span>
             </div>
         </a>
 
-       <a href="chaquetas.html" class="product-item">
+        <a href="chaquetas-sainttears.html" class="product-item">
     <div class="product-image-box">
-        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Chaqueta Urban">
-        <div class="product-overlay-text">
-            <h3>CHAQUETA URBAN OVER</h3>
-            <div class="action-link">
-                <span>comprar</span>
-                <span class="arrow">→</span>
-            </div>
-        </div>
+        <img src="IMG/chaqueta.jpg" alt="Chaqueta Sainttears">
+        
+        <div class="product-add-icon">+</div>
     </div>
-</a>
+    <div class="product-info-box">
+        <h3 class="product-title">CHAQUETA SAINTTEARS</h3>
+        <span class="product-price">$85.00</span>
+    </div>
+       </a>
 
-
-        <a href="producto-pantalon-cargo.html" class="product-item">
+        <a href="producto-bermuda-buzzer.html" class="product-item">
             <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Pantalón Cargo">
-                <div class="product-overlay-text">
-                    <h3>PANTALÓN CARGO RAW</h3>
-                    <div class="action-link">
-                        <span>comprar</span>
-                        <span class="arrow">→</span>
-                    </div>
-                </div>
+                <img src="IMG/bermuda.jpg" alt="Bermuda Buzzer">
+                <div class="product-add-icon">+</div>
+            </div>
+            <div class="product-info-box">
+                <h3 class="product-title">BERMUDA BUZZER</h3>
+                <span class="product-price">$60.00</span>
+            </div>
+        </a>
+
+        <a href="producto-hoodie-saint.html" class="product-item">
+            <div class="product-image-box">
+                <img src="IMG/hoodie1.jpg" alt="Hoodie Saint">
+                <div class="product-add-icon">+</div>
+            </div>
+            <div class="product-info-box">
+                <h3 class="product-title">HOODIE SAINT</h3>
+                <span class="product-price">$70.00</span>
             </div>
         </a>
 
@@ -220,108 +203,112 @@
 
 
 
-   <section class="shop-categories-section">
+<section class="shop-categories-section">
     <div class="categories-main-title">
-        <span>ARCHIVO DE COLECCIONES</span>
-        <h2>COMPRAR POR CATEGORÍA</h2>
+         <span>ARCHIVO DE COLECCIONES</span>
+         <h2>CATEGORÍAS</span></h2> <!-- <-- Añadimos el span igual que en tu logo -->
     </div>
     
-    <div class="categories-clean-grid">
-        <a href="chaquetas.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Chaquetas">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">01</span>
-                    <h3>CHAQUETAS</h3>
+    <div class="categories-slider-wrapper">
+        <div class="categories-clean-grid">
+            
+            <a href="hoodies.html" class="category-item">
+                <div class="category-image-box">
+                    <img src="IMG/hoodiemodelo.jpg" alt="Hoodies">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">01</span>
+                        <h3>HOODIES</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="pantalones.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Pantalones">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">02</span>
-                    <h3>PANTALONES</h3>
+            <a href="pantalones.html" class="category-item">
+                <div class="category-image-box">
+                    <img src="IMG/modelopantalon.jpg" alt="Pantalones">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">02</span>
+                        <h3>PANTALONES</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="camisas.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Camisas">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">03</span>
-                    <h3>CAMISAS & BUZOS</h3>
+            <a href="camisas.html" class="category-item">
+                <div class="category-image-box">
+                    <img src=IMG/modelocamisa.jpg alt="Camisas">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">03</span>
+                        <h3>CAMISAS</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="gorras.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Gorras">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">04</span>
-                    <h3>GORRAS</h3>
+            <a href="gorras.html" class="category-item">
+                <div class="category-image-box">
+                    <img src="IMG/modelogorra1.jpg" alt="Gorras">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">04</span>
+                        <h3>GORRAS</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="tenis.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Tenis">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">05</span>
-                    <h3>CALZADO</h3>
+            <a href="tenis.html" class="category-item">
+                <div class="category-image-box">
+                    <img src="IMG/modelotenis.jpg" alt="Tenis">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">05</span>
+                        <h3>TENIS</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
-        <a href="accesorios.html" class="category-item">
-            <div class="category-image-box">
-                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600&auto=format&fit=crop&monochrome=true" alt="Accesorios">
-            </div>
-            <div class="category-text-footer">
-                <div class="cat-title-wrap">
-                    <span class="cat-idx">06</span>
-                    <h3>ACCESORIOS</h3>
+            <a href="gafas.html" class="category-item">
+                <div class="category-image-box">
+                    <img src="IMG/modelogafas.jpg" alt="Gafas">
                 </div>
-                <div class="cat-shop-link">
-                    <span>VER COLECCIÓN</span>
-                    <div class="line-animated"></div>
+                <div class="category-text-footer">
+                    <div class="cat-title-wrap">
+                        <span class="cat-idx">06</span>
+                        <h3>GAFAS</h3>
+                    </div>
+                    <div class="cat-shop-link">
+                        <span>VER COLECCIÓN</span>
+                        <div class="line-animated"></div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+
+        </div>
     </div>
 </section>
 
@@ -340,7 +327,7 @@
         
         <div class="about-row">
             <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1000" alt="NovaCore Studio">
+                <img src="IMG/nosotros.jpg" alt="NovaCore Studio">
             </div>
             <div class="about-text">
                 <span class="about-badge">Nuestra Esencia</span>
@@ -369,11 +356,12 @@
         </div>
 
         <div class="about-banner">
-            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1500" alt="Fashion Concept">
-            <div class="banner-overlay">
-                <h3>MODA CON PROPÓSITO</h3>
-            </div>
-        </div>
+    <!-- CORREGIDO: Cambiamos la ruta para que cargue tu archivo .gif -->
+    <img src="IMG/largo.gif" alt="Novacore Concept Loop">
+    <div class="banner-overlay">
+        <h3>MODA CON PROPÓSITO</h3>
+    </div>
+</div>
 
     </div>
 </section>

@@ -183,27 +183,32 @@ const renderCartItems = () => {
 // AGREGAR AL CARRITO
 // ====================================================
 const addProductToCart = (source) => {
-    // Obtener precio
+    // Buscar tarjeta contenedora
+    const card = source.closest('.product-info-panel, .cat-product-item, .product-item');
+
+    // Precio
     let price = 0;
     if (source.dataset.price) {
         price = Number(source.dataset.price);
+    } else if (card?.dataset.price) {
+        price = Number(card.dataset.price);
     } else {
-        const card = source.closest('.product-card, .product-item, .product-info-panel');
         const priceEl = card?.querySelector('.price, .product-price');
         price = Number(priceEl?.innerText?.replace(/[^0-9.]/g, '')) || 0;
     }
 
-    // Obtener talla seleccionada
-    const panel = source.closest('.product-info-panel, .product-item, .cat-product-item');
-    const size = panel?.querySelector('.size-box.active')?.textContent?.trim() || '';
+    // Talla
+    const size = card?.querySelector('.size-box.active')?.textContent?.trim() || '';
 
-    // Obtener nombre e imagen
-    const nameEl = panel?.querySelector('.product-title, .product-main-name, .overlay-name');
-    const imgEl = panel?.querySelector('img');
-    const name = nameEl?.textContent?.trim() || 'Producto NovaCore';
-    const image = imgEl?.src || '';
+    // Nombre
+    const nameEl = card?.querySelector('.product-title, .product-main-name, .overlay-name');
+    const name = nameEl?.textContent?.trim() || source.dataset.name || 'Producto NovaCore';
 
-    // Si ya existe el mismo producto + talla, incrementar qty
+    // Imagen: usar getAttribute para obtener ruta relativa original
+    const imgEl = card?.querySelector('.product-image-box img, img');
+    const image = imgEl?.getAttribute('src') || '';
+
+    // Si ya existe mismo producto + talla, sumar qty
     const existing = cartItems.find(i => i.name === name && i.size === size);
     if (existing) {
         existing.qty++;
@@ -286,8 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             openModal(contactModal);
         });
-      }
-     if (closeContact) {
+    }
+    if (closeContact) {
         closeContact.addEventListener('click', () => closeModal(contactModal));
     }
 
@@ -301,17 +306,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
-             e.preventDefault();
+            e.preventDefault();
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
             const mensaje = document.getElementById('mensaje').value;
-             try {
+            try {
                 await insertIntoSupabase('contactos', { nombre, email, mensaje });
                 alert('¡Gracias! Te contactaremos pronto.');
                 closeModal(contactModal);
                 contactForm.reset();
             } catch (error) {
-                 alert('Error al enviar: ' + error.message);
+                alert('Error al enviar: ' + error.message);
             }
         });
     }
@@ -321,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (paymentForm) {
         paymentForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-             const nombre_cliente = document.getElementById('pay-name').value;
+            const nombre_cliente = document.getElementById('pay-name').value;
             const email_cliente = document.getElementById('pay-email').value;
             const total = getCartTotal();
             try {
@@ -332,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('¡Pago procesado exitosamente!');
                 closeModal(checkoutModal);
                 paymentForm.reset();
-             } catch (error) {
+            } catch (error) {
                 alert('Error al procesar el pago: ' + error.message);
             }
         });
@@ -343,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-             const emailValue = document.getElementById('newsletter-email').value;
+            const emailValue = document.getElementById('newsletter-email').value;
             try {
                 await insertIntoSupabase('suscriptores', { email: emailValue });
                 alert('¡Bienvenido al club NovaCore!');
@@ -354,42 +359,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Barra de búsqueda (index)
-    const searchBtn = document.querySelector('.search-btn');
-    const searchBar = document.getElementById('search-bar-container');
-    const closeSearch = document.getElementById('close-search');
-    const searchInput = document.getElementById('search-input');
+    // Barra de búsqueda — solo activa en index.html (categoria.js maneja la suya propia)
+    const isCategoria = window.location.pathname.includes('categoria');
+    if (!isCategoria) {
+        const searchBtn = document.querySelector('.search-btn');
+        const searchBar = document.getElementById('search-bar-container');
+        const closeSearch = document.getElementById('close-search');
+        const searchInput = document.getElementById('search-input');
 
-    if (searchBtn && searchBar && searchInput) {
-        searchBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            searchBar.classList.toggle('search-bar-visible');
-             if (searchBar.classList.contains('search-bar-visible')) {
-                setTimeout(() => searchInput.focus(), 50);
-            }
-        });
-    }
+        if (searchBtn && searchBar && searchInput) {
+            searchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchBar.classList.toggle('search-bar-visible');
+                if (searchBar.classList.contains('search-bar-visible')) {
+                    setTimeout(() => searchInput.focus(), 50);
+                }
+            });
+        }
 
-    if (closeSearch && searchBar && searchInput) {
-        closeSearch.addEventListener('click', () => {
-            searchBar.classList.remove('search-bar-visible');
-            searchInput.value = '';
-            document.querySelectorAll('.product-item').forEach(p => p.style.display = 'flex');
-        });
-    }
+        if (closeSearch && searchBar && searchInput) {
+            closeSearch.addEventListener('click', () => {
+                searchBar.classList.remove('search-bar-visible');
+                searchInput.value = '';
+                document.querySelectorAll('.product-item').forEach(p => p.style.display = 'flex');
+            });
+        }
 
-    if (searchInput) {
-        searchInput.addEventListener('keydown', (e) => {
-             if (e.key !== 'Enter') return;
-            e.preventDefault();
-            const term = searchInput.value.toLowerCase().trim();
-            document.querySelectorAll('#productos .product-item').forEach(p => {
-                const title = p.querySelector('.product-title')?.textContent.toLowerCase() ?? '';
-                p.style.display = !term || title.includes(term) ? 'flex' : 'none';
-             });
-            searchBar?.classList.remove('search-bar-visible');
-            document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
-        });
+        if (searchInput) {
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key !== 'Enter') return;
+                e.preventDefault();
+                const term = searchInput.value.toLowerCase().trim();
+                document.querySelectorAll('#productos .product-item').forEach(p => {
+                    const title = p.querySelector('.product-title')?.textContent.toLowerCase() ?? '';
+                    p.style.display = !term || title.includes(term) ? 'flex' : 'none';
+                });
+                searchBar?.classList.remove('search-bar-visible');
+                document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
     }
 
     // Tallas
@@ -410,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (slider) {
         let isDown = false, startX = 0, scrollLeft = 0;
         slider.addEventListener('mousedown', (e) => {
-             isDown = true;
+            isDown = true;
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         });
@@ -422,4 +430,4 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 2;
         });
     }
- });
+});

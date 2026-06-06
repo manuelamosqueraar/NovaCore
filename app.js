@@ -18,33 +18,9 @@ const loadCart = () => {
 const saveCart = (items) => {
     try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch {}
 };
-
-const CART_DEFAULT_IMAGE = 'IMG/camisa1.jpg';
-
-const resolveCartItemImage = (item = {}) => {
-    if (item.image) return item.image;
-
-    const source = `${item.slug || ''} ${item.name || ''}`.toLowerCase();
-
-    if (source.includes('chaqueta')) return 'IMG/chaqueta.jpg';
-    if (source.includes('hoodie')) return 'IMG/hoodie1.jpg';
-    if (source.includes('bermuda') || source.includes('pantal')) return 'IMG/bermuda.jpg';
-    if (source.includes('camisa')) return 'IMG/camisa1.jpg';
-    if (source.includes('gorra') || source.includes('cap') || source.includes('bucket')) return 'IMG/modelogorra1.jpg';
-    if (source.includes('tenis') || source.includes('runner') || source.includes('shoe') || source.includes('low')) return 'IMG/modelotenis.jpg';
-    if (source.includes('gaf') || source.includes('shades') || source.includes('lens') || source.includes('visor')) return 'IMG/modelogafas.jpg';
-
-    return CART_DEFAULT_IMAGE;
-};
-
+ 
 let cartItems = loadCart(); // Array de { id, name, price, image, size, qty }
-
-// Backfill para carritos antiguos que no guardaban imagen.
-cartItems = cartItems.map((item) => ({
-    ...item,
-    image: resolveCartItemImage(item)
-}));
-
+ 
 const getCartCount = () => cartItems.reduce((sum, i) => sum + i.qty, 0);
 const getCartTotal = () => cartItems.reduce((sum, i) => sum + i.price * i.qty, 0);
 const formatCurrency = (v) => `$${v.toFixed(2)}`;
@@ -163,7 +139,7 @@ const renderCartItems = () => {
 
     list.innerHTML = cartItems.map((item, index) => `
         <div class="cart-item-card" data-index="${index}">
-            <img class="cart-item-img" src="${resolveCartItemImage(item)}" alt="${item.name}">
+            <img class="cart-item-img" src="${item.image}" alt="${item.name}">
             <div class="cart-item-info">
                 <span class="cart-item-name">${item.name}</span>
                 <span class="cart-item-size">${item.size ? 'TALLA: ' + item.size : 'TALLA ÚNICA'}</span>
@@ -224,20 +200,20 @@ const addProductToCart = (source) => {
     // Talla
     const size = card?.querySelector('.size-box.active')?.textContent?.trim() || '';
 
-    // Obtener nombre e imagen
-    const nameEl = panel?.querySelector('.product-title, .product-main-name, .overlay-name');
-    const imgEl = panel?.querySelector('img');
-    const name = nameEl?.textContent?.trim() || 'Producto NovaCore';
-    const image = imgEl?.src || '';
+    // Nombre
+    const nameEl = card?.querySelector('.product-title, .product-main-name, .overlay-name');
+    const name = nameEl?.textContent?.trim() || source.dataset.name || 'Producto NovaCore';
+
+    // Imagen: usar getAttribute para obtener ruta relativa original
+    const imgEl = card?.querySelector('.product-image-box img, img');
+    const image = imgEl?.getAttribute('src') || '';
 
     // Si ya existe mismo producto + talla, sumar qty
     const existing = cartItems.find(i => i.name === name && i.size === size);
     if (existing) {
         existing.qty++;
-        existing.image = existing.image || image;
-        existing.slug = existing.slug || slug;
     } else {
-        cartItems.push({ id: Date.now(), slug, name, price, image, size, qty: 1 });
+        cartItems.push({ id: Date.now(), name, price, image, size, qty: 1 });
     }
 
     updateCartUI();
@@ -454,4 +430,4 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 2;
         });
     }
- });
+});

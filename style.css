@@ -378,6 +378,25 @@ img {
     z-index: -1;
 }
 
+.hero-spline-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-spline-bg[hidden] {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .hero-spline-bg {
+        display: none !important;
+    }
+}
+
 .slide .hero-video-bg img {
     width: 100%;
     height: 100%;
@@ -416,6 +435,107 @@ img {
     transform: translateY(0); /* Llega a su centro normal */
     transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease;
     transition-delay: 0.3s; /* Pequeña pausa premium para que entre el fondo */
+}
+
+/* ====================================================
+   HERO PRINCIPAL DEL HOME (sin estilos inline)
+   ==================================================== */
+.hero-senior {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.hero-senior .hero-video-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-senior .hero-video-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-senior .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.hero-senior .hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 600px;
+    margin: 0;
+    padding: 0 0 50px 50px;
+    box-sizing: border-box;
+    text-align: left;
+    color: #ffffff;
+}
+
+.hero-senior .hero-top-text {
+    margin-bottom: 10px;
+}
+
+.hero-senior .hero-top-text .label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.hero-senior .hero-content h1 {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.hero-senior .hero-content h1 .thin {
+    font-weight: 300;
+}
+
+.hero-senior .hero-actions-fixed {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    min-width: max-content;
+    margin: 0;
+    left: auto;
+    right: auto;
+    transform: none;
+}
+
+.hero-senior .hero-actions-fixed .btn-primary {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    padding: 14px 36px;
+    border-radius: 0;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
 }
 
 /* Texto superior decorativo */
@@ -618,6 +738,11 @@ img {
     background-color: #ffffff; 
     padding: 30px 4% 90px 4%; 
     scroll-margin-top: 100px !important; 
+}
+
+#productos.featured-products-section {
+    scroll-margin-top: 90px !important;
+    padding: 60px 3%;
 }
 
 .products-clean-grid {
@@ -1731,6 +1856,18 @@ img {
     align-items: center;
 }
 
+.main-3d-viewer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: transparent;
+    cursor: grab;
+}
+
+.main-3d-viewer:active {
+    cursor: grabbing;
+}
+
 .main-3d-asset {
     width: 100%;
     height: 100%;
@@ -1739,7 +1876,8 @@ img {
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-visual-panel:hover .main-3d-asset {
+.product-visual-panel:hover .main-3d-asset,
+.product-visual-panel:hover .main-3d-viewer {
     transform: scale(1.02); /* Zoom micro-perceptible premium */
 }
 

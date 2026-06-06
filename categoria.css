@@ -23,9 +23,29 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
+    z-index: 0;
     filter: grayscale(40%) brightness(55%) contrast(115%);
     transform: scale(1.06);
     transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cat-spline-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cat-spline-bg[hidden] {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .cat-spline-bg {
+        display: none !important;
+    }
 }
 
 .cat-hero:hover .cat-hero-bg {
@@ -463,9 +483,16 @@
 
 /* ---- SIN RESULTADOS ---- */
 .cat-no-results {
+    display: none;
     text-align: center;
     padding: 120px 4%;
     background: #0d0d0d;
+}
+
+.cat-search-icon {
+    stroke: #000;
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .cat-no-results p {

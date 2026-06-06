@@ -97,14 +97,14 @@ const getCategory = () => new URLSearchParams(window.location.search).get('cat')
 // RENDER
 // ====================================================
 const renderProductCard = (p) => `
-    <div class="product-item cat-product-item" data-gender="${p.gender}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+    <div class="product-item cat-product-item" data-slug="${p.slug}" data-gender="${p.gender}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
         <div class="product-image-box">
             <img src="${p.image}" alt="${p.name}" loading="lazy">
             <div class="cat-product-badge">${p.badge}</div>
             <div class="cat-overlay-info">
                 <span class="overlay-name">${p.name}</span>
                 <span class="overlay-price">$${p.price.toFixed(2)}</span>
-                <button class="cat-overlay-btn btn-add" data-price="${p.price}">
+                <button class="cat-overlay-btn btn-add" data-price="${p.price}" data-slug="${p.slug}" data-image="${p.image}">
                     <span>AÑADIR AL CARRITO</span>
                     <span>→</span>
                 </button>

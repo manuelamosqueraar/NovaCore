@@ -168,6 +168,8 @@ const initializeProductPage = () => {
     if (badgeEl) badgeEl.textContent = product.badge;
     if (addButton) {
         addButton.dataset.price = String(product.price);
+        addButton.dataset.slug = slug;
+        addButton.dataset.image = product.image;
         addButton.setAttribute('aria-label', `Añadir ${product.name} al carrito`);
     }
 

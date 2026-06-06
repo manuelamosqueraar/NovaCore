@@ -1,5 +1,7 @@
 // Configuración central de NovaCore.
-// Reemplaza la URL por tu escena de Spline propia cuando la tengas lista.
+// Spline queda apagado por defecto para no tapar la imagen de inicio.
+// Cuando tengas una escena propia, pon enableSpline en true y pega la URL.
 window.NovaCoreConfig = {
-    splineSceneUrl: 'https://prod.spline.design/9951u9cumiw2Ehj8/scene.splinecode'
+    enableSpline: false,
+    splineSceneUrl: ''
 };

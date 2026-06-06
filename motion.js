@@ -1,13 +1,12 @@
 (() => {
-    // Cambia esta URL por la escena real de NovaCore cuando esté lista.
-    const DEFAULT_SPLINE_SCENE_URL = 'https://prod.spline.design/9951u9cumiw2Ehj8/scene.splinecode';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isDesktop = window.matchMedia('(min-width: 992px)').matches;
 
     const hasGsap = typeof window.gsap !== 'undefined';
     const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
     const hasLenis = typeof window.Lenis !== 'undefined';
-    const splineSceneUrl = window.NovaCoreConfig?.splineSceneUrl || DEFAULT_SPLINE_SCENE_URL;
+    const splineSceneUrl = window.NovaCoreConfig?.splineSceneUrl ?? '';
+    const splineEnabled = Boolean(window.NovaCoreConfig?.enableSpline);
 
     if (hasGsap && hasScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
@@ -16,7 +15,7 @@
     let lenis = null;
 
     const enableSplineScenes = () => {
-        if (prefersReducedMotion || !isDesktop || !splineSceneUrl) return;
+        if (prefersReducedMotion || !isDesktop || !splineEnabled || !splineSceneUrl) return;
 
         document.querySelectorAll('[data-spline-viewer]').forEach((viewer) => {
             viewer.hidden = false;

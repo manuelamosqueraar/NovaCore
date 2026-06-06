@@ -1,347 +1,309 @@
-const supabaseUrl = 'https://ibyigsxmfvnjgrtjvqeu.supabase.co'
-const supabaseKey = 'sb_publishable_-T_1uvZ_GJnBDWCglqKjHQ_w-w5h6NB'
-const _supabase = supabase.createClient(supabaseUrl, supabaseKey)
+const supabaseUrl = 'https://ibyigsxmfvnjgrtjvqeu.supabase.co';
+const supabaseKey = 'sb_publishable_-T_1uvZ_GJnBDWCglqKjHQ_w-w5h6NB';
+const _supabase = window.supabase
+    ? window.supabase.createClient(supabaseUrl, supabaseKey)
+    : null;
 
-let total = 0;
-let count = 0;
+const CART_COUNT_KEY = 'novaCoreCartCount';
+const CART_TOTAL_KEY = 'novaCoreCartTotal';
 
-// --- LÓGICA DEL CARRITO ---
-document.querySelectorAll('.btn-add').forEach(btn => {
-    btn.onclick = (e) => {
-        const card = e.target.closest('.product-card');
-        const priceText = card.querySelector('.price').innerText;
-        const price = parseFloat(priceText.replace('$', '').replace(',', ''));
-        
-        count++;
-        total += price;
-
-        document.getElementById('cart-count').innerText = count;
-        
-        if(document.getElementById('total-price')) {
-            document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
-        }
-
-        const payTotalDisplay = document.getElementById('checkout-total-val');
-        if(payTotalDisplay) {
-            payTotalDisplay.innerText = `$${total.toFixed(2)}`;
-        }
-
-        alert("Producto añadido.");
-    };
-});
-
-// --- MODALES (ABRIR Y CERRAR) ---
-const cModal = document.getElementById("contactModal");
-const pModal = document.getElementById("checkoutModal");
-
-
-const openContact = document.getElementById("openContact");
-if(openContact) openContact.onclick = (e) => {
-    e.preventDefault();
-    cModal.style.display = "block";
-};
-
-const openCheckout = document.getElementById("openCheckout");
-if(openCheckout) openCheckout.onclick = (e) => {
-    e.preventDefault();
-    if(count > 0) {
-        pModal.style.display = "block";
-    } else {
-        alert("El carrito está vacío.");
+const readStoredNumber = (key) => {
+    try {
+        return Number(window.localStorage.getItem(key)) || 0;
+    } catch {
+        return 0;
     }
 };
 
-document.getElementById("closeContact").onclick = () => cModal.style.display = "none";
-document.getElementById("closeCheckout").onclick = () => pModal.style.display = "none";
-
-window.onclick = (e) => {
-    if(e.target == cModal) cModal.style.display = "none";
-    if(e.target == pModal) pModal.style.display = "none";
-}
-
-
-
-// --- contactanos ---
-
-
-const contactForm = document.getElementById('contact-form');
-if(contactForm) {
-    contactForm.onsubmit = async (e) => {
-        e.preventDefault();
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        const mensaje = document.getElementById('mensaje').value;
-        
-        const { error } = await _supabase.from('contactos').insert([{ nombre, email, mensaje }]);
-        
-        if(!error) { 
-            alert("¡Gracias! Te contactaremos pronto."); 
-            cModal.style.display = "none";
-            contactForm.reset();
-        } else {
-            console.error(error);
-            alert("Error al enviar: " + error.message);
-        }
-    };
-}
-
-
-//borra
-
-
-
-/* --- LÓGICA DEL MODAL DE CONTACTO --- */
-
-// Seleccionamos los elementos
-const btnAbrirContacto = document.getElementById('link-contacto'); // El link del menú
-const ventanaContacto = document.getElementById('contactModal');   // El contenedor oscuro
-const btnCerrarContacto = document.querySelector('.close-container'); // Tu botón circular con la X
-
-// 1. Función para ABRIR
-btnAbrirContacto.addEventListener('click', (e) => {
-    e.preventDefault(); // Evita que la página recargue o salte
-    ventanaContacto.style.display = "block";
-    document.body.style.overflow = "auto"; // Bloquea el scroll del fondo
-});
-
-// 2. Función para CERRAR con la X
-btnCerrarContacto.addEventListener('click', () => {
-    ventanaContacto.style.display = "none";
-    document.body.style.overflow = "auto"; // Devuelve el scroll a la página
-});
-
-// 3. Función para CERRAR si hacen clic en lo oscuro (fuera de la tabla)
-window.addEventListener('click', (event) => {
-    if (event.target == ventanaContacto) {
-        ventanaContacto.style.display = "none";
-        document.body.style.overflow = "auto";
+const writeStoredNumber = (key, value) => {
+    try {
+        window.localStorage.setItem(key, String(value));
+    } catch {
+        // LocalStorage puede no estar disponible en algunos contextos.
     }
-});
+};
 
+let total = readStoredNumber(CART_TOTAL_KEY);
+let count = readStoredNumber(CART_COUNT_KEY);
 
+const formatCurrency = (value) => `$${value.toFixed(2)}`;
 
+const updateCartUI = () => {
+    const cartCount = document.getElementById('cart-count');
+    const totalPrice = document.getElementById('total-price');
+    const checkoutTotal = document.getElementById('checkout-total-val');
 
-// pagos
+    if (cartCount) cartCount.innerText = count;
+    if (totalPrice) totalPrice.innerText = formatCurrency(total);
+    if (checkoutTotal) checkoutTotal.innerText = formatCurrency(total);
 
-const paymentForm = document.getElementById('payment-form');
-if(paymentForm) {
-    paymentForm.onsubmit = async (e) => {
-        e.preventDefault();
+    writeStoredNumber(CART_COUNT_KEY, count);
+    writeStoredNumber(CART_TOTAL_KEY, total);
+};
 
-       
-        const nombre_cliente = document.getElementById('pay-name').value;
-        const email_cliente = document.getElementById('pay-email').value;
+const clearCart = () => {
+    count = 0;
+    total = 0;
+    updateCartUI();
+};
 
-       
-        const { error } = await _supabase
-            .from('pagos')
-            .insert([
-                { 
-                    nombre_cliente: nombre_cliente, 
-                    email: email_cliente, 
-                    total: total 
-                }
-            ]);
+const openModal = (modal) => {
+    if (!modal) return;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+};
 
-        if(!error) {
-            alert("¡Pago Procesado y Registrado en la Base de Datos!");
-            location.reload(); 
-        } else {
-            console.error("Error al registrar pago:", error);
-            alert("Error al procesar el pago: " + error.message);
-        }
-    };
-}
+const closeModal = (modal) => {
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+};
 
+const getProductPrice = (element) => {
+    if (element.dataset.price) return Number(element.dataset.price);
 
+    const card = element.closest('.product-card, .product-item, .product-info-panel');
+    const priceElement = card?.querySelector('.price, .product-price');
+    const priceText = priceElement?.innerText ?? '0';
 
+    return Number(priceText.replace(/[^0-9.]/g, '')) || 0;
+};
 
+const addProductToCart = (source) => {
+    const price = getProductPrice(source);
+    const selectedSize = source.closest('.product-info-panel')?.querySelector('.size-box.active')?.textContent.trim();
 
-/* --- LÓGICA DE TABLA FLOTANTE --- */
-const openCart = document.getElementById('openCheckout');
-const checkoutModal = document.getElementById('checkoutModal');
-const closeCart = document.getElementById('closeCheckout');
+    count++;
+    total = Math.round((total + price) * 100) / 100;
+    updateCartUI();
 
-// 1. Abrir la tabla flotante
-openCart.addEventListener('click', () => {
-    checkoutModal.style.display = "block";
-    document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo para que no se mueva
-});
+    alert(selectedSize ? `Producto añadido. Talla ${selectedSize}.` : 'Producto añadido.');
+};
 
-// 2. Cerrar la tabla al darle a la X
-closeCart.addEventListener('click', () => {
-    checkoutModal.style.display = "none";
-    document.body.style.overflow = "auto";   // Devuelve el scroll a la página
-});
-
-// 3. Opcional: Cerrar si el usuario hace clic fuera de la tabla (en lo oscuro)
-window.addEventListener('click', (event) => {
-    if (event.target == checkoutModal) {
-        checkoutModal.style.display = "none";
-        document.body.style.overflow = "auto";
+const insertIntoSupabase = async (table, payload) => {
+    if (!_supabase) {
+        throw new Error('Supabase no está disponible en esta página.');
     }
-});
 
+    const { error } = await _supabase.from(table).insert([payload]);
+    if (error) throw error;
+};
 
-
-
-
-// --- LÓGICA DE SUSCRIPCIÓN (FOOTER) ---
-const newsletterForm = document.getElementById('newsletter-form');
-
-if (newsletterForm) {
-    newsletterForm.onsubmit = async (e) => {
-        e.preventDefault();
-        
-        const emailValue = document.getElementById('newsletter-email').value;
-
-        
-        const { error } = await _supabase
-            .from('suscriptores') 
-            .insert([{ email: emailValue }]);
-
-        if (!error) {
-            alert("¡Bienvenido al club NovaCore! Ya estás registrado.");
-            newsletterForm.reset(); 
-        } else {
-            console.error("Error en suscripción:", error);
-            
-            alert("Hubo un error: " + error.message);
-        }
-    };
-}
-
-
-
-
-
-
-
-// Detecta el movimiento del scroll para activar el menú transparente/blanco
-window.addEventListener('scroll', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const contactModal = document.getElementById('contactModal');
+    const checkoutModal = document.getElementById('checkoutModal');
+    const linkContacto = document.getElementById('link-contacto');
+    const closeContact = document.getElementById('closeContact');
+    const openCheckout = document.getElementById('openCheckout');
+    const closeCheckout = document.getElementById('closeCheckout');
     const navbar = document.querySelector('.navbar');
-    
-    if (window.scrollY > 50) {
-        navbar.classList.add('scroll-activo');
-    } else {
-        navbar.classList.remove('scroll-activo');
-    }
-});
 
+    updateCartUI();
 
-
-
-// ====================================================
-// NÚCLEO NAVEGACIÓN: APERTURA, CIERRE, FILTRADO Y RESET
-// ====================================================
-document.addEventListener("DOMContentLoaded", () => {
-    const searchBtn = document.querySelector(".search-btn");
-    const searchBar = document.getElementById("search-bar-container");
-    const closeSearch = document.getElementById("close-search");
-    const searchInput = document.getElementById("search-input");
-
-    // 1. Abrir o cerrar la barra al dar clic en la lupa
-    if (searchBtn && searchBar) {
-        searchBtn.addEventListener("click", (e) => {
+    document.querySelectorAll('.btn-add, .btn-main-add-cart').forEach((item) => {
+        item.addEventListener('click', (e) => {
             e.preventDefault();
-            searchBar.classList.toggle("search-bar-visible");
-            
-            if (searchBar.classList.contains("search-bar-visible")) {
-                searchInput.focus();
+            addProductToCart(item);
+        });
+    });
+
+    if (linkContacto && contactModal) {
+        linkContacto.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(contactModal);
+        });
+    }
+
+    if (closeContact) {
+        closeContact.addEventListener('click', () => closeModal(contactModal));
+    }
+
+    if (openCheckout) {
+        openCheckout.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (!checkoutModal) {
+                alert(count > 0 ? 'Producto añadido al carrito.' : 'El carrito está vacío.');
+                return;
+            }
+
+            if (count > 0) {
+                openModal(checkoutModal);
+            } else {
+                alert('El carrito está vacío.');
             }
         });
     }
 
-    // 2. CORREGIDO: Al presionar la 'X', se cierra la barra Y se restaura la tienda
-    if (closeSearch && searchBar) {
-        closeSearch.addEventListener("click", () => {
-            searchBar.classList.remove("search-bar-visible");
-            
-            // Vaciamos el texto que el usuario había escrito
-            if (searchInput) {
-                searchInput.value = "";
-            }
+    if (closeCheckout) {
+        closeCheckout.addEventListener('click', () => closeModal(checkoutModal));
+    }
 
-            // Capturamos todos los productos y los volvemos a mostrar TODOS
-            const productos = document.querySelectorAll(".product-item");
-            productos.forEach(producto => {
-                producto.style.display = "block"; // Vuelven a aparecer
+    window.addEventListener('click', (event) => {
+        if (event.target === contactModal) closeModal(contactModal);
+        if (event.target === checkoutModal) closeModal(checkoutModal);
+    });
+
+    window.addEventListener('scroll', () => {
+        if (!navbar) return;
+        navbar.classList.toggle('scroll-activo', window.scrollY > 50);
+    });
+
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            try {
+                await insertIntoSupabase('contactos', { nombre, email, mensaje });
+                alert('¡Gracias! Te contactaremos pronto.');
+                closeModal(contactModal);
+                contactForm.reset();
+            } catch (error) {
+                console.error(error);
+                alert('Error al enviar: ' + error.message);
+            }
+        });
+    }
+
+    const paymentForm = document.getElementById('payment-form');
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nombre_cliente = document.getElementById('pay-name').value;
+            const email_cliente = document.getElementById('pay-email').value;
+
+            try {
+                await insertIntoSupabase('pagos', {
+                    nombre_cliente,
+                    email: email_cliente,
+                    total
+                });
+
+                clearCart();
+                alert('Pago procesado y registrado en la base de datos.');
+                closeModal(checkoutModal);
+                paymentForm.reset();
+            } catch (error) {
+                console.error('Error al registrar pago:', error);
+                alert('Error al procesar el pago: ' + error.message);
+            }
+        });
+    }
+
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const emailValue = document.getElementById('newsletter-email').value;
+
+            try {
+                await insertIntoSupabase('suscriptores', { email: emailValue });
+                alert('¡Bienvenido al club NovaCore! Ya estás registrado.');
+                newsletterForm.reset();
+            } catch (error) {
+                console.error('Error en suscripción:', error);
+                alert('Hubo un error: ' + error.message);
+            }
+        });
+    }
+
+    const searchBtn = document.querySelector('.search-btn');
+    const searchBar = document.getElementById('search-bar-container');
+    const closeSearch = document.getElementById('close-search');
+    const searchInput = document.getElementById('search-input');
+
+    if (searchBtn && searchBar) {
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchBar.classList.toggle('search-bar-visible');
+
+            if (searchBar.classList.contains('search-bar-visible')) {
+                searchInput?.focus();
+            }
+        });
+    }
+
+    if (closeSearch && searchBar) {
+        closeSearch.addEventListener('click', () => {
+            searchBar.classList.remove('search-bar-visible');
+            if (searchInput) searchInput.value = '';
+
+            document.querySelectorAll('.product-item').forEach((producto) => {
+                producto.style.display = 'flex';
             });
         });
     }
 
-    // 3. Filtrado profesional al presionar ENTER
     if (searchInput) {
-        searchInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault(); 
-                
-                const términoBusqueda = searchInput.value.toLowerCase().trim();
-                const productos = document.querySelectorAll(".product-item");
-                
-                if (términoBusqueda !== "") {
-                    productos.forEach(producto => {
-                        const tituloProducto = producto.querySelector(".product-title").textContent.toLowerCase();
-                        
-                        if (tituloProducto.includes(términoBusqueda)) {
-                            producto.style.display = "block"; 
-                        } else {
-                            producto.style.display = "none";  
-                        }
-                    });
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter') return;
 
-                    searchBar.classList.remove("search-bar-visible");
-                    
-                    const seccionProductos = document.getElementById("productos");
-                    if (seccionProductos) {
-                        seccionProductos.scrollIntoView({ behavior: 'smooth' });
-                    }
+            e.preventDefault();
 
-                } else {
-                    // Si presionan Enter estando vacío, también muestra todo
-                    productos.forEach(producto => {
-                        producto.style.display = "block";
-                    });
-                }
-            }
+            const terminoBusqueda = searchInput.value.toLowerCase().trim();
+            const productos = document.querySelectorAll('#productos .product-item');
+
+            productos.forEach((producto) => {
+                const tituloProducto = producto.querySelector('.product-title')?.textContent.toLowerCase() ?? '';
+                producto.style.display = !terminoBusqueda || tituloProducto.includes(terminoBusqueda)
+                    ? 'flex'
+                    : 'none';
+            });
+
+            searchBar?.classList.remove('search-bar-visible');
+            document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
         });
     }
-});
 
+    document.querySelectorAll('.size-box').forEach((button) => {
+        button.addEventListener('click', () => {
+            const wrap = button.closest('.size-selector-wrap');
+            const sizeButtons = wrap?.querySelectorAll('.size-box') ?? [];
 
+            sizeButtons.forEach((item) => {
+                item.classList.remove('active');
+                item.setAttribute('aria-pressed', 'false');
+            });
 
+            button.classList.add('active');
+            button.setAttribute('aria-pressed', 'true');
+        });
+    });
 
-// ====================================================
-// EFECTO DRAG-TO-SCROLL (DESLIZAMIENTO HORIZONTAL)
-// ====================================================
-document.addEventListener("DOMContentLoaded", () => {
     const slider = document.querySelector('.categories-slider-wrapper');
-    if (!slider) return;
+    if (slider) {
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
 
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
 
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-    });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
 
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-    });
-
-    slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // Multiplicador de velocidad de arrastre
-        slider.scrollLeft = scrollLeft - walk;
-    });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    }
 });

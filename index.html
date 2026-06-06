@@ -92,6 +92,8 @@
     const slideInterval = 5000; // Tiempo en milisegundos (5 segundos)
 
     function showSlide(index) {
+        if (!slides.length || !dots.length) return;
+
         // Si llega al final, vuelve al primero. Si va hacia atrás del primero, va al último.
         if (index >= slides.length) currentSlideIndex = 0;
         if (index < 0) currentSlideIndex = slides.length - 1;
@@ -112,10 +114,12 @@
     }
 
     // Configuración del cambio automático continuo
-    setInterval(() => {
-        currentSlideIndex++;
-        showSlide(currentSlideIndex);
-    }, slideInterval);
+    if (slides.length && dots.length) {
+        setInterval(() => {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+        }, slideInterval);
+    }
 </script>
 
 
@@ -149,7 +153,7 @@
 <section id="productos" class="featured-products-section" style="scroll-margin-top: 90px !important; padding: 60px 3%;">
     <div class="products-clean-grid">
         
-        <a href="producto-camisa-brand.html" class="product-item">
+        <a href="producto.html?slug=camisa-brand" class="product-item">
             <div class="product-image-box">
                 <img src="IMG/camisa1.jpg" alt="Camisa Brand">
                 <div class="product-add-icon">+</div>
@@ -160,7 +164,7 @@
             </div>
         </a>
 
-        <a href="chaquetas-sainttears.html" class="product-item">
+        <a href="producto.html?slug=chaqueta-sainttears" class="product-item">
     <div class="product-image-box">
         <img src="IMG/chaqueta.jpg" alt="Chaqueta Sainttears">
         
@@ -172,7 +176,7 @@
     </div>
        </a>
 
-        <a href="producto-bermuda-buzzer.html" class="product-item">
+        <a href="producto.html?slug=bermuda-buzzer" class="product-item">
             <div class="product-image-box">
                 <img src="IMG/bermuda.jpg" alt="Bermuda Buzzer">
                 <div class="product-add-icon">+</div>
@@ -183,7 +187,7 @@
             </div>
         </a>
 
-        <a href="producto-hoodie-saint.html" class="product-item">
+        <a href="producto.html?slug=hoodie-saint" class="product-item">
             <div class="product-image-box">
                 <img src="IMG/hoodie1.jpg" alt="Hoodie Saint">
                 <div class="product-add-icon">+</div>
@@ -212,7 +216,7 @@
     <div class="categories-slider-wrapper">
         <div class="categories-clean-grid">
             
-            <a href="hoodies.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src="IMG/hoodiemodelo.jpg" alt="Hoodies">
                 </div>
@@ -228,7 +232,7 @@
                 </div>
             </a>
 
-            <a href="pantalones.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src="IMG/modelopantalon.jpg" alt="Pantalones">
                 </div>
@@ -244,7 +248,7 @@
                 </div>
             </a>
 
-            <a href="camisas.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src=IMG/modelocamisa.jpg alt="Camisas">
                 </div>
@@ -260,7 +264,7 @@
                 </div>
             </a>
 
-            <a href="gorras.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src="IMG/modelogorra1.jpg" alt="Gorras">
                 </div>
@@ -276,7 +280,7 @@
                 </div>
             </a>
 
-            <a href="tenis.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src="IMG/modelotenis.jpg" alt="Tenis">
                 </div>
@@ -292,7 +296,7 @@
                 </div>
             </a>
 
-            <a href="gafas.html" class="category-item">
+            <a href="#productos" class="category-item">
                 <div class="category-image-box">
                     <img src="IMG/modelogafas.jpg" alt="Gafas">
                 </div>
@@ -492,7 +496,7 @@
         <div class="footer-column">
             <h4>AYUDA</h4>
             <ul>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('openContact').click()">Contacto</a></li>
+                <li><a href="javascript:void(0)" onclick="document.getElementById('link-contacto').click()">Contacto</a></li>
                 <li><a href="#">Seguimiento de Pedido</a></li>
                 <li><a href="#">Términos y Condiciones</a></li>
                 <li><a href="#">Política de Privacidad</a></li>

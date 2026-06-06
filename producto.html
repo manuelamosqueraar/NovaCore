@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaCore | Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="product-page">
+    <nav class="navbar product-navbar">
+        <a class="logo" href="index.html">NOVA<span>CORE</span></a>
+
+        <ul class="nav-links">
+            <li><a href="index.html#productos">Colección</a></li>
+            <li><a href="index.html#nosotros">Nosotros</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <div class="cart-container" id="openCheckout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+                </svg>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="product-premium-experience">
+        <section class="product-visual-panel">
+            <div class="visual-container-3d">
+                <img id="product-image" class="main-3d-asset" src="IMG/camisa1.jpg" alt="Producto NovaCore">
+                <div class="interaction-badge">
+                    <span class="pulse-dot"></span>
+                    <span id="product-badge-text">DROP LIMITADO</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-info-panel">
+            <a class="product-back-link" href="index.html#productos">← Volver a la colección</a>
+
+            <span class="product-series" id="product-series">ARCHIVE 01</span>
+            <h1 class="product-main-name" id="product-name">CAMISA BRAND</h1>
+            <p class="product-price" id="product-price">$45.00</p>
+
+            <div class="editorial-divider"></div>
+
+            <div class="product-description" id="product-description">
+                <p>Ficha de producto en carga.</p>
+            </div>
+
+            <div class="editorial-divider"></div>
+
+            <div class="size-selector-wrap">
+                <div class="selector-header">
+                    <span>TALLA</span>
+                    <a class="size-guide-link" href="#tech-sections">GUÍA</a>
+                </div>
+                <div class="premium-size-grid" id="size-grid">
+                    <button type="button" class="size-box active" aria-pressed="true">S</button>
+                    <button type="button" class="size-box" aria-pressed="false">M</button>
+                    <button type="button" class="size-box" aria-pressed="false">L</button>
+                    <button type="button" class="size-box" aria-pressed="false">XL</button>
+                </div>
+            </div>
+
+            <div class="purchase-actions-area">
+                <button type="button" class="btn-main-add-cart" id="product-add-button">
+                    <span class="btn-text">AÑADIR AL CARRITO</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+                <p class="shipping-notice">Envío estándar gratis y seguimiento premium incluido.</p>
+            </div>
+
+            <div class="editorial-divider"></div>
+
+            <div id="tech-sections">
+                <details class="tech-item" open>
+                    <summary>MATERIAL<span>+</span></summary>
+                    <div class="tech-content">
+                        <ul>
+                            <li>Algodón premium</li>
+                            <li>Costuras reforzadas</li>
+                            <li>Acabado limpio</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content-checkout-v2">
+            <div class="close-container-pay" id="closeCheckout">
+                <span>&times;</span>
+            </div>
+
+            <div class="checkout-grid">
+                <div class="pay-form-side">
+                    <h2>PAGO SEGURO</h2>
+                    <p class="subtitle">Ingresa los datos de tu tarjeta</p>
+
+                    <form id="payment-form">
+                        <div class="input-wrapper">
+                            <label>TITULAR DE LA TARJETA</label>
+                            <input type="text" id="pay-name" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input type="email" id="pay-email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>NÚMERO DE TARJETA</label>
+                            <input type="text" placeholder="0000 0000 0000 0000" required>
+                        </div>
+                        <div class="row-inputs">
+                            <div class="input-wrapper">
+                                <label>EXPIRACIÓN</label>
+                                <input type="text" placeholder="MM/YY" required>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>CVC</label>
+                                <input type="password" placeholder="123" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-pay-premium">CONFIRMAR COMPRA</button>
+                    </form>
+                </div>
+
+                <div class="pay-summary-side">
+                    <div class="summary-box">
+                        <small>TOTAL A PAGAR</small>
+                        <h1 id="checkout-total-val">$0.00</h1>
+                        <hr>
+                        <p>Envío estándar: <strong>GRATIS</strong></p>
+                        <p>Seguro de envío: <strong>INCLUIDO</strong></p>
+                    </div>
+                    <p class="secure-footer">🔒 Transacción encriptada</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="producto.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

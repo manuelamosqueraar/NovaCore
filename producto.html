@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="product-page">
@@ -33,6 +34,19 @@
     <main class="product-premium-experience">
         <section class="product-visual-panel">
             <div class="visual-container-3d">
+                <model-viewer
+                    id="product-model-viewer"
+                    class="main-3d-viewer"
+                    hidden
+                    camera-controls
+                    auto-rotate
+                    rotation-per-second="15deg"
+                    interaction-prompt="auto"
+                    shadow-intensity="1"
+                    exposure="1"
+                    ar-modes="webxr scene-viewer quick-look"
+                ></model-viewer>
+
                 <img id="product-image" class="main-3d-asset" src="IMG/camisa1.jpg" alt="Producto NovaCore">
                 <div class="interaction-badge">
                     <span class="pulse-dot"></span>

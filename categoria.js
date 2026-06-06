@@ -152,6 +152,7 @@ const renderProducts = (animate = true) => {
         setTimeout(() => {
             grid.innerHTML = filtered.map(renderProductCard).join('');
             bindCartButtons();
+            window.NovaCoreMotion?.animateCategoryCards?.();
         }, 220);
     } else {
         grid.innerHTML = filtered.map(renderProductCard).join('');

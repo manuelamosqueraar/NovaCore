@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaCore | High Fashion Elite</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 </head>
 <body>
 
@@ -25,9 +27,6 @@
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#contact-form" id="link-contacto">Contáctanos</a></li>
     </ul>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 
     <div class="nav-actions">
         
@@ -58,69 +57,31 @@
 
 
 
- <header id="inicio" class="hero-senior" style="position: relative !important; width: 100% !important; height: 100vh !important; display: flex !important; align-items: flex-end !important; justify-content: flex-start !important; overflow: hidden !important;">
-    
-    <div class="hero-video-bg" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important;">
-        <img src="IMG/fondo4.jpg" alt="NovaCore Elite" style="width: 100% !important; height: 100% !important; object-fit: cover !important;">
+<!-- Hero principal: el scene de Spline se define en config.js -->
+<header id="inicio" class="hero-senior">
+    <div class="hero-video-bg">
+        <img src="IMG/fondo4.jpg" alt="NovaCore Elite">
+        <spline-viewer class="hero-spline-bg" data-spline-viewer hidden></spline-viewer>
     </div>
-    
-    <div class="hero-overlay" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0, 0, 0, 0.4) !important; z-index: 2 !important;"></div>
-    
-    <div class="hero-content" style="position: relative !important; z-index: 3 !important; text-align: left !important; color: #ffffff !important; display: flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: flex-end !important; width: 100% !important; max-width: 600px !important; margin: 0 !important; padding: 0 0 50px 50px !important; box-sizing: border-box !important; transform: none !important; left: 0 !important;">
-        
-        <div class="hero-top-text" style="margin-bottom: 10px !important;">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <div class="hero-top-text">
             <span class="line"></span>
-            <span class="label" style="font-size: 0.8rem !important; letter-spacing: 2px !important;">COLECCIÓN EXCLUSIVA</span>
+            <span class="label">COLECCIÓN EXCLUSIVA</span>
             <span class="line"></span>
         </div>
-        
-        <h1 style="color: #ffffff !important; font-size: 2rem !important; font-weight: 600 !important; line-height: 1.2 !important; margin: 0 0 20px 0 !important; text-transform: uppercase !important; letter-spacing: 1px !important; text-align: left !important;">
-             PIEZAS ESENCIALES <br> <span class="thin" style="font-weight: 300 !important;">DE EDICIÓN</span> LIMITADA
+
+        <h1>
+            PIEZAS ESENCIALES <br> <span class="thin">DE EDICIÓN</span> LIMITADA
         </h1>
-        
-        <div class="hero-actions-fixed" style="position: relative !important; display: flex !important; justify-content: flex-start !important; align-items: center !important; width: auto !important; min-width: max-content !important; margin: 0 !important; left: auto !important; right: auto !important; transform: none !important;">
-           <a href="#productos" class="btn-primary" style="display: inline-block !important; margin: 0 !important; text-align: center !important; padding: 14px 36px !important; border-radius: 0px !important; text-decoration: none !important; font-weight: 600 !important; letter-spacing: 2px !important; text-transform: uppercase !important; font-size: 0.85rem !important; transition: all 0.3s ease !important;">COMPRAR AHORA</a>
+
+        <div class="hero-actions-fixed">
+           <a href="#productos" class="btn-primary">COMPRAR AHORA</a>
         </div>
     </div>
-
 </header>
-
-<script>
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const slideInterval = 5000; // Tiempo en milisegundos (5 segundos)
-
-    function showSlide(index) {
-        if (!slides.length || !dots.length) return;
-
-        // Si llega al final, vuelve al primero. Si va hacia atrás del primero, va al último.
-        if (index >= slides.length) currentSlideIndex = 0;
-        if (index < 0) currentSlideIndex = slides.length - 1;
-
-        // Quitamos la clase active de todos los elementos
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        // Activamos solo el slide y el puntito correspondiente
-        slides[currentSlideIndex].classList.add('active');
-        dots[currentSlideIndex].classList.add('active');
-    }
-
-    // Función para cuando el usuario hace clic manualmente en los puntitos
-    function currentSlide(index) {
-        currentSlideIndex = index;
-        showSlide(currentSlideIndex);
-    }
-
-    // Configuración del cambio automático continuo
-    if (slides.length && dots.length) {
-        setInterval(() => {
-            currentSlideIndex++;
-            showSlide(currentSlideIndex);
-        }, slideInterval);
-    }
-</script>
 
 
 
@@ -150,7 +111,7 @@
     </div>
 </div>
 
-<section id="productos" class="featured-products-section" style="scroll-margin-top: 90px !important; padding: 60px 3%;">
+<section id="productos" class="featured-products-section">
     <div class="products-clean-grid">
         
         <a href="producto.html?slug=camisa-brand" class="product-item">
@@ -526,5 +487,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+    <script src="config.js"></script>
+    <script src="motion.js"></script>
 </body>
 </html>

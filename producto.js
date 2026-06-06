@@ -5,6 +5,7 @@ const products = {
         price: 45,
         image: 'IMG/camisa1.jpg',
         alt: 'Camisa Brand NovaCore',
+        model: null,
         badge: 'DROP LIMITADO',
         description: [
             'Camisa de silueta limpia pensada para capas ligeras y un look pulido.',
@@ -32,6 +33,7 @@ const products = {
         price: 85,
         image: 'IMG/chaqueta.jpg',
         alt: 'Chaqueta Sainttears NovaCore',
+        model: null,
         badge: 'OUTERWEAR EDITION',
         description: [
             'Chaqueta estructurada con presencia urbana y acabado pulido.',
@@ -59,6 +61,7 @@ const products = {
         price: 60,
         image: 'IMG/bermuda.jpg',
         alt: 'Bermuda Buzzer NovaCore',
+        model: null,
         badge: 'SUMMER DROP',
         description: [
             'Bermuda de corte relajado con energía utilitaria y caída limpia.',
@@ -86,6 +89,7 @@ const products = {
         price: 70,
         image: 'IMG/hoodie1.jpg',
         alt: 'Hoodie Saint NovaCore',
+        model: null,
         badge: 'HEAVYWEIGHT',
         description: [
             'Hoodie pesado con estructura premium y ajuste relajado.',
@@ -141,6 +145,7 @@ const initializeProductPage = () => {
     const detailsEl = document.getElementById('tech-sections');
     const badgeEl = document.getElementById('product-badge-text');
     const addButton = document.getElementById('product-add-button');
+    const modelViewer = document.getElementById('product-model-viewer');
 
     document.title = `NovaCore | ${product.name}`;
 
@@ -164,6 +169,32 @@ const initializeProductPage = () => {
     if (addButton) {
         addButton.dataset.price = String(product.price);
         addButton.setAttribute('aria-label', `Añadir ${product.name} al carrito`);
+    }
+
+    const hasModel = typeof product.model === 'string' && product.model.trim().length > 0;
+    if (modelViewer && imageEl) {
+        if (hasModel) {
+            modelViewer.hidden = false;
+            imageEl.hidden = true;
+            modelViewer.setAttribute('src', product.model);
+            modelViewer.setAttribute('poster', product.image);
+            modelViewer.setAttribute('alt', product.alt);
+
+            modelViewer.addEventListener('error', () => {
+                modelViewer.hidden = true;
+                imageEl.hidden = false;
+                if (badgeEl) badgeEl.textContent = product.badge;
+            }, { once: true });
+
+            if (badgeEl) badgeEl.textContent = '3D VIEW';
+        } else {
+            modelViewer.hidden = true;
+            imageEl.hidden = false;
+            modelViewer.removeAttribute('src');
+            modelViewer.removeAttribute('poster');
+            modelViewer.removeAttribute('alt');
+            if (badgeEl) badgeEl.textContent = product.badge;
+        }
     }
 };
 

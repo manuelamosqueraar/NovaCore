@@ -228,7 +228,7 @@ img {
 .search-icon {
     width: 1.25rem; 
     height: 1.25rem;
-    color: #000000 !important; 
+    color: #ffffff; 
     transition: transform 0.3s ease;
 }
 
@@ -236,10 +236,30 @@ img {
     transform: scale(1.08);
 }
 
+
+/* FUERZA BRUTA AL FINAL DEL ARCHIVO */
+.navbar.scroll-activo .search-btn .search-icon {
+    color: #000000 !important;
+    stroke: #000000 !important;
+    
+}
+
 /* Fuerza a tu carrito original a verse negro si hay scroll activo */
 .navbar.scroll-activo .cart-container svg {
     stroke: #000000 !important;
 }
+
+
+/* LÍNEA NUEVA: Fuerza al carrito a ser BLANCO cuando estás arriba del todo */
+.navbar .cart-container svg {
+    stroke: #ffffff !important; /* Si tu carrito usa bordes */
+    fill: transparent;          /* Por si acaso para que no se pinte todo por dentro */
+    transition: stroke 0.3s ease; /* Para que el cambio a negro sea suave */
+}
+
+
+
+
 
 /* ====================================================
    ESTILOS DE LA BARRA DE BÚSQUEDA DESPLEGABLE

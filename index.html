@@ -95,7 +95,9 @@
                 <div class="product-image-box">
                     <img src="IMG/camisa1.jpg" alt="Camisa Brand">
                     <div class="product-add-icon">+</div>
-    function showSlide(index) {
+               
+                    
+                 function showSlide(index) {
         if (!slides.length || !dots.length) return;
         if (index >= slides.length) currentSlideIndex = 0;
         if (index < 0) currentSlideIndex = slides.length - 1;
@@ -116,6 +118,7 @@
             showSlide(currentSlideIndex);
         }, slideInterval);
     }
+
 </script>
 
 <div class="ticker-wrap">

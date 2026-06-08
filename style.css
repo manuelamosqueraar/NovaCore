@@ -16,15 +16,14 @@ body {
     background: #fff;
 }
 
-/* --- ESTILOS BASE PARA IMÁGENES --- */
-img {
+img { 
     max-width: 100%;
     height: auto;
     display: block;
 }
 
 /* ====================================================
-   NAVBAR CON CENTRADO ABSOLUTO (ESTILO MAISON)
+   NAVBAR
    ==================================================== */
 
 .navbar {
@@ -39,12 +38,11 @@ img {
     box-sizing: border-box;
     background: transparent; 
     z-index: 1000; 
-    border-bottom: none; /* <-- Aquí ya quedó quitada la línea */
+    border-bottom: none;
     min-height: 45px;     
     transition: all 0.4s ease-in-out; 
 }
-
-/* --- LOGO: CLAVADO EN EL CENTRO --- */
+  
 .logo {
     position: absolute;
     left: 50%;
@@ -52,7 +50,7 @@ img {
     transform: translate(-50%, -50%); 
     font-family: 'Oswald', 'Impact', sans-serif; 
     font-size: 2.2rem;               
-    color: #ffffff; /* ARRANCA BLANCO */
+    color: #ffffff;
     text-transform: uppercase;   
     letter-spacing: 1.5px;         
     display: inline-flex;
@@ -66,18 +64,17 @@ img {
     color: #ffffff; 
     font-family: 'Oswald', 'Impact', sans-serif;
     transition: color 0.4s ease;
-}
-
-/* --- ENLACES EN POPPINS --- */
+} 
+ 
 .nav-links { 
-    display: flex; 
+    display: flex;  
     list-style: none; 
     gap: 20px; 
 }
 
 .nav-links a { 
     text-decoration: none; 
-    color: #ffffff; /* ARRANCA BLANCO */
+    color: #ffffff;
     font-family: 'Poppins', sans-serif; 
     font-weight: 400;                   
     font-size: 0.85rem; 
@@ -86,8 +83,7 @@ img {
     padding-bottom: 4px; 
     transition: color 0.4s ease;
 }
-
-/* EFECTO DE LA LÍNEA ABAJO (Blanca al inicio) */
+ 
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -104,8 +100,7 @@ img {
 .nav-links a:hover::after {
     transform: scaleX(1); 
 }
-
-/* --- CONTENEDOR DEL CARRITO --- */
+ 
 .cart-container {
     position: relative;
     display: inline-flex;
@@ -117,7 +112,7 @@ img {
 }
 
 .cart-container i {
-    color: #ffffff; /* ARRANCA BLANCO */
+    color: #ffffff;
     font-size: 1.3rem; 
     transition: color 0.4s ease;
 }
@@ -130,8 +125,8 @@ img {
     position: absolute;
     bottom: 0px;         
     left: -2px;          
-    background-color: #ffffff; /* Círculo blanco al inicio */
-    color: #000000;            /* Número negro al inicio */
+    background-color: #ffffff;
+    color: #000000;
     font-size: 0.65rem;        
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -145,13 +140,10 @@ img {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-
-/* ====================================================
-   NUEVO ESTADO: EFECTO CUANDO SE HACE SCROLL BAJO
-   ==================================================== */
+/* Navbar con scroll */
 .navbar.scroll-activo {
-    background: #ffffff !important; /* Fondo Blanco */
-    border-bottom: 1px solid #eee; /* Marco Gris */
+    background: #ffffff !important;
+    border-bottom: 1px solid #eee;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
@@ -159,27 +151,40 @@ img {
 .navbar.scroll-activo .logo span,
 .navbar.scroll-activo .nav-links a,
 .navbar.scroll-activo .cart-container i {
-    color: #000000 !important; /* Todo cambia a negro */
+    color: #000000 !important;
 }
 
 .navbar.scroll-activo .nav-links a::after {
-    background-color: #000000 !important; /* Línea del hover cambia a negra */
+    background-color: #000000 !important;
 }
 
 .navbar.scroll-activo #cart-count {
-    background-color: #000000 !important; /* Círculo del carrito cambia a negro */
-    color: #ffffff !important;            /* Número cambia a blanco */
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
+.navbar.scroll-activo .search-btn .search-icon {
+    color: #000000 !important;
+    stroke: #000000 !important;
+}
 
-/* Vista móvil */
+.navbar.scroll-activo .cart-container svg {
+    stroke: #000000 !important;
+}
+
+.navbar .cart-container svg {
+    stroke: #ffffff !important;
+    fill: transparent;
+    transition: stroke 0.3s ease;
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         gap: 15px;
         padding: 15px;
-        position: relative; /* En móvil es mejor que no tape */
-        background: #ffffff; /* En móvil arranca blanco para que se lea bien */
+        position: relative;
+        background: #ffffff;
     }
     .navbar .logo, .navbar .logo span, .navbar .nav-links a, .navbar .cart-container i {
         color: #000000;
@@ -196,25 +201,19 @@ img {
         gap: 15px;
     }
 }
-
-
-
-
-
+ 
 /* ====================================================
-   SECCIÓN: LUPA DE BÚSQUEDA Y ACCIONES DEL MENÚ
+   ACCIONES DEL MENÚ (LUPA + CARRITO)
    ==================================================== */
 
-/* Contenedor que mantiene juntos la lupa y el carrito a la derecha */
-.nav-actions {
+.nav-actions { 
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
     gap: 12px; 
     z-index: 1010;
 }
-
-/* El botón transparente de la lupa */
+ 
 .search-btn {
     background: transparent !important;
     border: none !important;
@@ -224,8 +223,7 @@ img {
     align-items: center;
     justify-content: center;
 }
-
-/* Icono de la lupa siempre negro */
+ 
 .search-icon {
     width: 1.25rem; 
     height: 1.25rem;
@@ -237,37 +235,19 @@ img {
     transform: scale(1.08);
 }
 
-
-/* FUERZA BRUTA AL FINAL DEL ARCHIVO */
-.navbar.scroll-activo .search-btn .search-icon {
-    color: #000000 !important;
-    stroke: #000000 !important;
-    
+@media (max-width: 768px) {
+    .navbar .search-icon {
+        color: #000000 !important;
+    }
 }
-
-/* Fuerza a tu carrito original a verse negro si hay scroll activo */
-.navbar.scroll-activo .cart-container svg {
-    stroke: #000000 !important;
-}
-
-
-/* LÍNEA NUEVA: Fuerza al carrito a ser BLANCO cuando estás arriba del todo */
-.navbar .cart-container svg {
-    stroke: #ffffff !important; /* Si tu carrito usa bordes */
-    fill: transparent;          /* Por si acaso para que no se pinte todo por dentro */
-    transition: stroke 0.3s ease; /* Para que el cambio a negro sea suave */
-}
-
-
-
-
 
 /* ====================================================
-   ESTILOS DE LA BARRA DE BÚSQUEDA DESPLEGABLE
+   BARRA DE BÚSQUEDA DESPLEGABLE
    ==================================================== */
+
 #search-bar-container {
     position: fixed;
-    top: 55px; /* Se posiciona debajo de la navbar */
+    top: 55px;
     left: 0;
     width: 100%;
     background: #ffffff;
@@ -280,8 +260,7 @@ img {
     visibility: hidden;
     transform: translateY(-10px);
 }
-
-/* Clase que activa JavaScript para mostrar la barra */
+ 
 #search-bar-container.search-bar-visible {
     opacity: 1;
     visibility: visible;
@@ -318,128 +297,17 @@ img {
 #close-search:hover {
     color: #000000;
 }
-
-/* Corrección para celulares */
-@media (max-width: 768px) {
-    .navbar .search-icon {
-        color: #000000 !important;
-    }
+ 
+@media (max-width: 768px) { 
     #search-bar-container {
-        top: 110px; /* Ajuste por si el menú se vuelve más alto en móvil */
-    }
-}
-
-
-
-
-
-
-
-/* ---INICIO--- */
-
-/* --- INICIO CON SLIDER PRESERVADO --- */
-
-.hero-slider {
-    position: relative;
-    height: 100vh; 
-    width: 100%;
-    overflow: hidden;
-    background-color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Sistema de capas para las diapositivas */
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Ocultas por defecto */
-    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* Transición de lujo */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-/* Diapositiva que está activa */
-.slide.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-/* Tu contenedor de imagen original adaptado al slider */
-.slide .hero-video-bg {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-}
-
-.hero-spline-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.hero-spline-bg[hidden] {
-    display: none;
-}
-
-@media (max-width: 991px) {
-    .hero-spline-bg {
-        display: none !important;
-    }
-}
-
-.slide .hero-video-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-}
-
-/* Tu degradado oscuro original aplicado a cada slide */
-.slide .hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Tus textos originales centrados */
-.slide .hero-content {
-    text-align: center;
-    color: #ffffff;
-    max-width: 900px;
-    padding: 0 20px;
-    z-index: 10;
-    margin-bottom: 80px; /* Evita que choque con las acciones fijas */
-
-
-   /* 1. ESTADO INICIAL: Viene desde ARRIBA y está oculto */
-    opacity: 0;
-    transform: translateY(-50px); /* El valor negativo lo sube antes de aparecer */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-
-.slide.active .hero-content {
-   opacity: 1;
-    transform: translateY(0); /* Llega a su centro normal */
-    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease;
-    transition-delay: 0.3s; /* Pequeña pausa premium para que entre el fondo */
+        top: 110px;
+    } 
 }
 
 /* ====================================================
-   HERO PRINCIPAL DEL HOME (sin estilos inline)
+   HERO PRINCIPAL
    ==================================================== */
+
 .hero-senior {
     position: relative;
     width: 100%;
@@ -487,13 +355,23 @@ img {
     color: #ffffff;
 }
 
-.hero-senior .hero-top-text {
+.hero-top-text {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 10px;
 }
 
-.hero-senior .hero-top-text .label {
+.hero-top-text .line {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.5);
+}
+
+.hero-top-text .label {
     font-size: 0.8rem;
     letter-spacing: 2px;
+    font-weight: 400;
 }
 
 .hero-senior .hero-content h1 {
@@ -519,84 +397,8 @@ img {
     width: auto;
     min-width: max-content;
     margin: 0;
-    left: auto;
-    right: auto;
-    transform: none;
 }
 
-.hero-senior .hero-actions-fixed .btn-primary {
-    display: inline-block;
-    margin: 0;
-    text-align: center;
-    padding: 14px 36px;
-    border-radius: 0;
-    text-decoration: none;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-}
-
-/* Texto superior decorativo */
-.hero-top-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.hero-top-text .line {
-    width: 40px;
-    height: 1px;
-    background: rgba(255,255,255,0.5);
-}
-
-.hero-top-text .label {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    font-weight: 400;
-}
-
-/* Tu Título Principal intacto */
-.hero-content h1 {
-    font-size: clamp(3rem, 8vw, 6rem); 
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -2px;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-}
-
-.hero-content h1 .thin {
-    font-weight: 200; 
-    font-style: italic;
-}
-
-/* Tu Descripción intacta */
-.hero-description {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
-    opacity: 0.9;
-    font-weight: 400;
-}
-
-/* BOTONES FIJOS (Se quedan quietos abajo en la pantalla) */
-.hero-actions-fixed {
-    position: absolute;
-    bottom: 22%; /* Posicionado a la misma altura que antes */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    z-index: 10; /* Siempre por encima de los slides */
-}
-
-/* Tus estilos de botón exactos */
 .btn-primary {
     background: #ffffff;
     color: #000000;
@@ -608,85 +410,20 @@ img {
     transition: 0.3s;
 }
 
-.btn-secondary {
-    border: 1px solid #ffffff;
-    color: #ffffff;
-    padding: 18px 45px;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    transition: 0.3s;
+.btn-primary:hover { 
+    background: #e0e0e0; 
+    transform: translateY(-3px); 
 }
 
-.btn-primary:hover { background: #e0e0e0; transform: translateY(-3px); }
-.btn-secondary:hover { background: #ffffff; color: #000; transform: translateY(-3px); }
+/* ====================================================
+   TICKER
+   ==================================================== */
 
-/* --- DISEÑO DE LOS PUNTITOS INDICADORES --- */
-.slider-dots {
-    position: absolute;
-    bottom: 90px; /* Ubicados justo arriba del indicador del mouse */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    z-index: 10;
-}
-
-.dot {
-    width: 9px;
-    height: 9px;
-    background-color: rgba(255, 255, 255, 0.35);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.dot.active {
-    background-color: #ffffff;
-    transform: scale(1.3);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-/* Tu indicador de mouse original intacto */
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.6;
-    z-index: 10;
-}
-
-.scroll-indicator .mouse {
-    width: 20px;
-    height: 35px;
-    border: 2px solid #fff;
-    border-radius: 20px;
-}
-
-.scroll-indicator span {
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-}
-
-
-/* --- FIN inicio --- */
-
-
-
-
-
-/* --- TICKER INFINITO REAL (100% CORRIDO) --- */
 .ticker-wrap {
     width: 100%;
     overflow: hidden;
     background-color: #000000;
-    padding: 8px 0; /* <-- AQUÍ SE REDUJO EL GROSOR DE LA LÍNEA */
+    padding: 8px 0;
     display: flex;
 }
 
@@ -695,8 +432,7 @@ img {
     width: max-content;
 }
 
-/* Las dos pistas corren una detrás de la otra sin dejar huecos */
-.ticker-track {
+.ticker-track { 
     display: flex;
     flex-shrink: 0;
     padding-right: 20px;
@@ -706,7 +442,7 @@ img {
 .ticker-track span {
     font-family: 'Syne', sans-serif;
     font-weight: 900;
-    font-size: 0.9rem; /* <-- AQUÍ SE ACHICÓ UN POCO LA LETRA */
+    font-size: 0.9rem;
     color: #ffffff;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -718,43 +454,28 @@ img {
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
-
-
-
-/* --- fin ticker --- */
-
-
-
-
-
-
-/* --- SECCIÓN PRODUCTOS DESTACADOS (EDICIÓN VANGUARDISTA / RETAIL DE LUJO) --- */
+/* ====================================================
+   SECCIÓN PRODUCTOS DESTACADOS
+   ==================================================== */
 
 #productos {
-    scroll-margin-top: 50px !important; 
+    scroll-margin-top: 90px !important;
 }
 
 .featured-products-section {
     background-color: #ffffff; 
-    padding: 30px 4% 90px 4%; 
-    scroll-margin-top: 100px !important; 
-}
-
-#productos.featured-products-section {
-    scroll-margin-top: 90px !important;
-    padding: 60px 3%;
+    padding: 60px 3%; 
 }
 
 .products-clean-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    gap: 30px; /* Un poco más de aire para que respire la asimetría */
+    gap: 30px;
     max-width: 1400px;
     margin: 0 auto;
     background-color: #ffffff !important;
 }
-
-/* Tarjeta del Producto - Estructura Limpia */
+ 
 .product-item {
     display: flex;
     flex-direction: column;
@@ -765,34 +486,26 @@ img {
     overflow: visible;
 }
 
-/* CONTENEDOR DE LA IMAGEN: El truco del marco reactivo */
-.product-image-box {
+.product-image-box { 
     position: relative; 
     width: 100%;
     height: 480px; 
     overflow: hidden;
-    background-color: #f3f3f3;
-    /* Creamos una transición para los bordes internos */
+    background-color: #f3f3f3; 
     box-shadow: inset 0 0 0 0px #ffffff;
     transition: box-shadow 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-/* Imagen en blanco y negro con físicas de desaceleración brutal */
-/* Imagen limpia: Corregida para que se vea a full color natural */
+} 
+ 
 .product-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* !!! CORREGIDO: Eliminamos el grayscale para recuperar los colores originales !!! */
-    filter: contrast(104%) brightness(98%); /* Solo un mini ajuste de nitidez de pasarela */
+    filter: contrast(104%) brightness(98%);
     transform: scale(1);
-    /* Curva Bézier cinematográfica intacta */
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), 
-                filter 0.5s ease;
-}
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), filter 0.5s ease;
+} 
 
-/* --- TRUCO CREATIVO: EL SIGNO (+) QUE MUTA A FLECHA --- */
-.product-add-icon {
+.product-add-icon { 
     position: absolute;
     bottom: 25px;
     right: 25px;
@@ -804,7 +517,7 @@ img {
     align-items: center;
     justify-content: center;
     font-size: 1.6rem; 
-    font-weight: 200; /* Líneas finas premium */
+    font-weight: 200;
     opacity: 0; 
     transform: translateY(10px); 
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
@@ -812,8 +525,7 @@ img {
     z-index: 15;
 }
 
-/* Mini círculo de pulso invisible inicialmente */
-.product-add-icon::before {
+.product-add-icon::before { 
     content: '';
     position: absolute;
     width: 100%;
@@ -825,8 +537,7 @@ img {
     z-index: -1;
 }
 
-/* --- CUADRO DE TEXTO (Tipografía Reactiva) --- */
-.product-info-box {
+.product-info-box { 
     padding: 16px 4px 0 4px; 
     background: #ffffff !important;
     text-align: center; 
@@ -840,7 +551,7 @@ img {
     color: #111111 !important;
     margin: 0 auto 5px auto !important; 
     text-transform: uppercase;
-    letter-spacing: 1.2px; /* Más separado = Más costoso se ve */
+    letter-spacing: 1.2px;
     display: block;
     transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), color 0.3s ease;
 }
@@ -854,48 +565,34 @@ img {
     transition: color 0.4s ease, transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-
-/* ====================================================
-   EFECTOS HOVER ULTRA-CREATIVOS (NIVEL BRANDING INTERNACIONAL)
-   ==================================================== */
-
-/* 1. El Marco Pasarela: El contenedor muerde la imagen creando un borde blanco limpio */
-.product-item:hover .product-image-box {
-    /* Genera un marco blanco interno de 12px de forma ultra fluida */
+/* Hover productos */
+.product-item:hover .product-image-box { 
     box-shadow: inset 0 0 0 12px #ffffff; 
 }
-
-/* La imagen se aleja y se mueve un poco (Contraste de dirección) */
-/* Al pasar el mouse, mantiene su color pero gana un pelín de contraste pro */
+ 
 .product-item:hover .product-image-box img {
     transform: scale(0.96) translateY(-4px); 
-    filter: contrast(110%) brightness(95%); /* Gana fuerza visual sin perder color */
+    filter: contrast(110%) brightness(95%);
 }
-
-/* 2. El Pulso y Cambio de Carácter del (+) */
+ 
 .product-item:hover .product-add-icon {
     opacity: 1; 
     transform: translateY(0); 
 }
-
-/* Cuando el usuario pasa el mouse sobre la tarjeta, el "+" muta visualmente */
+ 
 .product-item:hover .product-add-icon::before {
-    transform: scale(1.2); /* El circulito de fondo se expande como onda */
+    transform: scale(1.2);
 }
-
-/* 3. Ajuste de Textos Dinámico */
+ 
 .product-item:hover .product-title {
-    transform: translateY(-2px); /* Sube un poco de forma fina */
-}
-
-.product-item:hover .product-price {
-    color: #000000 !important; /* Se enciende a negro sólido */
     transform: translateY(-2px);
 }
 
-
-/* ====================================================
-   Ajustes Responsivos */
+.product-item:hover .product-price {
+    color: #000000 !important;
+    transform: translateY(-2px);
+}
+ 
 @media (max-width: 992px) {
     .products-clean-grid { 
         grid-template-columns: repeat(2, 1fr); 
@@ -903,13 +600,12 @@ img {
     }
     .product-image-box { 
         height: 380px; 
-    }
-    /* En móvil cancelamos el marco interno para que no robe espacio de pantalla */
+    } 
     .product-item:hover .product-image-box {
         box-shadow: none;
     }
     .product-item:hover .product-image-box img {
-        transform: scale(1.03); /* Hover tradicional y ligero para pantallas táctiles */
+        transform: scale(1.03);
     }
     .product-add-icon {
         opacity: 1; 
@@ -917,15 +613,12 @@ img {
     }
 }
 
+/* ====================================================
+   NOSOTROS
+   ==================================================== */
 
-
-
-
-
-/* NOSOTROS */
-/*inicio nosotros*/
 .about-senior {
-    padding: 120px 8%; /* Mucho espacio arriba y abajo */
+    padding: 120px 8%;
     background-color: #ffffff;
 }
 
@@ -933,12 +626,11 @@ img {
     max-width: 1400px;
     margin: 0 auto;
 }
-
-/* Fila principal: Imagen y Texto */
+ 
 .about-row {
     display: flex;
     align-items: center;
-    gap: 100px; /* Gran espacio entre imagen y texto */
+    gap: 100px;
     margin-bottom: 120px;
 }
 
@@ -950,7 +642,7 @@ img {
     width: 100%;
     height: 600px;
     object-fit: cover;
-    box-shadow: 30px 30px 0px #f4f4f4; /* Efecto decorativo elegante */
+    box-shadow: 30px 30px 0px #f4f4f4;
 }
 
 .about-text {
@@ -980,18 +672,17 @@ img {
     line-height: 1.8;
     margin-bottom: 20px;
 }
-
-/* Cuadrícula de Valores */
+ 
 .about-values {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 60px; /* Espacio entre columnas */
+    gap: 60px;
     margin-bottom: 120px;
 }
 
 .value-item {
     padding: 40px;
-    border-top: 1px solid #eee; /* Línea sutil superior */
+    border-top: 1px solid #eee;
 }
 
 .value-number {
@@ -1012,8 +703,7 @@ img {
     font-size: 0.95rem;
     line-height: 1.6;
 }
-
-/* Banner Final */
+ 
 .about-banner {
     position: relative;
     height: 300px;
@@ -1023,7 +713,7 @@ img {
 .about-banner img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Esto estira el GIF de borde a borde sin deformarlo */
+    object-fit: cover;
     display: block;
 }
 
@@ -1041,39 +731,33 @@ img {
     font-weight: 900;
     white-space: nowrap;
 }
-
-/* Responsivo */
+ 
 @media (max-width: 1024px) {
     .about-row { flex-direction: column; gap: 50px; }
     .about-values { grid-template-columns: 1fr; }
     .about-text h2 { font-size: 2.5rem; }
-} 
-/*Fin nosotros*/
+}
 
+/* ====================================================
+   MODAL CONTACTO
+   ==================================================== */
 
-
-
-
-
-
-/* --- CONTENEDOR PADRE (EL FONDO OSCURO) --- */
 #contactModal {
-    display: none;             /* Oculto por defecto */
-    position: fixed;           /* Fijo en la pantalla */
-    z-index: 9999;             /* Por encima de todo */
+    display: none;
+    position: fixed;
+    z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro */
-    backdrop-filter: blur(5px);           /* Efecto borroso elegante */
-    overflow-y: auto;          /* Permite scroll si la pantalla es pequeña */
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
-
-/* --- TU TABLA ORIGINAL (AHORA FLOTANTE) --- */
+ 
 .modal-content-premium {
     background: #fff;
-    margin: 5vh auto;          /* Centrado vertical y horizontal */
+    margin: 5vh auto;
     width: 90%;
     max-width: 950px;
     position: relative;
@@ -1081,15 +765,14 @@ img {
     overflow: hidden;
     display: block;
     box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-    animation: fadeInModal 0.4s ease; /* Animación de entrada */
+    animation: fadeInModal 0.4s ease;
 }
 
 @keyframes fadeInModal {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-/* --- LA X DE CERRAR (TU DISEÑO) --- */
+ 
 .close-container {
     position: absolute;
     top: 20px;
@@ -1113,22 +796,15 @@ img {
     line-height: 1;
 }
 
-.close-container:hover {
-    background: #000;
-}
-
-.close-container:hover span {
-    color: #fff;
-}
-
-/* --- ESTRUCTURA INTERNA (TU DISEÑO) --- */
+.close-container:hover { background: #000; }
+.close-container:hover span { color: #fff; }
+ 
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     min-height: 600px;
 }
-
-/* Panel Visual (Lado izquierdo) */
+ 
 .contact-visual {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                 url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1000');
@@ -1156,8 +832,7 @@ img {
     font-weight: 200;
     font-style: italic;
 }
-
-/* Área del Formulario */
+ 
 .contact-form-area {
     padding: 60px;
     background: #fff;
@@ -1217,66 +892,52 @@ img {
     transform: translateY(-3px);
 }
 
-/* --- AJUSTE RESPONSIVO (Para que no se rompa en móvil) --- */
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-    .contact-visual {
-        display: none; /* Ocultamos la imagen en móvil para que no sea eterno el scroll */
-    }
-    .modal-content-premium {
-        margin: 2vh auto;
-        width: 95%;
-    }
+@media (max-width: 992px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .modal-content-premium { max-width: 90%; }
 }
 
-/* --- TABLA DE PAGO FLOTANTE (MODAL) --- */
+@media (max-width: 768px) {
+    .contact-visual { display: none; }
+    .modal-content-premium { margin: 2vh auto; width: 95%; }
+    .contact-form-area { padding: 30px; }
+    .visual-text h2 { font-size: 1.8rem; }
+}
+
+/* ====================================================
+   MODAL CHECKOUT
+   ==================================================== */
 
 #checkoutModal {
-    display: none;        /* Oculto por defecto */
-    position: fixed;      /* Se queda fijo en pantalla */
-    z-index: 9999;        /* Por encima de todo */
+    display: none;
+    position: fixed;
+    z-index: 9999;
     left: 0;
     top: 0;
-    width: 100%;          /* Cubre todo el ancho */
-    height: 100%;         /* Cubre todo el alto */
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro transparente */
-    backdrop-filter: blur(5px);           /* Desenfoque de fondo elegante */
-    overflow-y: auto;     /* Permite scroll si la tabla es muy alta */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
 
 .modal-content-checkout-v2 {
     background: #fff;
-    margin: 5vh auto;     /* Separación del techo */
-    width: 95%;           /* Casi todo el ancho en móviles */
-    max-width: 850px;     /* Ancho máximo en PC */
+    margin: 5vh auto;
+    width: 95%;
+    max-width: 850px;
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-    
-    /* Animación para que "salte" hacia el frente */
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5); 
     animation: slideUp 0.4s ease;
 }
 
 @keyframes slideUp {
-    from { 
-        transform: translateY(30px); 
-        opacity: 0; 
-    }
-    to { 
-        transform: translateY(0); 
-        opacity: 1; 
-    }
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
-
-/* pega hasta aqui*/
-
-
-
-
-/* Botón X para Pago */
+ 
 .close-container-pay {
     position: absolute;
     top: 20px;
@@ -1300,8 +961,7 @@ img {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
 }
-
-/* Lado del Formulario */
+ 
 .pay-form-side {
     padding: 50px;
 }
@@ -1327,8 +987,7 @@ img {
     cursor: pointer;
     margin-top: 10px;
 }
-
-/* Lado del Resumen */
+ 
 .pay-summary-side {
     background: #f8f8f8;
     padding: 50px;
@@ -1345,14 +1004,10 @@ img {
 
 .secure-footer { margin-top: 40px; font-size: 0.7rem; color: #ccc; text-align: center; }
 
+/* ====================================================
+   FOOTER
+   ==================================================== */
 
-
-
-
-
-
-/* --- ESTILOS FOOTER SENIOR --- */
-/*INICIO FOOTER*/
 .main-footer {
     background-color: #0a0a0a;
     color: #ffffff;
@@ -1364,7 +1019,7 @@ img {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1.5fr; /* Columnas con anchos desiguales para mejor balance */
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
     gap: 60px;
     margin-bottom: 60px;
 }
@@ -1377,8 +1032,7 @@ img {
     font-weight: 900;
     text-transform: uppercase;
 }
-
-/* Columna de Marca */
+ 
 .logo-footer {
     font-size: 1.8rem;
     font-weight: 900;
@@ -1410,15 +1064,10 @@ img {
     transition: 0.3s;
 }
 
-.social-links a:hover {
-    background: #fff;
-    color: #000;
-}
-
-/* Listas de Enlaces */
+.social-links a:hover { background: #fff; color: #000; }
+ 
 .footer-column ul { list-style: none; }
-
-.footer-column ul li { margin-bottom: 15px; }
+.footer-column ul li { margin-bottom: 15px; } 
 
 .footer-column ul li a {
     color: #888;
@@ -1427,12 +1076,8 @@ img {
     transition: 0.3s;
 }
 
-.footer-column ul li a:hover {
-    color: #fff;
-    padding-left: 5px;
-}
-
-/* Formulario Newsletter */
+.footer-column ul li a:hover { color: #fff; padding-left: 5px; }
+ 
 .newsletter-col p {
     font-size: 0.9rem;
     color: #888;
@@ -1464,11 +1109,8 @@ img {
     transition: 0.3s;
 }
 
-.newsletter-form button:hover {
-    background: #ccc;
-}
-
-/* Barra Inferior */
+.newsletter-form button:hover { background: #ccc; }
+ 
 .footer-bottom {
     border-top: 1px solid #1a1a1a;
     padding-top: 30px;
@@ -1490,92 +1132,35 @@ img {
     gap: 20px;
     font-weight: 700;
 }
-
-/* Responsivo */
+ 
 @media (max-width: 1024px) {
-    .footer-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-    }
+    .footer-container { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 
 @media (max-width: 600px) {
-    .footer-container {
-        grid-template-columns: 1fr;
-    }
-    .bottom-container {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-/*Fin footer*/
-
-
-
-
-/* --- DISEÑO RESPONSIVO TOTAL --- */
-
-/* Tablets (Menos de 992px) */
-@media (max-width: 992px) {
-    .contact-grid {
-        grid-template-columns: 1fr; /* La imagen y el formulario se apilan */
-    }
-    
-    .modal-content-premium {
-        max-width: 90%;
-    }
+    .footer-container { grid-template-columns: 1fr; }
+    .bottom-container { flex-direction: column; gap: 20px; text-align: center; }
 }
 
-/* Celulares (Menos de 768px) */
+/* ====================================================
+   RESPONSIVE GENERAL
+   ==================================================== */
+
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column; /* Logo arriba, links abajo */
-        padding: 15px 5%;
-    }
-
-    .nav-links {
-        margin-top: 15px;
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .contact-visual {
-        height: 200px; /* Reducimos la imagen para que no ocupe toda la pantalla */
-        padding: 30px;
-    }
-
-    .visual-text h2 {
-        font-size: 1.8rem;
-    }
-
-    .contact-form-area {
-        padding: 30px;
-    }
+    .navbar { flex-direction: column; padding: 15px 5%; }
+    .nav-links { margin-top: 15px; gap: 15px; flex-wrap: wrap; justify-content: center; }
 }
 
-/* Celulares Pequeños (Menos de 480px) */
 @media (max-width: 480px) {
-    .logo {
-        font-size: 1.2rem;
-    }
-
-    .nav-links a {
-        font-size: 0.7rem;
-    }
-
-    .btn-send-premium {
-        padding: 15px;
-        font-size: 0.9rem;
-    }
+    .logo { font-size: 1.2rem; }
+    .nav-links a { font-size: 0.7rem; }
+    .btn-send-premium { padding: 15px; font-size: 0.9rem; }
 }
 
+/* ====================================================
+   SECCIÓN CATEGORÍAS
+   ==================================================== */
 
-
-
-
-/* --- SECCIÓN CATEGORÍAS FOTOGRÁFICAS (EDICIÓN CREATIVA VANGUARDISTA) --- */
 .shop-categories-section {
     background-color: #0b0b0b;       
     padding: 80px 0 100px 4%;         
@@ -1607,9 +1192,8 @@ img {
     letter-spacing: 3px;               
     text-transform: uppercase;
     color: #ffffff;                  
-}
-
-/* Envoltura del deslizador */
+} 
+ 
 .categories-slider-wrapper {
     width: 100%;
     overflow-x: auto;          
@@ -1620,21 +1204,15 @@ img {
     scrollbar-width: none;     
 }
 
-.categories-slider-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.categories-slider-wrapper:active {
-    cursor: grabbing;          
-}
+.categories-slider-wrapper::-webkit-scrollbar { display: none; }
+.categories-slider-wrapper:active { cursor: grabbing; }
 
 .categories-clean-grid {
     display: flex;             
     gap: 24px;                 
     padding-right: 4%;         
 }
-
-/* Entrada en cascada cinematográfica */
+ 
 .category-item {
     flex: 0 0 calc((100vw - 8% - 72px) / 4); 
     display: flex;
@@ -1651,8 +1229,7 @@ img {
 .category-item:nth-child(2) { animation-delay: 0.25s; }
 .category-item:nth-child(3) { animation-delay: 0.4s; }
 .category-item:nth-child(4) { animation-delay: 0.55s; }
-
-/* CONTENEDOR DE IMAGEN (Con efecto escáner cyberpunk integrado) */
+ 
 .category-image-box {
     width: 100%;
     height: 440px;             
@@ -1664,8 +1241,7 @@ img {
     transition: border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                 box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* --- TRUCO CREATIVO 1: EL LÁSER ESCÁNER DIGITAL --- */
+ 
 .category-image-box::after {
     content: '';
     position: absolute;
@@ -1677,15 +1253,13 @@ img {
     transform: skewX(-25deg);
     animation: laserScan 4s infinite linear;
 }
-
-/* La Imagen con Efecto Óptico Invertido */
+ 
 .category-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;         
     display: block;            
-    pointer-events: none;      
-    /* Inicialmente estirada y oscura */
+    pointer-events: none;       
     transform: scale(1.08); 
     filter: grayscale(100%) contrast(120%) brightness(70%);
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -1711,8 +1285,7 @@ img {
     color: #444444;                  
     transition: color 0.4s ease;
 }
-
-/* Título listo para el efecto Glitch */
+ 
 .category-text-footer h3 {
     font-family: 'Syne', sans-serif;
     font-weight: 900;
@@ -1746,62 +1319,40 @@ img {
     transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ====================================================
-   INTERACCIONES CREATIVAS (HOVER)
-   ==================================================== */
-
-/* Hover de la Imagen: Efecto Óptico Invertido (Se encoge mientras toma color) */
+/* Hover categorías */
 .category-item:hover .category-image-box img {
-    transform: scale(1.00); /* Regresa a su tamaño original dando sensación de profundidad */
+    transform: scale(1.00);
     filter: grayscale(0%) contrast(100%) brightness(100%);
 }
-
-/* Caja se ilumina con aura flotante */
+ 
 .category-item:hover .category-image-box {
     border-color: rgba(255, 255, 255, 0.25);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255, 255, 0.02);
 }
-
-/* --- TRUCO CREATIVO 2: ACTIVACIÓN DEL GLITCH DE TEXTO --- */
+ 
 .category-item:hover .category-text-footer h3 {
     animation: textGlitch 0.3s linear infinite;
     color: #fff;
-    text-shadow: 1px 0 chcl(#ff0055), -1px 0 chcl(#00ffcc); /* Sutil aberración cromática */
-}
+} 
 
-.category-item:hover .cat-idx {
-    color: #ffffff;
-}
-
-/* Botón SHOP se enciende */
+.category-item:hover .cat-idx { color: #ffffff; }
+ 
 .category-item:hover .cat-shop-link span {
     color: #ffffff;
-    transform: translateX(-4px); /* Se mueve de lado en vez de arriba */
+    transform: translateX(-4px);
 }
 
-.category-item:hover .line-animated {
-    width: 100%;
-}
-
-/* ====================================================
-   LÓGICA MATEMÁTICA DE ANIMACIONES (KEYFRAMES)
-   ==================================================== */
-
-/* Animación del Escáner Láser de Fondo */
+.category-item:hover .line-animated { width: 100%; }
+ 
 @keyframes laserScan {
     0% { left: -100%; }
     50%, 100% { left: 150%; }
 }
-
-/* Animación de Entrada Fluida */
+ 
 @keyframes creativeReveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-/* Animación de Mini-Glitch Estilo Archivo de Ropa Urbano */
+ 
 @keyframes textGlitch {
     0% { transform: skew(0deg); }
     20% { transform: skew(-3deg); }
@@ -1810,34 +1361,28 @@ img {
     80% { transform: skew(2deg); }
     100% { transform: skew(0deg); }
 }
-
-/* Responsivo */
+ 
 @media (max-width: 912px) {
     .shop-categories-section { padding: 50px 0 70px 4%; }
     .category-item { flex: 0 0 78vw; }
     .category-image-box { height: 400px; }
-    .category-item:hover .category-text-footer h3 { animation: none; text-shadow: none; } /* Desactiva glitch en móvil por rendimiento */
+    .category-item:hover .category-text-footer h3 { animation: none; text-shadow: none; }
 }
-
-
-
-
-
+ 
 /* ====================================================
-   ESTILOS AVANZADOS DE DISEÑO EDITORIAL (PRODUCTO INDIVIDUAL)
+   PÁGINA DE PRODUCTO INDIVIDUAL
    ==================================================== */
 
 .product-premium-experience {
     background-color: #ffffff;
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr; /* Desproporción moderna de catálogo */
+    grid-template-columns: 1.15fr 0.85fr;
     color: #000000;
 }
-
-/* PANEL IZQUIERDO: ESTUDIO DE FOTOGRAFÍA FIJO */
+ 
 .product-visual-panel {
-    background-color: #fafafa; /* Gris de estudio ultra suave */
+    background-color: #fafafa;
     position: sticky;
     top: 58px;
     height: calc(100vh - 58px);
@@ -1855,19 +1400,7 @@ img {
     justify-content: center;
     align-items: center;
 }
-
-.main-3d-viewer {
-    width: 100%;
-    height: 100%;
-    display: block;
-    background: transparent;
-    cursor: grab;
-}
-
-.main-3d-viewer:active {
-    cursor: grabbing;
-}
-
+ 
 .main-3d-asset {
     width: 100%;
     height: 100%;
@@ -1876,12 +1409,10 @@ img {
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-visual-panel:hover .main-3d-asset,
-.product-visual-panel:hover .main-3d-viewer {
-    transform: scale(1.02); /* Zoom micro-perceptible premium */
+.product-visual-panel:hover .main-3d-asset {
+    transform: scale(1.02);
 }
-
-/* Etiqueta industrial de información */
+ 
 .interaction-badge {
     position: absolute;
     bottom: 30px;
@@ -1901,7 +1432,7 @@ img {
 .pulse-dot {
     width: 5px;
     height: 5px;
-    background-color: #00ff66; /* Punto de radar digital */
+    background-color: #00ff66;
     border-radius: 50%;
     animation: luxuryPulse 2s infinite ease-in-out;
 }
@@ -1911,8 +1442,7 @@ img {
     50% { transform: scale(1.3); opacity: 1; }
     100% { transform: scale(0.8); opacity: 0.5; }
 }
-
-/* PANEL DERECHO: TIPOGRAFÍA SUIZA EDITORIAL */
+ 
 .product-info-panel {
     padding: 90px 12% 90px 10%;
     display: flex;
@@ -1932,7 +1462,7 @@ img {
 
 .product-main-name {
     font-family: 'Syne', sans-serif;
-    font-weight: 800; /* Letra imponente y robusta */
+    font-weight: 800;
     font-size: 2.4rem;
     color: #000000;
     margin: 0 0 15px 0;
@@ -1947,8 +1477,7 @@ img {
     color: #111111;
     margin: 0;
 }
-
-/* Separadores arquitectónicos hiper-finos */
+ 
 .editorial-divider {
     width: 100%;
     height: 1px;
@@ -1960,11 +1489,10 @@ img {
     font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     line-height: 1.65;
-    color: #555555; /* Texto fino y con aire */
+    color: #555555;
     font-weight: 300;
 }
-
-/* CAJA DE SELECCIÓN DE TALLAS */
+ 
 .size-selector-wrap {
     display: flex;
     flex-direction: column;
@@ -1989,9 +1517,7 @@ img {
     transition: color 0.2s;
 }
 
-.size-guide-link:hover {
-    color: #000000;
-}
+.size-guide-link:hover { color: #000000; }
 
 .premium-size-grid {
     display: grid;
@@ -2011,9 +1537,7 @@ img {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.size-box:hover {
-    border-color: #000000;
-}
+.size-box:hover { border-color: #000000; }
 
 .size-box.active {
     background-color: #000000;
@@ -2022,10 +1546,7 @@ img {
     font-weight: 500;
 }
 
-/* BOTÓN AGREGAR AL CARRITO ESTILO ALTA MODA */
-.purchase-actions-area {
-    margin-top: 40px;
-}
+.purchase-actions-area { margin-top: 40px; }
 
 .btn-main-add-cart {
     width: 100%;
@@ -2046,25 +1567,16 @@ img {
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-text {
-    transition: transform 0.3s ease;
-}
-
-.btn-arrow {
-    font-size: 1.1rem;
-    transition: transform 0.3s ease;
-}
-
-/* Efecto hover invertido de pasarela */
+.btn-text { transition: transform 0.3s ease; }
+.btn-arrow { font-size: 1.1rem; transition: transform 0.3s ease; }
+ 
 .btn-main-add-cart:hover {
     background-color: #ffffff;
     color: #000000;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.btn-main-add-cart:hover .btn-arrow {
-    transform: translateX(5px);
-}
+.btn-main-add-cart:hover .btn-arrow { transform: translateX(5px); }
 
 .shipping-notice {
     font-family: 'Inter', sans-serif;
@@ -2074,8 +1586,7 @@ img {
     font-weight: 300;
     line-height: 1.4;
 }
-
-/* ACORDEÓN MÍNIMO */
+ 
 .tech-item summary {
     list-style: none;
     font-family: 'Inter', sans-serif;
@@ -2089,13 +1600,9 @@ img {
     color: #000000;
 }
 
-.tech-item summary::-webkit-details-marker {
-    display: none; /* Elimina la flecha nativa horrible de HTML */
-}
+.tech-item summary::-webkit-details-marker { display: none; }
 
-.tech-content {
-    margin-top: 15px;
-}
+.tech-content { margin-top: 15px; }
 
 .tech-content ul {
     padding-left: 15px;
@@ -2107,16 +1614,14 @@ img {
     gap: 10px;
     font-weight: 300;
 }
-
-/* COMPATIBILIDAD CON SMARTPHONES */
+ 
 @media (max-width: 992px) {
     .product-premium-experience { grid-template-columns: 1fr; }
     .product-visual-panel { position: relative; top: 0; height: 55vh; }
     .product-info-panel { padding: 50px 6%; }
     .product-main-name { font-size: 2rem; }
 }
-
-
+ 
 model-viewer {
     width: 100%;
     height: 100%;
@@ -2124,9 +1629,7 @@ model-viewer {
     --poster-color: transparent;
 }
 
-body.product-page {
-    background-color: #ffffff;
-}
+body.product-page { background-color: #ffffff; }
 
 .product-navbar {
     position: sticky;
@@ -2143,18 +1646,9 @@ body.product-page {
     color: #000000;
 }
 
-.product-navbar .nav-links a::after {
-    background-color: #000000;
-}
-
-.product-navbar .cart-container svg {
-    stroke: #000000 !important;
-}
-
-.product-navbar #cart-count {
-    background-color: #000000;
-    color: #ffffff;
-}
+.product-navbar .nav-links a::after { background-color: #000000; }
+.product-navbar .cart-container svg { stroke: #000000 !important; }
+.product-navbar #cart-count { background-color: #000000; color: #ffffff; }
 
 .product-back-link {
     display: inline-flex;
@@ -2169,23 +1663,16 @@ body.product-page {
     text-decoration: none;
 }
 
-.product-back-link:hover {
-    color: #000000;
-}
+.product-back-link:hover { color: #000000; }
 
 @media (max-width: 768px) {
-    .product-navbar {
-        position: relative;
-    }
+    .product-navbar { position: relative; }
 }
-
-
+ 
 /* ====================================================
-   CARRITO SIDEBAR — NOVACORE
-   Pega esto AL FINAL de tu style.css
+   CARRITO SIDEBAR
    ==================================================== */
-
-/* OVERLAY DE FONDO */
+ 
 .cart-overlay {
     position: fixed;
     inset: 0;
@@ -2197,12 +1684,8 @@ body.product-page {
     transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
-.cart-overlay.cart-open {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* PANEL LATERAL */
+.cart-overlay.cart-open { opacity: 1; visibility: visible; }
+ 
 .cart-sidebar {
     position: fixed;
     top: 0;
@@ -2219,11 +1702,8 @@ body.product-page {
     border-left: 1px solid #1a1a1a;
 }
 
-.cart-sidebar.cart-open {
-    transform: translateX(0);
-}
-
-/* CABECERA DEL SIDEBAR */
+.cart-sidebar.cart-open { transform: translateX(0); }
+ 
 .cart-sidebar-header {
     display: flex;
     align-items: center;
@@ -2265,13 +1745,8 @@ body.product-page {
     flex-shrink: 0;
 }
 
-.cart-close-btn:hover {
-    background: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-}
-
-/* LISTA DE PRODUCTOS */
+.cart-close-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
+ 
 .cart-items-list {
     flex: 1;
     overflow-y: auto;
@@ -2283,15 +1758,9 @@ body.product-page {
     scrollbar-color: #222 transparent;
 }
 
-.cart-items-list::-webkit-scrollbar {
-    width: 4px;
-}
-.cart-items-list::-webkit-scrollbar-thumb {
-    background: #222;
-    border-radius: 2px;
-}
-
-/* TARJETA DE PRODUCTO EN CARRITO */
+.cart-items-list::-webkit-scrollbar { width: 4px; }
+.cart-items-list::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+ 
 .cart-item-card {
     display: flex;
     gap: 16px;
@@ -2305,7 +1774,7 @@ body.product-page {
 
 @keyframes cartItemIn {
     from { opacity: 0; transform: translateX(20px); }
-    to   { opacity: 1; transform: translateX(0); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .cart-item-img {
@@ -2346,8 +1815,7 @@ body.product-page {
     color: #888;
     margin-top: 4px;
 }
-
-/* Controles de cantidad */
+ 
 .cart-item-qty {
     display: flex;
     align-items: center;
@@ -2370,11 +1838,7 @@ body.product-page {
     font-family: 'Poppins', sans-serif;
 }
 
-.qty-btn:hover {
-    background: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-}
+.qty-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
 
 .qty-value {
     font-family: monospace;
@@ -2383,8 +1847,7 @@ body.product-page {
     min-width: 20px;
     text-align: center;
 }
-
-/* Botón eliminar */
+ 
 .cart-item-remove {
     position: absolute;
     top: 12px;
@@ -2399,11 +1862,8 @@ body.product-page {
     padding: 2px;
 }
 
-.cart-item-remove:hover {
-    color: #ff3333;
-}
-
-/* CARRITO VACÍO */
+.cart-item-remove:hover { color: #ff3333; }
+ 
 .cart-empty-state {
     flex: 1;
     display: flex;
@@ -2415,10 +1875,7 @@ body.product-page {
     text-align: center;
 }
 
-.cart-empty-state .empty-icon {
-    font-size: 2.5rem;
-    opacity: 0.2;
-}
+.cart-empty-state .empty-icon { font-size: 2.5rem; opacity: 0.2; }
 
 .cart-empty-state p {
     font-family: 'Poppins', sans-serif;
@@ -2439,11 +1896,8 @@ body.product-page {
     transition: color 0.2s;
 }
 
-.cart-empty-state a:hover {
-    color: #ffffff;
-}
-
-/* PIE DEL SIDEBAR */
+.cart-empty-state a:hover { color: #ffffff; }
+ 
 .cart-sidebar-footer {
     padding: 24px 28px 32px 28px;
     border-top: 1px solid #1a1a1a;
@@ -2501,10 +1955,7 @@ body.product-page {
     transition: background 0.25s, color 0.25s, transform 0.2s;
 }
 
-.cart-checkout-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-}
+.cart-checkout-btn:hover { background: #e0e0e0; transform: translateY(-2px); }
 
 .cart-checkout-btn:disabled {
     background: #1a1a1a;
@@ -2512,13 +1963,7 @@ body.product-page {
     cursor: not-allowed;
     transform: none;
 }
-
-/* RESPONSIVE */
+ 
 @media (max-width: 480px) {
-    .cart-sidebar {
-        width: 100vw;
-    }
+    .cart-sidebar { width: 100vw; }
 }
-
-
-

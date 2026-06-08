@@ -18,9 +18,9 @@ const loadCart = () => {
 const saveCart = (items) => {
     try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch {}
 };
- 
+
 let cartItems = loadCart(); // Array de { id, name, price, image, size, qty }
- 
+
 const getCartCount = () => cartItems.reduce((sum, i) => sum + i.qty, 0);
 const getCartTotal = () => cartItems.reduce((sum, i) => sum + i.price * i.qty, 0);
 const formatCurrency = (v) => `$${v.toFixed(2)}`;
@@ -204,9 +204,12 @@ const addProductToCart = (source) => {
     const nameEl = card?.querySelector('.product-title, .product-main-name, .overlay-name');
     const name = nameEl?.textContent?.trim() || source.dataset.name || 'Producto NovaCore';
 
-    // Imagen: usar getAttribute para obtener ruta relativa original
-    const imgEl = card?.querySelector('.product-image-box img, img');
-    const image = imgEl?.getAttribute('src') || '';
+    // Imagen: primero data-image del botón (producto.js la pone ahí),
+    // luego buscar en la tarjeta, luego en el panel visual de producto.html
+    const image = source.dataset.image
+        || card?.querySelector('.product-image-box img, img')?.getAttribute('src')
+        || document.querySelector('#product-image, .main-3d-asset')?.getAttribute('src')
+        || '';
 
     // Si ya existe mismo producto + talla, sumar qty
     const existing = cartItems.find(i => i.name === name && i.size === size);

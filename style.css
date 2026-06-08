@@ -3018,7 +3018,7 @@ body.product-page {
     will-change: transform;
 }
 
-.carousel-ring:hover {
+.carousel-ring.is-paused {
     animation-play-state: paused;
 }
 
@@ -3033,7 +3033,20 @@ body.product-page {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
     backface-visibility: hidden;
-    transform: rotateY(calc(var(--i) * (360deg / var(--items)))) translateZ(var(--carousel-radius));
+    --hover-lift: 0px;
+    --hover-scale: 1;
+    transform: rotateY(calc(var(--i) * (360deg / var(--items)))) translateZ(calc(var(--carousel-radius) + var(--hover-lift))) scale(var(--hover-scale));
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    cursor: pointer;
+    will-change: transform, box-shadow, filter;
+}
+
+.carousel-card:hover {
+    --hover-lift: 48px;
+    --hover-scale: 1.06;
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.7);
+    filter: saturate(1.06) contrast(1.03);
+    z-index: 2;
 }
 
 @keyframes carousel-spin {

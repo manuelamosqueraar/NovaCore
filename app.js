@@ -490,4 +490,14 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 2;
         });
     }
+
+    // Carrusel 3D: pausa solo al hover de una prenda
+    const carouselRing = document.querySelector('.carousel-ring');
+    const carouselCards = document.querySelectorAll('.carousel-card');
+    if (carouselRing && carouselCards.length) {
+        carouselCards.forEach(card => {
+            card.addEventListener('mouseenter', () => carouselRing.classList.add('is-paused'));
+            card.addEventListener('mouseleave', () => carouselRing.classList.remove('is-paused'));
+        });
+    }
 });

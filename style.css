@@ -239,7 +239,7 @@ img {
 
 .auth-btn {
     background: transparent;
-    border: 1px solid #ffffff;
+    border: 1px solid #8e24cc;
     color: #ffffff;
     padding: 8px 14px;
     font-family: 'Poppins', sans-serif;
@@ -252,8 +252,8 @@ img {
 }
 
 .auth-btn:hover {
-    background: #ffffff;
-    color: #000000;
+    background: #8e24cc;
+    color: #ffffff;
     transform: translateY(-1px);
 }
 
@@ -266,12 +266,12 @@ img {
 }
 
 .navbar.scroll-activo .auth-btn {
-    border-color: #000000;
-    color: #000000;
+    border-color: #8e24cc;
+    color: #8e24cc;
 }
 
 .navbar.scroll-activo .auth-btn:hover {
-    background: #000000;
+    background: #8e24cc;
     color: #ffffff;
 }
 
@@ -355,11 +355,11 @@ img {
         color: #000000 !important;
     }
     .navbar .auth-btn {
-        border-color: #000000;
-        color: #000000;
+        border-color: #8e24cc;
+        color: #8e24cc;
     }
     .navbar .auth-btn:hover {
-        background: #000000;
+        background: #8e24cc;
         color: #ffffff;
     }
     #search-bar-container {
@@ -1406,13 +1406,13 @@ img {
     margin: 5vh auto;
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 22%),
-        linear-gradient(160deg, rgba(10, 10, 10, 0.88) 0%, rgba(0, 0, 0, 0.84) 68%, rgba(255, 255, 255, 0.04));
-    border: 1px solid rgba(255, 255, 255, 0.12);
+        linear-gradient(135deg, #000000 0%, #4a0080 50%, #1a0033 100%);
+    border: 1px solid rgba(142, 36, 204, 0.25);
     border-radius: 22px;
     box-shadow:
         0 28px 90px rgba(0, 0, 0, 0.72),
-        0 0 0 1px rgba(255, 255, 255, 0.14),
-        0 0 48px rgba(255, 255, 255, 0.16);
+        0 0 0 1px rgba(142, 36, 204, 0.22),
+        0 0 48px rgba(142, 36, 204, 0.26);
     backdrop-filter: blur(10px);
     overflow: hidden;
 }
@@ -1421,7 +1421,7 @@ img {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 24%, transparent 74%, rgba(255, 255, 255, 0.08));
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 24%, transparent 74%, rgba(142, 36, 204, 0.14));
     pointer-events: none;
 }
 
@@ -1501,6 +1501,8 @@ img {
 #loginModal .form-box h2 {
     font-size: 32px;
     text-align: center;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
 #loginModal .form-box .input-box {
@@ -1526,8 +1528,8 @@ img {
 
 #loginModal .input-box input:focus,
 #loginModal .input-box input:valid {
-    border-bottom: 1px solid #ffffff;
-    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid #8e24cc;
+    box-shadow: 0 1px 0 0 rgba(142, 36, 204, 0.8);
 }
 
 #loginModal .input-box label {
@@ -1536,14 +1538,14 @@ img {
     left: 0;
     transform: translateY(-50%);
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.68);
+    color: rgba(255, 255, 255, 0.9);
     transition: .5s;
 }
 
 #loginModal .input-box input:focus ~ label,
 #loginModal .input-box input:valid ~ label {
     top: -5px;
-    color: #ffffff;
+    color: #8e24cc;
 }
 
 #loginModal .input-box box-icon {
@@ -1552,12 +1554,12 @@ img {
     right: 0;
     font-size: 18px;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.92);
 }
 
 #loginModal .input-box input:focus ~ box-icon,
 #loginModal .input-box input:valid ~ box-icon {
-    color: #ffffff;
+    color: #8e24cc;
 }
 
 #loginModal .btn {
@@ -1570,7 +1572,7 @@ img {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    border: 1px solid rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(142, 36, 204, 0.8);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
     overflow: hidden;
     z-index: 1;
@@ -1581,7 +1583,7 @@ img {
     position: absolute;
     height: 300%;
     width: 100%;
-    background: linear-gradient(180deg, #000000 0%, #1c1c1c 18%, #ffffff 52%, #f2f2f2 74%, #000000 100%);
+    background: linear-gradient(180deg, #000000 0%, #24102f 18%, #8e24cc 52%, #b86fff 74%, #000000 100%);
     top: -100%;
     left: 0;
     z-index: -1;
@@ -1593,7 +1595,7 @@ img {
 }
 
 #loginModal .btn:hover {
-    box-shadow: 0 14px 30px rgba(255, 255, 255, 0.18);
+    box-shadow: 0 14px 30px rgba(142, 36, 204, 0.25);
 }
 
 #loginModal .regi-link {
@@ -1604,9 +1606,9 @@ img {
 
 #loginModal .regi-link a {
     text-decoration: none;
-    color: #ffffff;
+    color: #8e24cc;
     font-weight: 600;
-    text-shadow: 0 0 16px rgba(255, 255, 255, 0.14);
+    text-shadow: 0 0 16px rgba(142, 36, 204, 0.2);
 }
 
 #loginModal .regi-link a:hover {
@@ -1671,12 +1673,13 @@ img {
     font-size: 36px;
     line-height: 1.3;
     letter-spacing: 1px;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+    color: #ffffff;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
 }
 
 #loginModal .info-content p {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.92);
     line-height: 1.7;
 }
 
@@ -1686,12 +1689,12 @@ img {
     top: -5px;
     height: 600px;
     width: 850px;
-    background: linear-gradient(45deg, #000000 0%, #b0b0b0 34%, #ffffff 68%, #f4f4f4 100%);
+    background: linear-gradient(45deg, #000000 0%, #4a0080 34%, #8e24cc 68%, #c77dff 100%);
     transform: rotate(10deg) skewY(40deg);
     transform-origin: bottom right;
     transition: 1.5s ease;
     transition-delay: 1.6s;
-    box-shadow: 0 0 60px rgba(255, 255, 255, 0.14);
+    box-shadow: 0 0 60px rgba(142, 36, 204, 0.28);
 }
 
 #loginModal .container.active .curved-shape {
@@ -1706,7 +1709,7 @@ img {
     height: 700px;
     width: 850px;
     background: linear-gradient(180deg, #080808 0%, #171717 100%);
-    border-top: 3px solid rgba(255, 255, 255, 0.7);
+    border-top: 3px solid #8e24cc;
     transform: rotate(0deg) skewY(0deg);
     transform-origin: bottom left;
     transition: 1.5s ease;
@@ -3018,7 +3021,7 @@ body.product-page {
     will-change: transform;
 }
 
-.carousel-ring:hover {
+.carousel-ring.is-paused {
     animation-play-state: paused;
 }
 
@@ -3033,7 +3036,20 @@ body.product-page {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
     backface-visibility: hidden;
-    transform: rotateY(calc(var(--i) * (360deg / var(--items)))) translateZ(var(--carousel-radius));
+    --hover-lift: 0px;
+    --hover-scale: 1;
+    transform: rotateY(calc(var(--i) * (360deg / var(--items)))) translateZ(calc(var(--carousel-radius) + var(--hover-lift))) scale(var(--hover-scale));
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    cursor: pointer;
+    will-change: transform, box-shadow, filter;
+}
+
+.carousel-card:hover {
+    --hover-lift: 48px;
+    --hover-scale: 1.06;
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.7);
+    filter: saturate(1.06) contrast(1.03);
+    z-index: 2;
 }
 
 @keyframes carousel-spin {

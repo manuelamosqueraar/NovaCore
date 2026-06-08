@@ -253,14 +253,32 @@ const closeModal = (modal) => {
 document.addEventListener('DOMContentLoaded', () => {
     const contactModal = document.getElementById('contactModal');
     const checkoutModal = document.getElementById('checkoutModal');
+    const loginModal = document.getElementById('loginModal');
     const linkContacto = document.getElementById('link-contacto');
     const closeContact = document.getElementById('closeContact');
     const openCheckout = document.getElementById('openCheckout'); // ícono del carrito
     const closeCheckout = document.getElementById('closeCheckout');
+    const openLogin = document.getElementById('openLogin');
+    const closeLogin = document.getElementById('closeLogin');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const authTabs = loginModal ? loginModal.querySelectorAll('[data-auth-tab]') : [];
+    const authSwitches = loginModal ? loginModal.querySelectorAll('[data-auth-target]') : [];
     const navbar = document.querySelector('.navbar');
+
+    const setAuthMode = (mode = 'login') => {
+        if (!loginModal) return;
+        const isRegister = mode === 'register';
+        authTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.authTab === mode);
+        });
+        if (loginForm) loginForm.classList.toggle('active', !isRegister);
+        if (registerForm) registerForm.classList.toggle('active', isRegister);
+    };
 
     updateCartUI();
     buildSidebar();
+    setAuthMode('login');
 
     // Botones "Añadir al carrito" estáticos
     document.querySelectorAll('.btn-add, .btn-main-add-cart').forEach(item => {
@@ -278,14 +296,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (openLogin && loginModal) {
+        openLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            setAuthMode('login');
+            openModal(loginModal);
+        });
+    }
+
     // Checkout modal: cerrar
     if (closeCheckout) {
         closeCheckout.addEventListener('click', () => closeModal(checkoutModal));
     }
 
+    if (closeLogin) {
+        closeLogin.addEventListener('click', () => closeModal(loginModal));
+    }
+
     window.addEventListener('click', (e) => {
         if (e.target === checkoutModal) closeModal(checkoutModal);
         if (e.target === contactModal) closeModal(contactModal);
+        if (e.target === loginModal) closeModal(loginModal);
     });
 
     // Contacto
@@ -297,6 +328,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (closeContact) {
         closeContact.addEventListener('click', () => closeModal(contactModal));
+    }
+
+    authTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            setAuthMode(tab.dataset.authTab || 'login');
+        });
+    });
+
+    authSwitches.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setAuthMode(btn.dataset.authTarget || 'login');
+        });
+    });
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Vista previa: el acceso todavía no está conectado.');
+        });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Vista previa: el acceso todavía no está conectado.');
+        });
     }
 
     // Scroll navbar

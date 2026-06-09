@@ -10,8 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    
+    <script src="app.js"></script>
+</body>
+</html>
 
     <nav class="navbar">
     <div class="logo">
@@ -456,12 +459,31 @@
                     <box-icon name="lock-alt" type="solid" color="#f4f4f4"></box-icon>
                 </div>
 
-                <div class="input-box animation" style="--D:3; --S:24">
+                <div class="forgot-link animation" style="--D:3; --S:24">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <div class="input-box animation" style="--D:4; --S:25">
                     <button class="btn" type="submit">Entrar</button>
                 </div>
 
-                <div class="regi-link animation" style="--D:4; --S:25">
-                    <p>¿Aún no tienes cuenta? <br> <a href="#" class="SignUpLink">Crear una</a></p>
+                <div class="social-separator animation" style="--D:5; --S:26">
+                    <span>O continuar con</span>
+                </div>
+
+                <div class="social-login animation" style="--D:6; --S:27">
+    <button type="button" class="social-btn google">
+        <box-icon type="logo" name="google" color="#f4f4f4"></box-icon>
+        Continuar con Google
+    </button>
+    <button type="button" class="social-btn apple">
+        <box-icon type="logo" name="apple" color="#f4f4f4"></box-icon>
+        Continuar con Apple
+    </button>
+</div>
+
+                <div class="regi-link animation" style="--D:7; --S:28">
+                    <p>¿Aún no tienes cuenta? <a href="#" class="SignUpLink">Crear una</a></p>
                 </div>
             </form>
         </div>
@@ -486,18 +508,31 @@
                     <box-icon name="envelope" type="solid" color="#f4f4f4"></box-icon>
                 </div>
 
-                <div class="input-box animation" style="--li:19; --S:3">
+                <div class="input-box animation" style="--li:20; --S:3">
                     <input type="password" required>
                     <label>Contraseña</label>
                     <box-icon name="lock-alt" type="solid" color="#f4f4f4"></box-icon>
                 </div>
 
-                <div class="input-box animation" style="--li:20; --S:4">
+                <div class="input-box animation" style="--li:21; --S:4">
                     <button class="btn" type="submit">Registrarme</button>
                 </div>
 
-                <div class="regi-link animation" style="--li:21; --S:5">
-                    <p>¿Ya tienes cuenta? <br> <a href="#" class="SignInLink">Iniciar sesión</a></p>
+                <div class="social-separator animation" style="--li:22; --S:5">
+                    <span>O registrarte con</span>
+                </div>
+
+                <div class="social-login animation" style="--li:23; --S:6">
+                    <button type="button" class="social-btn google">
+                        <box-icon type="logo" name="google" color="#f4f4f4"></box-icon>
+                    </button>
+                    <button type="button" class="social-btn apple">
+                        <box-icon type="logo" name="apple" color="#f4f4f4"></box-icon>
+                    </button>
+                </div>
+
+                <div class="regi-link animation" style="--li:24; --S:7">
+                    <p>¿Ya tienes cuenta? <a href="#" class="SignInLink">Iniciar sesión</a></p>
                 </div>
             </form>
         </div>

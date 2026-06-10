@@ -260,25 +260,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeCheckout = document.getElementById('closeCheckout');
     const openLogin = document.getElementById('openLogin');
     const closeLogin = document.getElementById('closeLogin');
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const authTabs = loginModal ? loginModal.querySelectorAll('[data-auth-tab]') : [];
-    const authSwitches = loginModal ? loginModal.querySelectorAll('[data-auth-target]') : [];
+    const loginForm = loginModal ? loginModal.querySelector('.form-box.Login form') : null;
+    const registerForm = loginModal ? loginModal.querySelector('.form-box.Register form') : null;
+    const modalContainer = loginModal ? loginModal.querySelector('.container') : null;
+    const loginLink = loginModal ? loginModal.querySelector('.SignInLink') : null;
+    const registerLink = loginModal ? loginModal.querySelector('.SignUpLink') : null;
     const navbar = document.querySelector('.navbar');
-
-    const setAuthMode = (mode = 'login') => {
-        if (!loginModal) return;
-        const isRegister = mode === 'register';
-        authTabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.authTab === mode);
-        });
-        if (loginForm) loginForm.classList.toggle('active', !isRegister);
-        if (registerForm) registerForm.classList.toggle('active', isRegister);
-    };
 
     updateCartUI();
     buildSidebar();
-    setAuthMode('login');
 
     // Botones "Añadir al carrito" estáticos
     document.querySelectorAll('.btn-add, .btn-main-add-cart').forEach(item => {
@@ -299,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openLogin && loginModal) {
         openLogin.addEventListener('click', (e) => {
             e.preventDefault();
-            setAuthMode('login');
+            modalContainer?.classList.remove('active');
             openModal(loginModal);
         });
     }
@@ -309,14 +299,29 @@ document.addEventListener('DOMContentLoaded', () => {
         closeCheckout.addEventListener('click', () => closeModal(checkoutModal));
     }
 
+    const closeLoginModal = () => {
+        modalContainer?.classList.remove('active');
+        closeModal(loginModal);
+    };
+
     if (closeLogin) {
-        closeLogin.addEventListener('click', () => closeModal(loginModal));
+        closeLogin.addEventListener('click', closeLoginModal);
     }
+
+    loginLink?.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalContainer?.classList.remove('active');
+    });
+
+    registerLink?.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalContainer?.classList.add('active');
+    });
 
     window.addEventListener('click', (e) => {
         if (e.target === checkoutModal) closeModal(checkoutModal);
         if (e.target === contactModal) closeModal(contactModal);
-        if (e.target === loginModal) closeModal(loginModal);
+        if (e.target === loginModal) closeLoginModal();
     });
 
     // Contacto
@@ -330,31 +335,21 @@ document.addEventListener('DOMContentLoaded', () => {
         closeContact.addEventListener('click', () => closeModal(contactModal));
     }
 
-    authTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            setAuthMode(tab.dataset.authTab || 'login');
-        });
-    });
-
-    authSwitches.forEach(btn => {
-        btn.addEventListener('click', () => {
-            setAuthMode(btn.dataset.authTarget || 'login');
-        });
-    });
-
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Vista previa: el acceso todavía no está conectado.');
         });
     }
 
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Vista previa: el acceso todavía no está conectado.');
         });
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLoginModal();
+    });
 
     // Scroll navbar
     window.addEventListener('scroll', () => {

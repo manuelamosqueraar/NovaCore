@@ -806,8 +806,8 @@ img {
 
 /* --- BLOQUE DE CONFIANZA / CONVERSIÓN --- */
 .trust-strip {
-    padding: 88px 0 24px;
-    background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+    padding: 88px 0 32px;
+    background: linear-gradient(180deg, #090909 0%, #111111 55%, #0b0b0b 100%);
     color: #ffffff;
 }
 
@@ -815,58 +815,147 @@ img {
     width: min(var(--nc-max-width), calc(100% - 48px));
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 28px;
     align-items: start;
+}
+
+.trust-strip-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .trust-strip-copy p {
     color: rgba(255, 255, 255, 0.72);
     max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .trust-strip-cards {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
 }
 
 .trust-card {
-    min-height: 180px;
-    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    min-height: 230px;
+    padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(8px);
-    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.trust-card::before {
+    content: "";
+    position: absolute;
+    inset: auto -40px -50px auto;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.10), transparent 68%);
+    pointer-events: none;
+}
+
+.trust-card:nth-child(1)::before {
+    background: radial-gradient(circle, rgba(168, 120, 255, 0.34), transparent 68%);
+}
+
+.trust-card:nth-child(2)::before {
+    background: radial-gradient(circle, rgba(255, 85, 187, 0.24), transparent 68%);
+}
+
+.trust-card:nth-child(3)::before {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 68%);
+}
+
+.trust-card:nth-child(4)::before {
+    background: radial-gradient(circle, rgba(168, 120, 255, 0.22), transparent 68%);
 }
 
 .trust-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
 }
 
-.trust-card .trust-index {
-    display: block;
-    margin-bottom: 18px;
+.trust-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.trust-index {
     font-size: 0.68rem;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.38);
 }
 
+.trust-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.64rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.trust-stat {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    font-size: clamp(1.45rem, 2.2vw, 2.25rem);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
 .trust-card h3 {
-    margin: 0 0 10px;
-    font-size: 1rem;
-    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+    margin: 12px 0 0;
+    font-size: 0.92rem;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
 .trust-card p {
-    margin: 0;
+    position: relative;
+    z-index: 1;
+    margin: 10px 0 0;
     color: rgba(255, 255, 255, 0.68);
-    line-height: 1.65;
-    font-size: 0.92rem;
+    line-height: 1.7;
+    font-size: 0.84rem;
+    max-width: 24rem;
+}
+
+.trust-foot {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.64rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
 }
 
 
@@ -1298,7 +1387,7 @@ img {
     }
 
     .trust-strip-cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1313,7 +1402,16 @@ img {
     }
 
     .trust-strip-cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .trust-card {
+        min-height: 220px;
+        padding: 20px;
+    }
+
+    .trust-stat {
+        font-size: clamp(1.55rem, 8vw, 2.1rem);
     }
 
     .join-drop-section {

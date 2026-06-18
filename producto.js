@@ -145,6 +145,8 @@ const initializeProductPage = () => {
     const detailsEl = document.getElementById('tech-sections');
     const badgeEl = document.getElementById('product-badge-text');
     const addButton = document.getElementById('product-add-button');
+    const mobileAddButton = document.getElementById('mobile-product-add-button');
+    const mobilePriceEl = document.getElementById('mobile-product-price');
     const modelViewer = document.getElementById('product-model-viewer');
 
     document.title = `NovaCore | ${product.name}`;
@@ -170,7 +172,18 @@ const initializeProductPage = () => {
         addButton.dataset.price = String(product.price);
         addButton.dataset.slug = slug;
         addButton.dataset.image = product.image;
+        addButton.dataset.name = product.name;
         addButton.setAttribute('aria-label', `Añadir ${product.name} al carrito`);
+    }
+    if (mobilePriceEl) {
+        mobilePriceEl.textContent = `$${product.price.toFixed(2)}`;
+    }
+    if (mobileAddButton) {
+        mobileAddButton.dataset.price = String(product.price);
+        mobileAddButton.dataset.slug = slug;
+        mobileAddButton.dataset.image = product.image;
+        mobileAddButton.dataset.name = product.name;
+        mobileAddButton.setAttribute('aria-label', `Añadir ${product.name} al carrito`);
     }
 
     const hasModel = typeof product.model === 'string' && product.model.trim().length > 0;

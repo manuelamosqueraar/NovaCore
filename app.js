@@ -198,7 +198,9 @@ const addProductToCart = (source) => {
     }
 
     // Talla
-    const size = card?.querySelector('.size-box.active')?.textContent?.trim() || '';
+    const size = card?.querySelector('.size-box.active')?.textContent?.trim()
+        || document.querySelector('.size-selector-wrap .size-box.active')?.textContent?.trim()
+        || '';
 
     // Nombre
     const nameEl = card?.querySelector('.product-title, .product-main-name, .overlay-name');
@@ -399,11 +401,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Newsletter
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
+    document.querySelectorAll('form.newsletter-form, form.join-drop-form').forEach((newsletterForm) => {
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const emailValue = document.getElementById('newsletter-email').value;
+            const emailValue = newsletterForm.querySelector('input[type="email"]')?.value?.trim();
+            if (!emailValue) return;
             try {
                 await insertIntoSupabase('suscriptores', { email: emailValue });
                 alert('¡Bienvenido al club NovaCore!');
@@ -412,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Error: ' + error.message);
             }
         });
-    }
+    });
 
     // Barra de búsqueda — solo activa en index.html (categoria.js maneja la suya propia)
     const isCategoria = window.location.pathname.includes('categoria');

@@ -516,16 +516,62 @@
 @media (max-width: 768px) {
     .cat-hero-content { padding: 0 0 36px 24px; }
     .cat-filter-bar { top: 0; }
-    .cat-filter-left, .cat-filter-right { height: 48px; }
-    .gender-tab { padding: 0 16px; font-size: 0.62rem; }
+    .cat-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 4%;
+        gap: 10px;
+    }
+    .cat-filter-left, .cat-filter-right { width: 100%; height: auto; }
+    .cat-filter-right {
+        justify-content: space-between;
+    }
+    .cat-gender-tabs {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .cat-gender-tabs::-webkit-scrollbar { display: none; }
+    .gender-tab { padding: 0 16px; font-size: 0.62rem; white-space: nowrap; flex: 0 0 auto; }
     .cat-filter-label { padding-right: 14px; display: none; }
     .custom-cursor, .custom-cursor-ring { display: none; }
     .cat-main-section { cursor: auto; }
+    .cat-products-grid {
+        grid-template-columns: 1fr;
+        padding: 28px 16px 48px;
+        gap: 12px;
+    }
+    .cat-product-item .product-image-box {
+        height: 320px;
+    }
+    .cat-product-item .product-image-box img {
+        transform: scale(1);
+        filter: contrast(110%) brightness(90%);
+    }
+    .cat-product-item .product-info-box {
+        display: none;
+    }
+    .cat-overlay-info {
+        opacity: 1;
+        transform: none;
+        padding: 18px 16px;
+    }
+    .cat-product-item .product-image-box::before {
+        opacity: 1;
+    }
+}
+
+@media (hover: none) and (max-width: 768px) {
+    .cat-overlay-info {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 @media (max-width: 480px) {
-    .cat-products-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
-    .cat-product-item .product-image-box { height: 240px; }
+    .cat-products-grid { grid-template-columns: 1fr; gap: 10px; }
+    .cat-product-item .product-image-box { height: 280px; }
     .cat-hero-content h1 { font-size: 3.2rem; }
 }
 

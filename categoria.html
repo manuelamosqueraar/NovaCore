@@ -23,27 +23,27 @@
             <li><a href="index.html#nosotros">Nosotros</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="search-btn" aria-label="Buscar">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon cat-search-icon">
+            <button class="search-btn" type="button" aria-label="Buscar" aria-controls="search-bar-container" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon cat-search-icon" aria-hidden="true" focusable="false">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
             </button>
-            <div class="cart-container" id="openCheckout">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="cart-container" id="openCheckout" type="button" aria-label="Abrir carrito" aria-controls="cart-sidebar" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                     <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
                     <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
                 </svg>
                 <span id="cart-count">0</span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- BARRA DE BÚSQUEDA -->
     <div id="search-bar-container">
         <div class="search-input-wrapper">
-            <input type="text" id="search-input" placeholder="Buscar en esta categoría...">
-            <button id="close-search">×</button>
+            <input type="text" id="search-input" placeholder="Buscar en esta categoría..." aria-label="Buscar en esta categoría">
+            <button id="close-search" type="button" aria-label="Cerrar búsqueda">×</button>
         </div>
     </div>
 
@@ -87,6 +87,28 @@
         </div>
     </div>
 
+    <section class="cat-collection-intro" aria-labelledby="cat-intro-title">
+        <div class="cat-collection-copy">
+            <span class="section-kicker">CATALOG EDIT</span>
+            <h2 id="cat-intro-title">Compra por edición, no por ruido</h2>
+            <p id="cat-intro-copy">Quick view, save y filtros claros para decidir más rápido sin perder el contexto visual.</p>
+        </div>
+        <div class="cat-collection-stats" aria-label="Resumen de la categoría">
+            <article class="cat-stat">
+                <strong id="cat-total-products">0</strong>
+                <span>PIEZAS</span>
+            </article>
+            <article class="cat-stat">
+                <strong id="cat-active-filter-count">0</strong>
+                <span>FILTROS</span>
+            </article>
+            <article class="cat-stat">
+                <strong>1</strong>
+                <span>CLICK</span>
+            </article>
+        </div>
+    </section>
+
     <!-- SECCIÓN PRINCIPAL -->
     <section class="cat-main-section">
 
@@ -95,19 +117,20 @@
             <div class="cat-filter-left">
                 <span class="cat-filter-label">FILTRAR POR</span>
                 <div class="cat-gender-tabs">
-                    <button class="gender-tab active" data-gender="todos">TODOS</button>
-                    <button class="gender-tab" data-gender="hombre">HOMBRE</button>
-                    <button class="gender-tab" data-gender="mujer">MUJER</button>
+                    <button type="button" class="gender-tab active" data-gender="todos">TODOS</button>
+                    <button type="button" class="gender-tab" data-gender="hombre">HOMBRE</button>
+                    <button type="button" class="gender-tab" data-gender="mujer">MUJER</button>
                 </div>
             </div>
             <div class="cat-filter-right">
                 <span class="cat-results-count"><span id="results-count">0</span> PRODUCTOS</span>
-                <select class="cat-sort-select" id="sort-select">
+                <select class="cat-sort-select" id="sort-select" aria-label="Ordenar productos">
                     <option value="default">ORDENAR</option>
                     <option value="price-asc">PRECIO ↑</option>
                     <option value="price-desc">PRECIO ↓</option>
                     <option value="name">NOMBRE A–Z</option>
                 </select>
+                <button type="button" class="cat-reset-filters" id="reset-filters">RESET</button>
             </div>
         </div>
 
@@ -115,41 +138,70 @@
         <div class="products-clean-grid cat-products-grid" id="cat-products-grid"></div>
 
         <!-- SIN RESULTADOS -->
-        <div class="cat-no-results" id="cat-no-results">
-            <p>NO HAY PRODUCTOS EN ESTA SELECCIÓN</p>
+        <div class="cat-no-results" id="cat-no-results" role="status" aria-live="polite">
+            <span class="cat-no-results-kicker">SIN RESULTADOS</span>
+            <p id="cat-no-results-text">No hay productos en esta selección</p>
+            <button type="button" class="cat-reset-inline" id="reset-filters-inline">LIMPIAR FILTROS</button>
         </div>
 
     </section>
 
+    <div class="cat-quick-view-modal" id="cat-quick-view-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cat-quick-view-title">
+        <div class="cat-quick-view-card">
+            <button type="button" class="cat-quick-view-close" id="cat-quick-view-close" aria-label="Cerrar vista rápida">×</button>
+            <div class="cat-quick-view-grid">
+                <div class="cat-quick-view-media">
+                    <span class="cat-quick-view-stock" id="cat-quick-view-stock">IN STOCK</span>
+                    <img id="cat-quick-view-image" src="" alt="">
+                </div>
+                <div class="cat-quick-view-copy">
+                    <span class="cat-quick-view-badge" id="cat-quick-view-badge"></span>
+                    <h3 id="cat-quick-view-title">Vista rápida</h3>
+                    <p class="cat-quick-view-price" id="cat-quick-view-price"></p>
+                    <p class="cat-quick-view-description" id="cat-quick-view-description"></p>
+                    <div class="cat-quick-view-meta" id="cat-quick-view-meta"></div>
+                    <ul class="cat-quick-view-highlights" id="cat-quick-view-highlights"></ul>
+                    <div class="cat-quick-view-actions">
+                        <button type="button" class="cat-quick-view-save" id="cat-quick-view-save">SAVE</button>
+                        <button type="button" class="cat-quick-view-add" id="cat-quick-view-add">ADD TO CART</button>
+                        <a class="cat-quick-view-link" id="cat-quick-view-link" href="#">OPEN PRODUCT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cat-toast" id="cat-toast" aria-live="polite" aria-atomic="true"></div>
+
     <!-- MODAL CHECKOUT -->
-    <div id="checkoutModal" class="modal">
+    <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title" aria-hidden="true">
         <div class="modal-content-checkout-v2">
-            <div class="close-container-pay" id="closeCheckout"><span>&times;</span></div>
+            <button type="button" class="close-container-pay" id="closeCheckout" aria-label="Cerrar pago">&times;</button>
             <div class="checkout-grid">
                 <div class="pay-form-side">
-                    <h2>PAGO SEGURO</h2>
+                    <h2 id="checkout-modal-title">PAGO SEGURO</h2>
                     <p class="subtitle">Ingresa los datos de tu tarjeta</p>
                     <form id="payment-form">
                         <div class="input-wrapper">
-                            <label>TITULAR DE LA TARJETA</label>
-                            <input type="text" id="pay-name" placeholder="Nombre completo" required>
+                            <label for="pay-name">TITULAR DE LA TARJETA</label>
+                            <input type="text" id="pay-name" placeholder="Nombre completo" autocomplete="cc-name" required>
                         </div>
                         <div class="input-wrapper">
-                            <label>CORREO ELECTRÓNICO</label>
-                            <input type="email" id="pay-email" placeholder="tu@email.com" required>
+                            <label for="pay-email">CORREO ELECTRÓNICO</label>
+                            <input type="email" id="pay-email" placeholder="tu@email.com" autocomplete="email" required>
                         </div>
                         <div class="input-wrapper">
-                            <label>NÚMERO DE TARJETA</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" required>
+                            <label for="pay-card">NÚMERO DE TARJETA</label>
+                            <input type="text" id="pay-card" placeholder="0000 0000 0000 0000" autocomplete="cc-number" inputmode="numeric" required>
                         </div>
                         <div class="row-inputs">
                             <div class="input-wrapper">
-                                <label>EXPIRACIÓN</label>
-                                <input type="text" placeholder="MM/YY" required>
+                                <label for="pay-expiry">EXPIRACIÓN</label>
+                                <input type="text" id="pay-expiry" placeholder="MM/YY" autocomplete="cc-exp" inputmode="numeric" required>
                             </div>
                             <div class="input-wrapper">
-                                <label>CVC</label>
-                                <input type="password" placeholder="123" required>
+                                <label for="pay-cvc">CVC</label>
+                                <input type="password" id="pay-cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric" required>
                             </div>
                         </div>
                         <button type="submit" class="btn-pay-premium">CONFIRMAR COMPRA</button>
@@ -220,12 +272,12 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="categoria.js"></script>
+    <script src="config.js"></script>
     <script src="app.js"></script>
+    <script src="categoria.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
-    <script src="config.js"></script>
     <script src="motion.js"></script>
 </body>
 </html>

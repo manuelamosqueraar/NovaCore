@@ -112,6 +112,37 @@
             });
         }
 
+        if (document.querySelector('.hero-support-copy')) {
+            window.gsap.from('.hero-support-copy', {
+                opacity: 0,
+                y: 18,
+                duration: 0.85,
+                ease: 'power3.out',
+                delay: 0.24
+            });
+        }
+
+        if (document.querySelector('.hero-meta-chip')) {
+            window.gsap.from('.hero-meta-chip', {
+                opacity: 0,
+                y: 12,
+                duration: 0.7,
+                stagger: 0.06,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+        }
+
+        if (document.querySelector('.hero-actions-fixed .btn-secondary')) {
+            window.gsap.from('.hero-actions-fixed .btn-secondary', {
+                opacity: 0,
+                y: 18,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.4
+            });
+        }
+
         if (document.querySelector('.hero-video-bg')) {
             window.gsap.from('.hero-video-bg', {
                 scale: 1.08,
@@ -209,6 +240,20 @@
                 }
             });
         }
+
+        if (document.querySelector('.home-editorial-card img')) {
+            window.gsap.to('.home-editorial-card img', {
+                yPercent: 6,
+                scale: 1.06,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.home-editorial-section',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
     };
 
     const animateCategoryCards = () => {
@@ -232,6 +277,14 @@
 
         revealOnScroll('.featured-products-section .product-item', { y: 36, stagger: 0.1 });
         revealOnScroll('.shop-categories-section .category-item', { y: 36, stagger: 0.1 });
+        revealOnScroll('.home-products-heading', { y: 18, duration: 0.7 });
+        revealOnScroll('.home-editorial-section .home-editorial-copy', { y: 28, duration: 0.9 });
+        revealOnScroll('.home-editorial-section .home-editorial-card', { y: 30, duration: 0.9 });
+        revealOnScroll('.home-editorial-section .home-editorial-bullets li', { y: 18, stagger: 0.06 });
+        revealOnScroll('.home-editorial-section .home-editorial-mini', { y: 22, stagger: 0.08 });
+        revealOnScroll('.trust-card', { y: 26, stagger: 0.08 });
+        revealOnScroll('.join-drop-panel', { y: 28, duration: 0.9 });
+        revealOnScroll('.about-row .about-image, .about-row .about-text, .about-banner', { y: 28, stagger: 0.08 });
         revealOnScroll('.about-values .value-item', { y: 30, stagger: 0.08 });
     };
 

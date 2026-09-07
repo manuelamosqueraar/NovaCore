@@ -83,6 +83,51 @@ const categoryData = {
     }
 };
 
+const categoryMeta = {
+    hoodies: {
+        introTitle: 'Heavyweight layers with clean volume',
+        introCopy: 'Soft structure, strong silhouettes and a faster way to shop the core pieces.',
+        fit: 'Relaxed fit',
+        fabric: 'Heavy cotton fleece',
+        summary: 'Built for layering and colder days.'
+    },
+    pantalones: {
+        introTitle: 'Cut and proportion first',
+        introCopy: 'Straight decisions for cargos and bermudas with more room and sharper lines.',
+        fit: 'Relaxed cut',
+        fabric: 'Lightweight twill',
+        summary: 'Utility shapes with cleaner movement.'
+    },
+    camisas: {
+        introTitle: 'Clean lines, easy layering',
+        introCopy: 'Shirts edited for polish, structure and daily rotation without visual noise.',
+        fit: 'Regular fit',
+        fabric: 'Premium cotton',
+        summary: 'Polished essentials for daily wear.'
+    },
+    gorras: {
+        introTitle: 'Headwear with a sharper stance',
+        introCopy: 'Simple silhouettes and small details that make the accessory feel intentional.',
+        fit: 'One size',
+        fabric: 'Twill and canvas',
+        summary: 'Small pieces, strong identity.'
+    },
+    tenis: {
+        introTitle: 'Footwear built to anchor the look',
+        introCopy: 'Raised detail, clean proportions and product pages that surface what matters first.',
+        fit: 'True to size',
+        fabric: 'Leather and mesh',
+        summary: 'Statement sneakers with simple choices.'
+    },
+    gafas: {
+        introTitle: 'Accessories that finish the edit',
+        introCopy: 'Frames and lenses that read premium without overexplaining the product.',
+        fit: 'Universal fit',
+        fabric: 'Acetate frame',
+        summary: 'Eyewear as the final layer.'
+    }
+};
+
 // ====================================================
 // ESTADO
 // ====================================================
@@ -90,34 +135,118 @@ let currentGender = 'todos';
 let currentSort = 'default';
 let currentSearch = '';
 let currentCategory = null;
+let currentCategoryKey = 'hoodies';
+let currentQuickViewProduct = null;
+let toastTimer = null;
 
 const getCategory = () => new URLSearchParams(window.location.search).get('cat') || 'hoodies';
+
+const getCategoryTheme = (key) => categoryMeta[key] || categoryMeta.hoodies;
+
+const getStockLevel = (product, categoryKey) => {
+    if (typeof product.stock === 'number') return product.stock;
+
+    const badge = (product.badge || '').toUpperCase();
+    if (badge.includes('LIMITED')) return 6;
+    if (badge.includes('DROP')) return 12;
+    if (badge.includes('NEW')) return 18;
+    if (categoryKey === 'tenis') return 14;
+    if (categoryKey === 'hoodies') return 10;
+    return 16;
+};
+
+const getStockLabel = (stock) => {
+    if (stock <= 6) return 'LOW STOCK';
+    if (stock <= 12) return 'LAST UNITS';
+    return 'IN STOCK';
+};
+
+const showToast = (message) => {
+    const toast = document.getElementById('cat-toast');
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+    }, 2200);
+};
+
+const getFilterCount = () => {
+    return [currentGender !== 'todos', currentSort !== 'default', Boolean(currentSearch.trim())].filter(Boolean).length;
+};
+
+const buildQuickViewDescription = (product, categoryKey) => {
+    const meta = getCategoryTheme(categoryKey);
+    return product.description || `${product.name} from the ${currentCategory?.title || 'category'} edit. ${meta.summary}`;
+};
+
+const buildQuickViewHighlights = (product, categoryKey) => {
+    const meta = getCategoryTheme(categoryKey);
+    const stock = getStockLevel(product, categoryKey);
+
+    return [
+        product.badge || 'CURATED DROP',
+        meta.fit,
+        meta.fabric,
+        `${stock} UNITS`
+    ].filter(Boolean).slice(0, 3);
+};
+
+const updateSummaryFields = (filteredCount) => {
+    const totalProducts = document.getElementById('cat-total-products');
+    const activeFilterCount = document.getElementById('cat-active-filter-count');
+    const resultsCount = document.getElementById('results-count');
+
+    if (totalProducts && currentCategory) totalProducts.textContent = currentCategory.products.length;
+    if (activeFilterCount) activeFilterCount.textContent = String(getFilterCount());
+    if (resultsCount) resultsCount.textContent = filteredCount;
+};
+
+const renderProductCard = (product) => {
+    const categoryTheme = getCategoryTheme(currentCategoryKey);
+    const stock = getStockLevel(product, currentCategoryKey);
+    const stockLabel = getStockLabel(stock);
+    const fitLabel = product.fit || categoryTheme.fit;
+    const fabricLabel = product.fabric || categoryTheme.fabric;
+    const isSaved = window.NovaCoreStore?.isWishlisted?.({ slug: product.slug, name: product.name });
+
+    return `
+        <div class="product-item cat-product-item" data-slug="${product.slug}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" data-badge="${product.badge}" data-stock="${stock}" data-fit="${fitLabel}" data-fabric="${fabricLabel}">
+            <div class="product-image-box">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
+                <div class="cat-product-badge">${product.badge}</div>
+                <button type="button" class="cat-wishlist-btn ${isSaved ? 'is-saved' : ''}" data-action="wishlist" data-slug="${product.slug}" data-name="${product.name}" aria-pressed="${isSaved ? 'true' : 'false'}">${isSaved ? 'SAVED' : 'SAVE'}</button>
+                <div class="cat-overlay-info">
+                    <span class="overlay-name">${product.name}</span>
+                    <span class="overlay-price">$${product.price.toFixed(2)} · ${fitLabel}</span>
+                    <div class="cat-overlay-meta">
+                        <span class="cat-overlay-chip">${stockLabel}</span>
+                        <span class="cat-overlay-chip">${fabricLabel}</span>
+                    </div>
+                    <div class="cat-overlay-actions">
+                        <button type="button" class="cat-overlay-btn cat-quick-view-btn" data-action="quick-view" data-slug="${product.slug}" data-name="${product.name}">DETAILS</button>
+                        <button type="button" class="cat-overlay-btn btn-add" data-action="add" data-price="${product.price}" data-slug="${product.slug}" data-image="${product.image}" data-name="${product.name}">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-info-box">
+                <div class="cat-product-gender-tag">${product.gender.toUpperCase()}</div>
+                <h3 class="product-title">${product.name}</h3>
+                <span class="product-price">$${product.price.toFixed(2)}</span>
+                <div class="cat-product-meta">
+                    <span>${fitLabel}</span>
+                    <span>${stockLabel}</span>
+                </div>
+            </div>
+        </div>
+    `;
+};
 
 // ====================================================
 // RENDER
 // ====================================================
-const renderProductCard = (p) => `
-    <div class="product-item cat-product-item" data-slug="${p.slug}" data-gender="${p.gender}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
-        <div class="product-image-box">
-            <img src="${p.image}" alt="${p.name}" loading="lazy">
-            <div class="cat-product-badge">${p.badge}</div>
-            <div class="cat-overlay-info">
-                <span class="overlay-name">${p.name}</span>
-                <span class="overlay-price">$${p.price.toFixed(2)}</span>
-                <button class="cat-overlay-btn btn-add" data-price="${p.price}" data-slug="${p.slug}" data-image="${p.image}">
-                    <span>AÑADIR AL CARRITO</span>
-                    <span>→</span>
-                </button>
-            </div>
-        </div>
-        <div class="product-info-box">
-            <div class="cat-product-gender-tag">${p.gender.toUpperCase()}</div>
-            <h3 class="product-title">${p.name}</h3>
-            <span class="product-price">$${p.price.toFixed(2)}</span>
-        </div>
-    </div>
-`;
-
 const getFiltered = (products) => {
     let list = [...products];
     if (currentGender !== 'todos') list = list.filter(p => p.gender === currentGender);
@@ -131,15 +260,23 @@ const getFiltered = (products) => {
 const renderProducts = (animate = true) => {
     const grid = document.getElementById('cat-products-grid');
     const noResults = document.getElementById('cat-no-results');
+    const noResultsText = document.getElementById('cat-no-results-text');
     const countEl = document.getElementById('results-count');
     if (!grid || !currentCategory) return;
 
     const filtered = getFiltered(currentCategory.products);
-    countEl.textContent = filtered.length;
+    updateSummaryFields(filtered.length);
 
     if (filtered.length === 0) {
         grid.innerHTML = '';
         noResults.style.display = 'block';
+        if (noResultsText) {
+            const filters = [];
+            if (currentGender !== 'todos') filters.push(currentGender.toUpperCase());
+            if (currentSearch.trim()) filters.push(`"${currentSearch.trim()}"`);
+            if (currentSort !== 'default') filters.push(currentSort === 'price-asc' ? 'low to high' : currentSort === 'price-desc' ? 'high to low' : 'A to Z');
+            noResultsText.textContent = filters.length ? `No matches for ${filters.join(' · ')}` : 'No hay productos en esta selección';
+        }
         return;
     }
 
@@ -151,35 +288,203 @@ const renderProducts = (animate = true) => {
         existing.forEach(el => el.classList.add('filtering-out'));
         setTimeout(() => {
             grid.innerHTML = filtered.map(renderProductCard).join('');
-            bindCartButtons();
+            grid.querySelectorAll('.cat-product-item').forEach((card, index) => {
+                card.__product = filtered[index];
+            });
+            bindProductCards();
             window.NovaCoreMotion?.animateCategoryCards?.();
         }, 220);
     } else {
         grid.innerHTML = filtered.map(renderProductCard).join('');
-        bindCartButtons();
+        grid.querySelectorAll('.cat-product-item').forEach((card, index) => {
+            card.__product = filtered[index];
+        });
+        bindProductCards();
     }
 };
 
-const bindCartButtons = () => {
-    document.querySelectorAll('.cat-overlay-btn.btn-add').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+const syncWishlistButtons = () => {
+    document.querySelectorAll('.cat-wishlist-btn').forEach((btn) => {
+        const product = btn.closest('.cat-product-item')?.__product;
+        const saved = product ? Boolean(window.NovaCoreStore?.isWishlisted?.({ slug: product.slug, name: product.name })) : false;
+        btn.classList.toggle('is-saved', saved);
+        btn.setAttribute('aria-pressed', saved ? 'true' : 'false');
+        btn.textContent = saved ? 'SAVED' : 'SAVE';
+    });
+
+    const quickSave = document.getElementById('cat-quick-view-save');
+    if (quickSave && currentQuickViewProduct) {
+        const saved = Boolean(window.NovaCoreStore?.isWishlisted?.({ slug: currentQuickViewProduct.slug, name: currentQuickViewProduct.name }));
+        quickSave.classList.toggle('is-saved', saved);
+        quickSave.textContent = saved ? 'SAVED' : 'SAVE';
+    }
+};
+
+const populateQuickView = (product) => {
+    const theme = getCategoryTheme(currentCategoryKey);
+    const stock = getStockLevel(product, currentCategoryKey);
+    const stockLabel = getStockLabel(stock);
+    const fitLabel = product.fit || theme.fit;
+    const fabricLabel = product.fabric || theme.fabric;
+
+    const imageEl = document.getElementById('cat-quick-view-image');
+    const badgeEl = document.getElementById('cat-quick-view-badge');
+    const titleEl = document.getElementById('cat-quick-view-title');
+    const priceEl = document.getElementById('cat-quick-view-price');
+    const descEl = document.getElementById('cat-quick-view-description');
+    const metaEl = document.getElementById('cat-quick-view-meta');
+    const highlightsEl = document.getElementById('cat-quick-view-highlights');
+    const stockEl = document.getElementById('cat-quick-view-stock');
+    const linkEl = document.getElementById('cat-quick-view-link');
+    const addBtn = document.getElementById('cat-quick-view-add');
+    const saveBtn = document.getElementById('cat-quick-view-save');
+
+    if (imageEl) {
+        imageEl.src = product.image;
+        imageEl.alt = product.name;
+    }
+    if (badgeEl) badgeEl.textContent = product.badge;
+    if (titleEl) titleEl.textContent = product.name;
+    if (priceEl) priceEl.textContent = `$${product.price.toFixed(2)}`;
+    if (descEl) descEl.textContent = buildQuickViewDescription(product, currentCategoryKey);
+    if (metaEl) {
+        metaEl.innerHTML = `
+            <span class="cat-overlay-chip">${fitLabel}</span>
+            <span class="cat-overlay-chip">${fabricLabel}</span>
+            <span class="cat-overlay-chip">${stockLabel}</span>
+        `;
+    }
+    if (highlightsEl) {
+        highlightsEl.innerHTML = buildQuickViewHighlights(product, currentCategoryKey).map((item) => `<li>${item}</li>`).join('');
+    }
+    if (stockEl) stockEl.textContent = `${stockLabel} · ${stock} UNITS`;
+    if (linkEl) linkEl.href = `producto.html?slug=${product.slug}`;
+
+    if (addBtn) {
+        addBtn.dataset.slug = product.slug;
+        addBtn.dataset.name = product.name;
+        addBtn.dataset.image = product.image;
+        addBtn.dataset.price = String(product.price);
+    }
+
+    if (saveBtn) {
+        saveBtn.dataset.slug = product.slug;
+        saveBtn.dataset.name = product.name;
+        saveBtn.classList.toggle('is-saved', Boolean(window.NovaCoreStore?.isWishlisted?.({ slug: product.slug, name: product.name })));
+        saveBtn.textContent = saveBtn.classList.contains('is-saved') ? 'SAVED' : 'SAVE';
+    }
+};
+
+const openQuickView = (product) => {
+    const modal = document.getElementById('cat-quick-view-modal');
+    const closeBtn = document.getElementById('cat-quick-view-close');
+    if (!modal || !product) return;
+
+    currentQuickViewProduct = product;
+    populateQuickView(product);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => closeBtn?.focus(), 0);
+
+    window.NovaCoreStore?.recordRecentlyViewed?.({
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        url: `producto.html?slug=${product.slug}`
+    });
+};
+
+const closeQuickView = () => {
+    const modal = document.getElementById('cat-quick-view-modal');
+    if (!modal) return;
+
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+    currentQuickViewProduct = null;
+};
+
+const handleWishlistToggle = (product) => {
+    if (!product) return;
+    const wasSaved = Boolean(window.NovaCoreStore?.isWishlisted?.({ slug: product.slug, name: product.name }));
+    window.NovaCoreStore?.toggleWishlist?.({
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        url: `producto.html?slug=${product.slug}`
+    });
+    syncWishlistButtons();
+    showToast(wasSaved ? `${product.name} eliminado` : `${product.name} guardado`);
+};
+
+const handleQuickAdd = (button) => {
+    if (typeof addProductToCart === 'function') {
+        addProductToCart(button);
+        showToast('Añadido al carrito');
+    }
+};
+
+const bindProductCards = () => {
+    document.querySelectorAll('.cat-product-item').forEach((card) => {
+        const product = card.__product;
+        if (!product) return;
+
+        const quickViewBtn = card.querySelector('.cat-quick-view-btn');
+        const addBtn = card.querySelector('.btn-add');
+        const wishlistBtn = card.querySelector('.cat-wishlist-btn');
+
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('button')) return;
+            openQuickView(product);
+        });
+
+        quickViewBtn?.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            // Reutiliza la función de app.js
-            if (typeof addProductToCart === 'function') {
-                addProductToCart(btn);
-            } else {
-                // fallback manual
-                const price = Number(btn.dataset.price) || 0;
-                if (typeof count !== 'undefined') {
-                    count++;
-                    total = Math.round((total + price) * 100) / 100;
-                    if (typeof updateCartUI === 'function') updateCartUI();
-                }
-                alert('Producto añadido al carrito.');
-            }
+            openQuickView(product);
+        });
+
+        addBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleQuickAdd(addBtn);
+        });
+
+        wishlistBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleWishlistToggle(product);
         });
     });
+
+    const addQuickViewBtn = document.getElementById('cat-quick-view-add');
+    const saveQuickViewBtn = document.getElementById('cat-quick-view-save');
+    if (addQuickViewBtn) {
+        addQuickViewBtn.onclick = (e) => {
+            e.preventDefault();
+            if (!currentQuickViewProduct) return;
+            const tempButton = document.createElement('button');
+            tempButton.dataset.slug = currentQuickViewProduct.slug;
+            tempButton.dataset.name = currentQuickViewProduct.name;
+            tempButton.dataset.image = currentQuickViewProduct.image;
+            tempButton.dataset.price = String(currentQuickViewProduct.price);
+            closeQuickView();
+            handleQuickAdd(tempButton);
+        };
+    }
+
+    if (saveQuickViewBtn) {
+        saveQuickViewBtn.onclick = (e) => {
+            e.preventDefault();
+            if (!currentQuickViewProduct) return;
+            handleWishlistToggle(currentQuickViewProduct);
+        };
+    }
+
+    syncWishlistButtons();
 };
 
 
@@ -189,9 +494,12 @@ const bindCartButtons = () => {
 // ====================================================
 const initCategoryPage = () => {
     const catKey = getCategory();
-    currentCategory = categoryData[catKey] || categoryData['hoodies'];
+    currentCategoryKey = categoryData[catKey] ? catKey : 'hoodies';
+    currentCategory = categoryData[currentCategoryKey];
+    const brandName = window.NovaCoreConfig?.brand?.name || 'NovaCore';
+    const theme = getCategoryTheme(currentCategoryKey);
 
-    document.title = `NovaCore | ${currentCategory.title}`;
+    document.title = `${brandName} | ${currentCategory.title}`;
 
     // Hero
     const heroImg = document.getElementById('cat-hero-img');
@@ -199,15 +507,46 @@ const initCategoryPage = () => {
     const heroSubtitle = document.getElementById('cat-hero-subtitle');
     const breadcrumb = document.getElementById('cat-breadcrumb-name');
     const bgNumber = document.getElementById('cat-bg-number');
+    const introTitle = document.getElementById('cat-intro-title');
+    const introCopy = document.getElementById('cat-intro-copy');
+    const searchInput = document.getElementById('search-input');
+    const sortSelect = document.getElementById('sort-select');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchBar = document.getElementById('search-bar-container');
+    const closeSearchBtn = document.getElementById('close-search');
+    const quickViewModal = document.getElementById('cat-quick-view-modal');
+    const quickViewClose = document.getElementById('cat-quick-view-close');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+    const resetFiltersInlineBtn = document.getElementById('reset-filters-inline');
 
     if (heroImg) { heroImg.src = currentCategory.heroImage; heroImg.alt = currentCategory.title; }
     if (heroTitle) heroTitle.textContent = currentCategory.title;
     if (heroSubtitle) heroSubtitle.textContent = currentCategory.subtitle;
     if (breadcrumb) breadcrumb.textContent = currentCategory.title;
     if (bgNumber) bgNumber.textContent = currentCategory.bgNumber;
+    if (introTitle) introTitle.textContent = theme.introTitle;
+    if (introCopy) introCopy.textContent = theme.introCopy;
+    if (searchInput) searchInput.placeholder = `Buscar en ${currentCategory.title.toLowerCase()}`;
+
+    const resetFilters = () => {
+        currentGender = 'todos';
+        currentSort = 'default';
+        currentSearch = '';
+
+        document.querySelectorAll('.gender-tab').forEach((tab) => {
+            tab.classList.toggle('active', tab.dataset.gender === 'todos');
+        });
+
+        if (sortSelect) sortSelect.value = 'default';
+        if (searchInput) searchInput.value = '';
+        renderProducts(false);
+    };
+
+    if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetFilters);
+    if (resetFiltersInlineBtn) resetFiltersInlineBtn.addEventListener('click', resetFilters);
 
     // Ticker
-    document.querySelectorAll('.ticker-track span').forEach(el => {
+    document.querySelectorAll('.ticker-track span').forEach((el) => {
         el.textContent = `${currentCategory.tickerText}      `;
     });
 
@@ -215,9 +554,9 @@ const initCategoryPage = () => {
     renderProducts(false);
 
     // ---- FILTROS GÉNERO ----
-    document.querySelectorAll('.gender-tab').forEach(tab => {
+    document.querySelectorAll('.gender-tab').forEach((tab) => {
         tab.addEventListener('click', () => {
-            document.querySelectorAll('.gender-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.gender-tab').forEach((t) => t.classList.remove('active'));
             tab.classList.add('active');
             currentGender = tab.dataset.gender;
             renderProducts(true);
@@ -225,7 +564,6 @@ const initCategoryPage = () => {
     });
 
     // ---- ORDENAR ----
-    const sortSelect = document.getElementById('sort-select');
     if (sortSelect) {
         sortSelect.addEventListener('change', () => {
             currentSort = sortSelect.value;
@@ -234,15 +572,11 @@ const initCategoryPage = () => {
     }
 
     // ---- BÚSQUEDA ----
-    const searchBtn = document.querySelector('.search-btn');
-    const searchBar = document.getElementById('search-bar-container');
-    const closeSearchBtn = document.getElementById('close-search');
-    const searchInput = document.getElementById('search-input');
-
     if (searchBtn && searchBar && searchInput) {
         searchBtn.addEventListener('click', (e) => {
             e.preventDefault();
             searchBar.classList.toggle('search-bar-visible');
+            searchBtn.setAttribute('aria-expanded', searchBar.classList.contains('search-bar-visible') ? 'true' : 'false');
             if (searchBar.classList.contains('search-bar-visible')) {
                 setTimeout(() => searchInput.focus(), 50);
             }
@@ -252,6 +586,7 @@ const initCategoryPage = () => {
     if (closeSearchBtn && searchBar && searchInput) {
         closeSearchBtn.addEventListener('click', () => {
             searchBar.classList.remove('search-bar-visible');
+            searchBtn?.setAttribute('aria-expanded', 'false');
             searchInput.value = '';
             currentSearch = '';
             renderProducts(true);
@@ -265,7 +600,8 @@ const initCategoryPage = () => {
         });
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                searchBar.classList.remove('search-bar-visible');
+                searchBar?.classList.remove('search-bar-visible');
+                searchBtn?.setAttribute('aria-expanded', 'false');
                 searchInput.value = '';
                 currentSearch = '';
                 renderProducts(true);
@@ -273,7 +609,28 @@ const initCategoryPage = () => {
         });
     }
 
+    if (quickViewModal) {
+        quickViewModal.addEventListener('click', (e) => {
+            if (e.target === quickViewModal) closeQuickView();
+        });
+    }
 
+    quickViewClose?.addEventListener('click', closeQuickView);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (quickViewModal?.classList.contains('is-open')) {
+            closeQuickView();
+            return;
+        }
+        if (searchBar?.classList.contains('search-bar-visible')) {
+            searchBar.classList.remove('search-bar-visible');
+            searchBtn?.setAttribute('aria-expanded', 'false');
+            if (searchInput) searchInput.value = '';
+            currentSearch = '';
+            renderProducts(true);
+        }
+    });
 };
 
 if (document.readyState === 'loading') {

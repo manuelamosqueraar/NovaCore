@@ -27,46 +27,53 @@
     </ul>
 
     <div class="nav-actions">
-        <button class="search-btn" aria-label="Buscar">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+        <button class="search-btn" type="button" aria-label="Buscar" aria-controls="search-bar-container" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
         </button>
-        <button class="auth-btn" id="openLogin" type="button" aria-label="Acceso">Acceso</button>
-        <div class="cart-container" id="openCheckout">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button class="auth-btn" id="openLogin" type="button" aria-label="Acceso" aria-controls="loginModal" aria-expanded="false">Acceso</button>
+        <button class="cart-container" id="openCheckout" type="button" aria-label="Abrir carrito" aria-controls="cart-sidebar" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                 <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
                 <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
             </svg>
             <span id="cart-count">0</span>
-        </div>
+        </button>
     </div>
 </nav>
 
 <div id="search-bar-container">
     <div class="search-input-wrapper">
-        <input type="text" id="search-input" placeholder="¿En qué puedo ayudarte?">
-        <button id="close-search">×</button>
+        <input type="text" id="search-input" placeholder="¿En qué puedo ayudarte?" aria-label="Buscar en la tienda">
+        <button id="close-search" type="button" aria-label="Cerrar búsqueda">×</button>
     </div>
 </div>
 
-<header id="inicio" class="hero-senior" style="position: relative !important; width: 100% !important; height: 100vh !important; display: flex !important; align-items: flex-end !important; justify-content: flex-start !important; overflow: hidden !important;">
-    <div class="hero-video-bg" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important;">
-        <img src="IMG/fondo4.jpg" alt="NovaCore Elite" style="width: 100% !important; height: 100% !important; object-fit: cover !important;">
+<header id="inicio" class="hero-senior">
+    <div class="hero-video-bg">
+        <img src="IMG/fondo4.jpg" alt="NovaCore Elite">
     </div>
-    <div class="hero-overlay" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0, 0, 0, 0.4) !important; z-index: 2 !important;"></div>
-    <div class="hero-content" style="position: relative !important; z-index: 3 !important; text-align: left !important; color: #ffffff !important; display: flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: flex-end !important; width: 100% !important; max-width: 600px !important; margin: 0 !important; padding: 0 0 50px 50px !important; box-sizing: border-box !important; transform: none !important; left: 0 !important;">
-        <div class="hero-top-text" style="margin-bottom: 10px !important;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-top-text">
             <span class="line"></span>
-            <span class="label" style="font-size: 0.8rem !important; letter-spacing: 2px !important;">COLECCIÓN EXCLUSIVA</span>
+            <span class="label">COLECCIÓN EXCLUSIVA</span>
             <span class="line"></span>
         </div>
-        <h1 style="color: #ffffff !important; font-size: 2rem !important; font-weight: 600 !important; line-height: 1.2 !important; margin: 0 0 20px 0 !important; text-transform: uppercase !important; letter-spacing: 1px !important; text-align: left !important;">
-             PIEZAS ESENCIALES <br> <span class="thin" style="font-weight: 300 !important;">DE EDICIÓN</span> LIMITADA
+        <h1>
+             PIEZAS ESENCIALES <br> <span class="thin">DE EDICIÓN</span> LIMITADA
         </h1>
-        <div class="hero-actions-fixed" style="position: relative !important; display: flex !important; justify-content: flex-start !important; align-items: center !important; width: auto !important; min-width: max-content !important; margin: 0 !important; left: auto !important; right: auto !important; transform: none !important;">
-           <a href="#productos" class="btn-primary" style="display: inline-block !important; margin: 0 !important; text-align: center !important; padding: 14px 36px !important; border-radius: 0px !important; text-decoration: none !important; font-weight: 600 !important; letter-spacing: 2px !important; text-transform: uppercase !important; font-size: 0.85rem !important; transition: all 0.3s ease !important;">COMPRAR AHORA</a>
+        <p class="hero-support-copy">Un home pensado como portada editorial: piezas curadas, storytelling limpio y acceso directo a compra.</p>
+        <div class="hero-meta-row" aria-label="Atributos de la colección">
+            <span class="hero-meta-chip">EDITORIAL FLOW</span>
+            <span class="hero-meta-chip">LIMITED RUN</span>
+            <span class="hero-meta-chip">FAST BUY</span>
+        </div>
+        <div class="hero-actions-fixed">
+           <a href="#productos" class="btn-primary">COMPRAR AHORA</a>
+           <a href="#nosotros" class="btn-secondary">VER MANIFIESTO</a>
         </div>
     </div>
 </header>
@@ -92,6 +99,45 @@
     </div>
 </div>
 
+<section class="home-editorial-section" aria-labelledby="home-editorial-title">
+    <div class="home-editorial-grid">
+        <div class="home-editorial-copy section-heading">
+            <span class="section-kicker">EDITORIAL CUT</span>
+            <h2 id="home-editorial-title">La tienda se lee como una campaña, no como un inventario</h2>
+            <p>NovaCore mezcla lookbook, catálogo y checkout para que la primera impresión ya empuje a comprar.</p>
+            <div class="home-editorial-actions">
+                <a href="#productos" class="btn-primary">VER PIEZAS</a>
+                <a href="#nosotros" class="btn-secondary">VER HISTORIA</a>
+            </div>
+            <ul class="home-editorial-bullets">
+                <li><strong>01</strong><span>Composición limpia con foco en la silueta</span></li>
+                <li><strong>02</strong><span>Compra directa desde la narrativa</span></li>
+                <li><strong>03</strong><span>Lenguaje white-label fácil de rebrandear</span></li>
+            </ul>
+        </div>
+        <div class="home-editorial-visual">
+            <article class="home-editorial-card home-editorial-card--hero">
+                <img src="IMG/fondo3.jpg" alt="NovaCore campaign preview" loading="lazy">
+                <div class="home-editorial-card-copy">
+                    <span>DROP 01</span>
+                    <h3>Built like a lookbook</h3>
+                    <p>Del hero al producto en un solo flujo de compra.</p>
+                </div>
+            </article>
+            <div class="home-editorial-mini-grid">
+                <article class="home-editorial-mini">
+                    <span>Campaign</span>
+                    <p>Visual first, buy fast.</p>
+                </article>
+                <article class="home-editorial-mini">
+                    <span>Rebrandable</span>
+                    <p>Content separado de la estructura.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
 <section class="trust-strip">
@@ -108,6 +154,9 @@
                     <span class="trust-index">01</span>
                     <span class="trust-chip">EXPRESS</span>
                 </div>
+                <div class="trust-icon">
+                    <box-icon type="solid" name="truck"></box-icon>
+                </div>
                 <div class="trust-stat">24/48H</div>
                 <h3>Envío ágil</h3>
                 <p>Despachos rápidos con seguimiento claro desde el primer día.</p>
@@ -117,6 +166,9 @@
                 <div class="trust-card-top">
                     <span class="trust-index">02</span>
                     <span class="trust-chip">SSL</span>
+                </div>
+                <div class="trust-icon">
+                    <box-icon type="solid" name="lock-alt"></box-icon>
                 </div>
                 <div class="trust-stat">CIFRADO</div>
                 <h3>Pago seguro</h3>
@@ -128,6 +180,9 @@
                     <span class="trust-index">03</span>
                     <span class="trust-chip">DROP</span>
                 </div>
+                <div class="trust-icon">
+                    <box-icon type="solid" name="gift"></box-icon>
+                </div>
                 <div class="trust-stat">LIMITED</div>
                 <h3>Drops limitados</h3>
                 <p>Stock controlado para que cada lanzamiento se sienta exclusivo.</p>
@@ -138,6 +193,9 @@
                     <span class="trust-index">04</span>
                     <span class="trust-chip">24/7</span>
                 </div>
+                <div class="trust-icon">
+                    <box-icon type="solid" name="support"></box-icon>
+                </div>
                 <div class="trust-stat">DIRECTO</div>
                 <h3>Soporte directo</h3>
                 <p>Respuesta rápida para tallas, pedidos y cambios.</p>
@@ -147,7 +205,12 @@
     </div>
 </section>
 
-<section id="productos" class="featured-products-section" style="scroll-margin-top: 90px !important; padding: 60px 3%;">
+<section id="productos" class="featured-products-section">
+    <div class="section-heading home-products-heading">
+        <span class="section-kicker">SELECTED PIECES</span>
+        <h2>Shoppable essentials</h2>
+        <p>Las piezas más importantes, editadas para entrar directo al flujo de compra.</p>
+    </div>
     <div class="products-clean-grid">
 
         <a href="producto.html?slug=camisa-brand" class="product-item" data-price="45" data-name="CAMISA BRAND">
@@ -395,16 +458,14 @@
     </div>
 </section>
 
-<div id="contactModal" class="modal">
+<div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-hidden="true">
     <div class="modal-content-premium">
-        <div class="close-container" id="closeContact">
-            <span>&times;</span>
-        </div>
+        <button type="button" class="close-container" id="closeContact" aria-label="Cerrar contacto">&times;</button>
         <div class="contact-grid">
             <div class="contact-visual">
                 <div class="visual-text">
                     <small>CONTACTO EXCLUSIVO</small>
-                    <h2>LLEVEMOS TU ESTILO AL <span>SIGUIENTE NIVEL</span></h2>
+                    <h2 id="contact-modal-title">LLEVEMOS TU ESTILO AL <span>SIGUIENTE NIVEL</span></h2>
                 </div>
             </div>
             <div class="contact-form-area">
@@ -429,36 +490,34 @@
     </div>
 </div>
 
-<div id="checkoutModal" class="modal">
+<div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title" aria-hidden="true">
     <div class="modal-content-checkout-v2">
-        <div class="close-container-pay" id="closeCheckout">
-            <span>&times;</span>
-        </div>
+        <button type="button" class="close-container-pay" id="closeCheckout" aria-label="Cerrar pago">&times;</button>
         <div class="checkout-grid">
             <div class="pay-form-side">
-                <h2>PAGO SEGURO</h2>
+                <h2 id="checkout-modal-title">PAGO SEGURO</h2>
                 <p class="subtitle">Ingresa los datos de tu tarjeta</p>
                 <form id="payment-form">
                     <div class="input-wrapper">
-                        <label>TITULAR DE LA TARJETA</label>
-                        <input type="text" id="pay-name" placeholder="Nombre completo" required>
+                        <label for="pay-name">TITULAR DE LA TARJETA</label>
+                        <input type="text" id="pay-name" placeholder="Nombre completo" autocomplete="cc-name" required>
                     </div>
                     <div class="input-wrapper">
-                        <label>CORREO ELECTRÓNICO</label>
-                        <input type="email" id="pay-email" placeholder="tu@email.com" required>
+                        <label for="pay-email">CORREO ELECTRÓNICO</label>
+                        <input type="email" id="pay-email" placeholder="tu@email.com" autocomplete="email" required>
                     </div>
                     <div class="input-wrapper">
-                        <label>NÚMERO DE TARJETA</label>
-                        <input type="text" placeholder="0000 0000 0000 0000" required>
+                        <label for="pay-card">NÚMERO DE TARJETA</label>
+                        <input type="text" id="pay-card" placeholder="0000 0000 0000 0000" autocomplete="cc-number" inputmode="numeric" required>
                     </div>
                     <div class="row-inputs">
                         <div class="input-wrapper">
-                            <label>EXPIRACIÓN</label>
-                            <input type="text" placeholder="MM/YY" required>
+                            <label for="pay-expiry">EXPIRACIÓN</label>
+                            <input type="text" id="pay-expiry" placeholder="MM/YY" autocomplete="cc-exp" inputmode="numeric" required>
                         </div>
                         <div class="input-wrapper">
-                            <label>CVC</label>
-                            <input type="password" placeholder="123" required>
+                            <label for="pay-cvc">CVC</label>
+                            <input type="password" id="pay-cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric" required>
                         </div>
                     </div>
                     <button type="submit" class="btn-pay-premium">CONFIRMAR COMPRA</button>
@@ -478,7 +537,7 @@
     </div>
 </div>
 
-<div id="loginModal" class="modal">
+<div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-label="Acceso y registro de cuenta NovaCore" aria-hidden="true">
     <div class="container">
         <button type="button" class="auth-close-btn" id="closeLogin" aria-label="Cerrar">&times;</button>
         <div class="curved-shape"></div>
@@ -488,15 +547,15 @@
             <h2 class="animation" style="--D:0; --S:21">Iniciar sesión</h2>
             <form action="#">
                 <div class="input-box animation" style="--D:1; --S:22">
-                    <input type="text" required>
-                    <label>Usuario o correo</label>
-                    <box-icon type="solid" name="user" color="#f4f4f4"></box-icon>
+                    <input type="text" id="login-identifier" autocomplete="username" required>
+                    <label for="login-identifier">Usuario o correo</label>
+                    <box-icon type="solid" name="user" color="#f4f4f4" aria-hidden="true"></box-icon>
                 </div>
 
                 <div class="input-box animation" style="--D:2; --S:23">
-                    <input type="password" required>
-                    <label>Contraseña</label>
-                    <box-icon name="lock-alt" type="solid" color="#f4f4f4"></box-icon>
+                    <input type="password" id="login-password" autocomplete="current-password" required>
+                    <label for="login-password">Contraseña</label>
+                    <box-icon name="lock-alt" type="solid" color="#f4f4f4" aria-hidden="true"></box-icon>
                 </div>
 
                 <div class="forgot-link animation" style="--D:3; --S:24">
@@ -512,12 +571,12 @@
                 </div>
 
                 <div class="social-login animation" style="--D:6; --S:27">
-    <button type="button" class="social-btn google">
-        <box-icon type="logo" name="google" color="#f4f4f4"></box-icon>
+    <button type="button" class="social-btn google" aria-label="Continuar con Google">
+        <box-icon type="logo" name="google" color="#f4f4f4" aria-hidden="true"></box-icon>
         Continuar con Google
     </button>
-    <button type="button" class="social-btn apple">
-        <box-icon type="logo" name="apple" color="#f4f4f4"></box-icon>
+    <button type="button" class="social-btn apple" aria-label="Continuar con Apple">
+        <box-icon type="logo" name="apple" color="#f4f4f4" aria-hidden="true"></box-icon>
         Continuar con Apple
     </button>
 </div>
@@ -537,21 +596,21 @@
             <h2 class="animation" style="--li:17; --S:0">Crear cuenta</h2>
             <form action="#">
                 <div class="input-box animation" style="--li:18; --S:1">
-                    <input type="text" required>
-                    <label>Nombre de usuario</label>
-                    <box-icon type="solid" name="user" color="#f4f4f4"></box-icon>
+                    <input type="text" id="register-name" autocomplete="username" required>
+                    <label for="register-name">Nombre de usuario</label>
+                    <box-icon type="solid" name="user" color="#f4f4f4" aria-hidden="true"></box-icon>
                 </div>
 
                 <div class="input-box animation" style="--li:19; --S:2">
-                    <input type="email" required>
-                    <label>Correo electrónico</label>
-                    <box-icon name="envelope" type="solid" color="#f4f4f4"></box-icon>
+                    <input type="email" id="register-email" autocomplete="email" required>
+                    <label for="register-email">Correo electrónico</label>
+                    <box-icon name="envelope" type="solid" color="#f4f4f4" aria-hidden="true"></box-icon>
                 </div>
 
                 <div class="input-box animation" style="--li:20; --S:3">
-                    <input type="password" required>
-                    <label>Contraseña</label>
-                    <box-icon name="lock-alt" type="solid" color="#f4f4f4"></box-icon>
+                    <input type="password" id="register-password" autocomplete="new-password" required>
+                    <label for="register-password">Contraseña</label>
+                    <box-icon name="lock-alt" type="solid" color="#f4f4f4" aria-hidden="true"></box-icon>
                 </div>
 
                 <div class="input-box animation" style="--li:21; --S:4">
@@ -563,11 +622,11 @@
                 </div>
 
                 <div class="social-login animation" style="--li:23; --S:6">
-                    <button type="button" class="social-btn google">
-                        <box-icon type="logo" name="google" color="#f4f4f4"></box-icon>
+                    <button type="button" class="social-btn google" aria-label="Registrarse con Google">
+                        <box-icon type="logo" name="google" color="#f4f4f4" aria-hidden="true"></box-icon>
                     </button>
-                    <button type="button" class="social-btn apple">
-                        <box-icon type="logo" name="apple" color="#f4f4f4"></box-icon>
+                    <button type="button" class="social-btn apple" aria-label="Registrarse con Apple">
+                        <box-icon type="logo" name="apple" color="#f4f4f4" aria-hidden="true"></box-icon>
                     </button>
                 </div>
 
@@ -623,7 +682,7 @@
             <h4>ÚNETE AL CLUB</h4>
             <p>Recibe acceso anticipado a nuestras colecciones limitadas.</p>
             <form class="newsletter-form" id="newsletter-form">
-                <input type="email" id="newsletter-email" placeholder="Tu email" required>
+                <input type="email" id="newsletter-email" placeholder="Tu email" aria-label="Tu correo electrónico" required>
                 <button type="submit">SUSCRIBIR</button>
             </form>
         </div>
@@ -641,6 +700,11 @@
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
     <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+    <script src="motion.js"></script>
 </body>
 </html>

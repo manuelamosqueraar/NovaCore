@@ -21,13 +21,13 @@
         </ul>
 
         <div class="nav-actions">
-            <div class="cart-container" id="openCheckout">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="cart-container" id="openCheckout" type="button" aria-label="Abrir carrito" aria-controls="cart-sidebar" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                     <path d="M6 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"></path>
                     <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
                 </svg>
                 <span id="cart-count">0</span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -52,102 +52,158 @@
                     <span class="pulse-dot"></span>
                     <span id="product-badge-text">DROP LIMITADO</span>
                 </div>
+                <div class="product-gallery-rail" id="product-gallery-rail" aria-label="Galería del producto"></div>
+                <div class="product-visual-meta">
+                    <span class="product-visual-chip" id="product-gallery-label">01 / 03</span>
+                    <span class="product-visual-chip" id="product-stock-chip">IN STOCK</span>
+                </div>
             </div>
         </section>
 
         <section class="product-info-panel">
-            <a class="product-back-link" href="index.html#productos">← Volver a la colección</a>
+            <div class="product-info-card">
+                <a class="product-back-link" href="index.html#productos">← Volver a la colección</a>
 
-            <span class="product-series" id="product-series">ARCHIVE 01</span>
-            <h1 class="product-main-name" id="product-name">CAMISA BRAND</h1>
-            <p class="product-price" id="product-price">$45.00</p>
+                <span class="product-series" id="product-series">ARCHIVE 01</span>
+                <h1 class="product-main-name" id="product-name">CAMISA BRAND</h1>
 
-            <div class="editorial-divider"></div>
-
-            <div class="product-description" id="product-description">
-                <p>Ficha de producto en carga.</p>
-            </div>
-
-            <div class="editorial-divider"></div>
-
-            <div class="size-selector-wrap">
-                <div class="selector-header">
-                    <span>TALLA</span>
-                    <a class="size-guide-link" href="#tech-sections">GUÍA</a>
+                <div class="product-price-row">
+                    <p class="product-price" id="product-price">$45.00</p>
+                    <span class="product-live-stock" id="product-live-stock">IN STOCK</span>
                 </div>
-                <div class="premium-size-grid" id="size-grid">
-                    <button type="button" class="size-box active" aria-pressed="true">S</button>
-                    <button type="button" class="size-box" aria-pressed="false">M</button>
-                    <button type="button" class="size-box" aria-pressed="false">L</button>
-                    <button type="button" class="size-box" aria-pressed="false">XL</button>
+
+                <div class="product-meta-grid" id="product-summary-grid"></div>
+
+                <p class="product-story-note" id="product-story-note"></p>
+
+                <div class="editorial-divider"></div>
+
+                <div class="product-description" id="product-description">
+                    <p>Ficha de producto en carga.</p>
                 </div>
-            </div>
 
-            <div class="purchase-actions-area">
-                <button type="button" class="btn-main-add-cart" id="product-add-button">
-                    <span class="btn-text">AÑADIR AL CARRITO</span>
-                    <span class="btn-arrow">→</span>
-                </button>
-                <p class="shipping-notice">Envío estándar gratis y seguimiento premium incluido.</p>
-            </div>
+                <ul class="product-highlights" id="product-highlights"></ul>
 
-            <div class="editorial-divider"></div>
-
-            <div id="tech-sections">
-                <details class="tech-item" open>
-                    <summary>MATERIAL<span>+</span></summary>
-                    <div class="tech-content">
-                        <ul>
-                            <li>Algodón premium</li>
-                            <li>Costuras reforzadas</li>
-                            <li>Acabado limpio</li>
-                        </ul>
+                <div class="product-purchase-card">
+                    <div class="size-selector-wrap">
+                        <div class="selector-header">
+                            <span>TALLA</span>
+                            <div class="selector-inline-actions">
+                                <span class="selected-size-label" id="selected-size-label">SIZE S</span>
+                                <a class="size-guide-link" href="#tech-sections">GUÍA</a>
+                            </div>
+                        </div>
+                        <div class="premium-size-grid" id="size-grid">
+                            <button type="button" class="size-box active" aria-pressed="true">S</button>
+                            <button type="button" class="size-box" aria-pressed="false">M</button>
+                            <button type="button" class="size-box" aria-pressed="false">L</button>
+                            <button type="button" class="size-box" aria-pressed="false">XL</button>
+                        </div>
                     </div>
-                </details>
+
+                    <div class="purchase-actions-area">
+                        <div class="purchase-actions-row">
+                            <button type="button" class="btn-main-add-cart" id="product-add-button">
+                                <span class="btn-text">AÑADIR AL CARRITO</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                            <button type="button" class="btn-secondary-action" id="product-wishlist-button">SAVE</button>
+                        </div>
+                        <p class="shipping-notice">Envío estándar gratis y seguimiento premium incluido.</p>
+                    </div>
+                </div>
+
+                <div class="editorial-divider"></div>
+
+                <div id="tech-sections">
+                    <details class="tech-item" open>
+                        <summary>MATERIAL<span>+</span></summary>
+                        <div class="tech-content">
+                            <ul>
+                                <li>Algodón premium</li>
+                                <li>Costuras reforzadas</li>
+                                <li>Acabado limpio</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
             </div>
         </section>
     </main>
+
+    <section class="product-cross-sell-section" aria-labelledby="complete-look-title">
+        <div class="section-heading product-section-heading">
+            <span class="section-kicker">STYLING</span>
+            <h2 id="complete-look-title">Complete the look</h2>
+            <p>Pieces curated to finish the outfit and move the purchase forward.</p>
+        </div>
+        <div class="product-cross-sell-grid" id="complete-look-grid"></div>
+    </section>
+
+    <section class="product-cross-sell-section product-cross-sell-alt" aria-labelledby="related-title">
+        <div class="section-heading product-section-heading">
+            <span class="section-kicker">RELATED PICKS</span>
+            <h2 id="related-title">You may also like</h2>
+            <p>More pieces from the same edit, balanced by shape and function.</p>
+        </div>
+        <div class="product-cross-sell-grid" id="related-products-grid"></div>
+    </section>
+
+    <section class="product-cross-sell-section" aria-labelledby="recently-viewed-title">
+        <div class="section-heading product-section-heading">
+            <span class="section-kicker">RECENTLY VIEWED</span>
+            <h2 id="recently-viewed-title">Continue browsing</h2>
+            <p>Keep the last products you checked close at hand.</p>
+        </div>
+        <div class="product-cross-sell-grid" id="recently-viewed-grid"></div>
+        <div class="product-empty-state" id="recently-empty-state" hidden>
+            <p>You have not viewed other products yet.</p>
+            <a href="index.html#productos">Back to collection</a>
+        </div>
+    </section>
 
     <div class="product-mobile-bar" aria-label="Compra rápida en móvil">
         <div class="product-mobile-meta">
             <span>PRECIO</span>
             <strong id="mobile-product-price">$45.00</strong>
+            <div class="product-mobile-pills">
+                <span id="mobile-product-size">SIZE S</span>
+                <span id="mobile-product-stock">IN STOCK</span>
+            </div>
         </div>
         <button type="button" class="btn-main-add-cart" id="mobile-product-add-button">AÑADIR AL CARRITO</button>
     </div>
 
-    <div id="checkoutModal" class="modal">
+    <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title" aria-hidden="true">
         <div class="modal-content-checkout-v2">
-            <div class="close-container-pay" id="closeCheckout">
-                <span>&times;</span>
-            </div>
+            <button type="button" class="close-container-pay" id="closeCheckout" aria-label="Cerrar pago">&times;</button>
 
             <div class="checkout-grid">
                 <div class="pay-form-side">
-                    <h2>PAGO SEGURO</h2>
+                    <h2 id="checkout-modal-title">PAGO SEGURO</h2>
                     <p class="subtitle">Ingresa los datos de tu tarjeta</p>
 
                     <form id="payment-form">
                         <div class="input-wrapper">
-                            <label>TITULAR DE LA TARJETA</label>
-                            <input type="text" id="pay-name" placeholder="Nombre completo" required>
+                            <label for="pay-name">TITULAR DE LA TARJETA</label>
+                            <input type="text" id="pay-name" placeholder="Nombre completo" autocomplete="cc-name" required>
                         </div>
                         <div class="input-wrapper">
-                            <label>CORREO ELECTRÓNICO</label>
-                            <input type="email" id="pay-email" placeholder="tu@email.com" required>
+                            <label for="pay-email">CORREO ELECTRÓNICO</label>
+                            <input type="email" id="pay-email" placeholder="tu@email.com" autocomplete="email" required>
                         </div>
                         <div class="input-wrapper">
-                            <label>NÚMERO DE TARJETA</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" required>
+                            <label for="pay-card">NÚMERO DE TARJETA</label>
+                            <input type="text" id="pay-card" placeholder="0000 0000 0000 0000" autocomplete="cc-number" inputmode="numeric" required>
                         </div>
                         <div class="row-inputs">
                             <div class="input-wrapper">
-                                <label>EXPIRACIÓN</label>
-                                <input type="text" placeholder="MM/YY" required>
+                                <label for="pay-expiry">EXPIRACIÓN</label>
+                                <input type="text" id="pay-expiry" placeholder="MM/YY" autocomplete="cc-exp" inputmode="numeric" required>
                             </div>
                             <div class="input-wrapper">
-                                <label>CVC</label>
-                                <input type="password" placeholder="123" required>
+                                <label for="pay-cvc">CVC</label>
+                                <input type="password" id="pay-cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric" required>
                             </div>
                         </div>
                         <button type="submit" class="btn-pay-premium">CONFIRMAR COMPRA</button>
@@ -169,7 +225,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="producto.js"></script>
+    <script src="config.js"></script>
     <script src="app.js"></script>
+    <script src="producto.js"></script>
 </body>
 </html>

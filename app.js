@@ -4,26 +4,139 @@ const _supabase = window.supabase
     ? window.supabase.createClient(supabaseUrl, supabaseKey)
     : null;
 
+const STORAGE_KEYS = {
+    cart: 'novaCoreCart_v2',
+    wishlist: 'novaCoreWishlist_v1',
+    recentlyViewed: 'novaCoreRecentlyViewed_v1'
+};
+
+const readJSON = (key, fallback) => {
+    try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        const parsed = JSON.parse(raw);
+        return parsed ?? fallback;
+    } catch {
+        return fallback;
+    }
+};
+
+const writeJSON = (key, value) => {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch {}
+};
+
+const ensureArray = (value) => (Array.isArray(value) ? value : []);
+
 // ====================================================
 // ESTADO DEL CARRITO
 // ====================================================
-const CART_KEY = 'novaCoreCart_v2';
-
-const loadCart = () => {
-    try {
-        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
-    } catch { return []; }
-};
+const loadCart = () => ensureArray(readJSON(STORAGE_KEYS.cart, []));
 
 const saveCart = (items) => {
-    try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch {}
+    writeJSON(STORAGE_KEYS.cart, items);
 };
 
 let cartItems = loadCart(); // Array de { id, name, price, image, size, qty }
 
+const loadWishlist = () => ensureArray(readJSON(STORAGE_KEYS.wishlist, []));
+
+const saveWishlist = (items) => {
+    writeJSON(STORAGE_KEYS.wishlist, items);
+};
+
+let wishlistItems = loadWishlist();
+
+const loadRecentlyViewed = () => ensureArray(readJSON(STORAGE_KEYS.recentlyViewed, []));
+
+const saveRecentlyViewed = (items) => {
+    writeJSON(STORAGE_KEYS.recentlyViewed, items);
+};
+
+const normalizeStoredProduct = (payload = {}) => ({
+    slug: String(payload.slug || '').trim(),
+    name: String(payload.name || 'Producto NovaCore').trim(),
+    price: Number(payload.price) || 0,
+    image: String(payload.image || '').trim(),
+    size: String(payload.size || '').trim(),
+    url: String(payload.url || '').trim(),
+    badge: String(payload.badge || '').trim()
+});
+
+const wishlistItemKey = (item) => `${item.slug || ''}::${item.name || ''}::${item.size || ''}`;
+
+const normalizeWishlistQuery = (query, size = '', name = '') => {
+    if (query && typeof query === 'object') {
+        return normalizeStoredProduct(query);
+    }
+
+    return normalizeStoredProduct({ slug: query, size, name });
+};
+
+const recentlyViewedItemKey = (item) => `${item.slug || ''}::${item.name || ''}`;
+
+const recordRecentlyViewed = (payload) => {
+    const item = normalizeStoredProduct(payload);
+    if (!item.slug) return [];
+
+    const next = loadRecentlyViewed().filter((entry) => recentlyViewedItemKey(entry) !== recentlyViewedItemKey(item));
+    next.unshift({ ...item, viewedAt: Date.now() });
+    const trimmed = next.slice(0, 12);
+    saveRecentlyViewed(trimmed);
+    return trimmed;
+};
+
+const toggleWishlist = (payload) => {
+    const item = normalizeStoredProduct(payload);
+    if (!item.slug) return [];
+
+    const key = wishlistItemKey(item);
+    const index = wishlistItems.findIndex((entry) => wishlistItemKey(entry) === key);
+
+    if (index >= 0) {
+        wishlistItems.splice(index, 1);
+    } else {
+        wishlistItems.unshift({ ...item, savedAt: Date.now() });
+    }
+
+    saveWishlist(wishlistItems);
+    return [...wishlistItems];
+};
+
+window.NovaCoreStore = {
+    getCart: () => [...cartItems],
+    getWishlist: () => [...wishlistItems],
+    isWishlisted: (query, size = '', name = '') => {
+        const item = normalizeWishlistQuery(query, size, name);
+        return wishlistItems.some((entry) => wishlistItemKey(entry) === wishlistItemKey(item));
+    },
+    toggleWishlist,
+    recordRecentlyViewed,
+    getRecentlyViewed: () => loadRecentlyViewed(),
+    clearRecentlyViewed: () => {
+        saveRecentlyViewed([]);
+        return [];
+    },
+    clearWishlist: () => {
+        wishlistItems = [];
+        saveWishlist(wishlistItems);
+        return [];
+    }
+};
+
 const getCartCount = () => cartItems.reduce((sum, i) => sum + i.qty, 0);
 const getCartTotal = () => cartItems.reduce((sum, i) => sum + i.price * i.qty, 0);
 const formatCurrency = (v) => `$${v.toFixed(2)}`;
+const getFirstFocusableElement = (container) => container?.querySelector('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+const setCheckoutTriggerState = (expanded) => {
+    const trigger = document.getElementById('openCheckout');
+    if (trigger) trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+};
+const setLoginTriggerState = (expanded) => {
+    const trigger = document.getElementById('openLogin');
+    if (trigger) trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+};
 
 // ====================================================
 // UI DEL CONTADOR (NAVBAR)
@@ -46,17 +159,22 @@ const buildSidebar = () => {
     const overlay = document.createElement('div');
     overlay.className = 'cart-overlay';
     overlay.id = 'cart-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
 
     const sidebar = document.createElement('div');
     sidebar.className = 'cart-sidebar';
     sidebar.id = 'cart-sidebar';
+    sidebar.setAttribute('role', 'dialog');
+    sidebar.setAttribute('aria-modal', 'true');
+    sidebar.setAttribute('aria-labelledby', 'cart-sidebar-title');
+    sidebar.setAttribute('aria-hidden', 'true');
     sidebar.innerHTML = `
         <div class="cart-sidebar-header">
             <div>
-                <h2>TU CARRITO</h2>
+                <h2 id="cart-sidebar-title">TU CARRITO</h2>
                 <span class="cart-item-total-count" id="cart-header-count">0 PIEZAS</span>
             </div>
-            <button class="cart-close-btn" id="cart-close-btn">✕</button>
+            <button class="cart-close-btn" id="cart-close-btn" type="button">✕</button>
         </div>
         <div class="cart-items-list" id="cart-items-list"></div>
         <div class="cart-sidebar-footer">
@@ -65,7 +183,7 @@ const buildSidebar = () => {
                 <span class="cart-subtotal-value" id="cart-subtotal-val">$0.00</span>
             </div>
             <span class="cart-shipping-note">ENVÍO ESTÁNDAR GRATIS INCLUIDO</span>
-            <button class="cart-checkout-btn" id="cart-go-checkout">
+            <button class="cart-checkout-btn" id="cart-go-checkout" type="button">
                 <span>PROCEDER AL PAGO</span>
                 <span>→</span>
             </button>
@@ -86,9 +204,11 @@ const buildSidebar = () => {
         const checkoutModal = document.getElementById('checkoutModal');
         if (checkoutModal) {
             checkoutModal.style.display = 'block';
+            checkoutModal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
             const totalEl = document.getElementById('checkout-total-val');
             if (totalEl) totalEl.textContent = formatCurrency(getCartTotal());
+            setTimeout(() => getFirstFocusableElement(checkoutModal)?.focus(), 0);
         }
     });
 };
@@ -98,7 +218,10 @@ const openCartSidebar = () => {
     renderCartItems();
     document.getElementById('cart-sidebar').classList.add('cart-open');
     document.getElementById('cart-overlay').classList.add('cart-open');
+    document.getElementById('cart-sidebar')?.setAttribute('aria-hidden', 'false');
+    setCheckoutTriggerState(true);
     document.body.style.overflow = 'hidden';
+    document.getElementById('cart-close-btn')?.focus();
 };
 
 const closeCartSidebar = () => {
@@ -106,6 +229,8 @@ const closeCartSidebar = () => {
     const overlay = document.getElementById('cart-overlay');
     if (sidebar) sidebar.classList.remove('cart-open');
     if (overlay) overlay.classList.remove('cart-open');
+    if (sidebar) sidebar.setAttribute('aria-hidden', 'true');
+    setCheckoutTriggerState(false);
     document.body.style.overflow = 'auto';
 };
 
@@ -198,7 +323,9 @@ const addProductToCart = (source) => {
     }
 
     // Talla
-    const size = card?.querySelector('.size-box.active')?.textContent?.trim()
+    const size = source.dataset.size?.trim()
+        || card?.dataset.size?.trim()
+        || card?.querySelector('.size-box.active')?.textContent?.trim()
         || document.querySelector('.size-selector-wrap .size-box.active')?.textContent?.trim()
         || '';
 
@@ -240,12 +367,15 @@ const insertIntoSupabase = async (table, payload) => {
 const openModal = (modal) => {
     if (!modal) return;
     modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    setTimeout(() => getFirstFocusableElement(modal)?.focus(), 0);
 };
 
 const closeModal = (modal) => {
     if (!modal) return;
     modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = 'auto';
 };
 
@@ -292,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openLogin.addEventListener('click', (e) => {
             e.preventDefault();
             modalContainer?.classList.remove('active');
+            setLoginTriggerState(true);
             openModal(loginModal);
         });
     }
@@ -303,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeLoginModal = () => {
         modalContainer?.classList.remove('active');
+        setLoginTriggerState(false);
         closeModal(loginModal);
     };
 
@@ -350,7 +482,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLoginModal();
+        if (e.key !== 'Escape') return;
+        closeLoginModal();
+        closeModal(checkoutModal);
+        closeModal(contactModal);
+        closeCartSidebar();
     });
 
     // Scroll navbar
@@ -428,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 searchBar.classList.toggle('search-bar-visible');
+                searchBtn.setAttribute('aria-expanded', searchBar.classList.contains('search-bar-visible') ? 'true' : 'false');
                 if (searchBar.classList.contains('search-bar-visible')) {
                     setTimeout(() => searchInput.focus(), 50);
                 }
@@ -437,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (closeSearch && searchBar && searchInput) {
             closeSearch.addEventListener('click', () => {
                 searchBar.classList.remove('search-bar-visible');
+                searchBtn?.setAttribute('aria-expanded', 'false');
                 searchInput.value = '';
                 document.querySelectorAll('.product-item').forEach(p => p.style.display = 'flex');
             });
@@ -444,6 +582,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (searchInput) {
             searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchBar?.classList.remove('search-bar-visible');
+                    searchBtn?.setAttribute('aria-expanded', 'false');
+                    searchInput.value = '';
+                    document.querySelectorAll('.product-item').forEach(p => p.style.display = 'flex');
+                    return;
+                }
                 if (e.key !== 'Enter') return;
                 e.preventDefault();
                 const term = searchInput.value.toLowerCase().trim();
@@ -452,6 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     p.style.display = !term || title.includes(term) ? 'flex' : 'none';
                 });
                 searchBar?.classList.remove('search-bar-visible');
+                searchBtn?.setAttribute('aria-expanded', 'false');
                 document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
             });
         }

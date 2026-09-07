@@ -999,6 +999,12 @@ img {
     fill: #ffffff;
 }
 
+.trust-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+}
+
 .trust-card:hover .trust-icon {
     transform: translateY(-1px) scale(1.03);
     border-color: rgba(255, 255, 255, 0.16);
@@ -1705,6 +1711,12 @@ img {
         height: 24px;
     }
 
+    .trust-icon svg {
+        width: 24px;
+        height: 24px;
+        color: #ffffff;
+    }
+
     .trust-stat {
         font-size: clamp(1.55rem, 8vw, 2.1rem);
     }
@@ -1727,16 +1739,28 @@ img {
     }
 
     .hero-senior .hero-content {
-        padding: 0 20px 42px 20px;
+        padding: 0 20px 30px 20px;
         max-width: 100%;
+    }
+
+    .hero-senior .hero-top-text {
+        order: 1;
+    }
+
+    .hero-senior {
+        height: auto;
+        min-height: 70svh;
     }
 
     .hero-senior .hero-content h1 {
-        font-size: clamp(2.4rem, 12vw, 4rem);
+        order: 2;
+        font-size: clamp(2.1rem, 11vw, 3.4rem);
         max-width: 100%;
+        margin-bottom: 16px;
     }
 
     .hero-senior .hero-actions-fixed {
+        order: 3;
         gap: 10px;
     }
 
@@ -1748,13 +1772,14 @@ img {
     }
 
     .hero-senior .hero-support-copy {
+        order: 4;
         max-width: 100%;
-        font-size: 0.96rem;
-        margin-bottom: 14px;
+        font-size: 0.92rem;
+        margin-bottom: 12px;
     }
 
     .hero-meta-row {
-        margin-bottom: 18px;
+        display: none;
     }
 
     .home-editorial-section {

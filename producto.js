@@ -334,7 +334,7 @@ const syncWishlistButton = (product) => {
     return saved;
 };
 
-const toggleWishlist = (product) => {
+const handleWishlistToggle = (product) => {
     const wasSaved = Boolean(window.NovaCoreStore?.isWishlisted?.({ slug: productState.currentSlug, name: product.name }));
     window.NovaCoreStore?.toggleWishlist?.({
         slug: productState.currentSlug,
@@ -565,7 +565,7 @@ const initializeProductPage = () => {
 
     wishlistButton?.addEventListener('click', (e) => {
         e.preventDefault();
-        toggleWishlist(product);
+        handleWishlistToggle(product);
     });
 
     renderCrossSellSection('complete-look-grid', product.completeLook || [], slug, 'look');
